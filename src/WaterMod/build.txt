@@ -1,0 +1,9 @@
+﻿displayName = Endless Escapade
+author = mathica
+version = 0.0.1
+hideCode = true
+hideResources = true
+includeSource = false
+includePDB = true
+
+modReferences = StructureHelper, Daybreak
