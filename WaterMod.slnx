@@ -3,5 +3,6 @@
   <Folder Name="/.github/">
     <File Path=".github\readme.md" />
   </Folder>
+  <Project Path="src\Generators\Generators.csproj" Type="Classic C#" />
   <Project Path="src\WaterMod\WaterMod.csproj" Type="Classic C#" />
 </Solution>
