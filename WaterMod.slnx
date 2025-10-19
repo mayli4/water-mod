@@ -1,4 +1,5 @@
 <Solution>
+  <Folder Name="/.common/" />
   <Folder Name="/.github/">
     <File Path=".github\readme.md" />
   </Folder>
