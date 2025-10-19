@@ -10,9 +10,10 @@ namespace WaterMod;
 
 partial class WaterModImpl : Mod;
 
-internal sealed class Debug : ModSystem {
-    [SubscribesTo<ModSystemHooks.PostUpdateEverything>]
-    public void DebugKeys(ModSystemHooks.PostUpdateEverything.Original orig, ModSystem self) {
+#if DEBUG
+internal sealed class Debug {
+    [SubscribesTo<ModSystemHooks.PostUpdateEverything>(Side = ModSide.Client)]
+    void DebugKeys(ModSystemHooks.PostUpdateEverything.Original orig, ModSystem self) {
         orig();
         
         if(!SubworldSystem.IsActive<SeamapSubworld>() && Main.keyState.IsKeyDown(Keys.P) && Main.keyState.IsKeyDown(Keys.LeftShift) ) {
@@ -21,3 +22,4 @@ internal sealed class Debug : ModSystem {
         }
     }
 }
+#endif
