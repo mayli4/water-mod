@@ -7,5 +7,6 @@
 	
 	<ItemGroup>
 		<KBOEffects Include="$(ProjectDir)**/*.fx" />
+		<KBOEffects Include="$(ProjectDir)**/*.hlsl" />
 	</ItemGroup>
 </Project>
