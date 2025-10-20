@@ -37,7 +37,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Content\Reefs\" />
+      <Folder Include="Content\Reefs\Tiles\" />
     </ItemGroup>
 
 
@@ -69,5 +69,10 @@
              stuff. -->
         <Publicize Include="tModLoader" IncludeCompilerGeneratedMembers="false" />
         <Publicize Include="FNA" IncludeCompilerGeneratedMembers="false" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="Assets\Shaders\common.h" />
+      <None Include="Assets\Shaders\pixelation.h" />
     </ItemGroup>
 </Project>
