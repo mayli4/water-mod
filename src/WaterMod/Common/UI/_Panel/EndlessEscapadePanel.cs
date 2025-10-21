@@ -85,6 +85,8 @@ internal sealed class EndlessEscapadePanel : ModPanelStyleExt {
         effect.Parameters["water_gradient_intensity"].SetValue(1.5f);
         
         effect.Parameters["cloud_color"].SetValue(new Vector4(1.0f, 1.0f, 1.0f, 0.8f));
+        // effect.Parameters["cloud_color_day"].SetValue(new Vector4(1.0f, 1.0f, 1.0f, 0.8f));
+        // effect.Parameters["cloud_color_night"].SetValue(new Vector4(0.5f, 0.5f, 0.5f, 10f));
         effect.Parameters["cloud_density"].SetValue(0.9f);
         effect.Parameters["cloud_scale"].SetValue(0.3f);
         effect.Parameters["cloud_speed"].SetValue(0.05f);
@@ -134,38 +136,37 @@ internal sealed class EndlessEscapadePanel : ModPanelStyleExt {
         var vec2 = Vector2.Transform(new Vector2(vector.Z, vector.W), Main.UIScaleMatrix);
         return new Vector4(vec1, vec2.X, vec2.Y);
     }
-
     internal sealed class BoatIcon : UIImage {
-        private readonly Asset<Texture2D> icon;
+        private readonly Asset<Texture2D> iconAsset;
         
         public BoatIcon() : base(TextureAssets.MagicPixel) {
-            icon = Textures.UI.ModIcon;
+            iconAsset = Textures.UI.ModIcon_Flag;
             
-            SetImage(Textures.UI.ModIcon);
+            Width.Set(96, 0f);
+            Height.Set(80, 0f);
         }
 
         public override void DrawSelf(SpriteBatch spriteBatch) {
-            const int offset = 40;
+            int currentFrame = (int)((Main.GlobalTimeWrappedHourly / 0.25f) % 3);
+
+            var sourceRect = new Rectangle(
+                currentFrame * 96,
+                0,
+                96,
+                80
+            );
 
             var dims = GetDimensions();
-            dims.X += offset;
-            dims.Y += offset;
             
-            var origin = icon.Size() / 2f;
+            Vector2 origin = new Vector2(-96, 80 / 2);
 
-            var offsetpos = new Vector2(10, 0);
+            var offsetpos = new Vector2(-98, 40); 
+            var offsetposPole = new Vector2(-90, 36); 
             
-            spriteBatch.Draw(
-                icon.Value,
-                dims.Position() + offsetpos,
-                null,
-                Color.White,
-                0.0f,
-                origin,
-                1f,
-                SpriteEffects.None,
-                0f
-            );
+            float swayRotation = MathF.Sin(Main.GlobalTimeWrappedHourly * 1.5f) * 0.01f;
+            
+            spriteBatch.Draw(Textures.UI.ModIcon_Pole.Value, dims.Position() + offsetposPole, null, Color.White, 0.0f, origin, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(iconAsset.Value, dims.Position() + offsetpos, sourceRect, Color.White, swayRotation, origin, 1f, SpriteEffects.None, 0f);
         }
     }
     
