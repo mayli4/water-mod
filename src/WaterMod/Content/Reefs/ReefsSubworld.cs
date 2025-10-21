@@ -1,11 +1,36 @@
-﻿using SubworldLibrary;
+﻿using ReLogic.Content;
+using SubworldLibrary;
 using System.Collections.Generic;
+using System.Reflection;
+using Terraria.GameContent.Shaders;
 using Terraria.WorldBuilding;
+using WaterMod.Common.Rendering;
+using WaterMod.Common.Subworlds;
 
 namespace WaterMod.Content.Reefs;
 
 internal sealed class ReefsSubworld : Subworld {
-    public override int Width { get; }
-    public override int Height { get; }
-    public override List<GenPass> Tasks { get; }
+    public override int Width => 1000;
+
+    public override int Height => 1200;
+
+    public override string Name => "Coral Reefs";
+
+    public override List<GenPass> Tasks => new List<GenPass>() {
+        new SubworldGenerationPass(progress => {
+            progress.Message = "Spawning Seamap";
+
+            Main.worldSurface = Main.maxTilesY - 42;
+            Main.rockLayer = Main.maxTilesY;
+        })
+    };
+    
+    public override void OnLoad() {
+        SubworldSystem.noReturn = true;
+    }
+
+    public override void Update() {
+        Liquid.UpdateLiquid();
+        base.Update();
+    }
 }

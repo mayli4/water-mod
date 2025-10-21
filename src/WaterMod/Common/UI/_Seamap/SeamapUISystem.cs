@@ -8,19 +8,19 @@ using WaterMod.Content.Seamap;
 
 namespace WaterMod.Common.UI;
 
-internal sealed class SeamapMinimapSystem : ILoadable {
-    public void Load(Mod mod) {
+internal partial class SeamapUI {
+    [OnLoad]
+    static void SubscribeToHooks() {
         On_Main.DrawInterface_16_MapOrMinimap += On_MainOnDrawInterface_16_MapOrMinimap;
-
-        void On_MainOnDrawInterface_16_MapOrMinimap(On_Main.orig_DrawInterface_16_MapOrMinimap orig, Main self) {
-            if(SubworldSystem.IsActive<SeamapSubworld>()) return;
-
-            orig(self);
-        }
+    }
+    
+    [OnUnload]
+    static void UnsubscribeFromHooks() {
+        On_Main.DrawInterface_16_MapOrMinimap -= On_MainOnDrawInterface_16_MapOrMinimap;
     }
 
     [SubscribesTo<ModSystemHooks.PostUpdateInput>]
-    void KillMinimapInputs(ModSystemHooks.PostUpdateInput.Original orig, ModSystem self) {
+    static void KillMinimapInputs(ModSystemHooks.PostUpdateInput.Original orig, ModSystem self) {
         orig();
 
         if(!SubworldSystem.IsActive<SeamapSubworld>()) return;
@@ -30,12 +30,14 @@ internal sealed class SeamapMinimapSystem : ILoadable {
     }
     
     [SubscribesTo<ModSystemHooks.ModifyInterfaceLayers>]
-    void ModifyInterfaceLayers(ModSystemHooks.ModifyInterfaceLayers.Original orig, ModSystem self, List<GameInterfaceLayer> layers) {
+    static void InjectCustomMinimap(ModSystemHooks.ModifyInterfaceLayers.Original orig, ModSystem self, List<GameInterfaceLayer> layers) {
         orig(layers); 
         
         if(!SubworldSystem.IsActive<SeamapSubworld>()) return;
 
         int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
+        layers.RemoveAll(layer => layer.Name.Equals("Vanilla: Resource Bars"));
+        layers.RemoveAll(layer => layer.Name.Equals("Vanilla: Inventory"));
 
         if (mouseTextIndex != -1) {
             layers.Insert(
@@ -63,8 +65,10 @@ internal sealed class SeamapMinimapSystem : ILoadable {
             );
         }
     }
+    
+    static void On_MainOnDrawInterface_16_MapOrMinimap(On_Main.orig_DrawInterface_16_MapOrMinimap orig, Main self) {
+        if(SubworldSystem.IsActive<SeamapSubworld>()) return;
 
-    public void Unload() {
-        
+        orig(self);
     }
 }

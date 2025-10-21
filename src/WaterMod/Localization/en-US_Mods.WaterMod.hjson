@@ -1,1 +1,9 @@
 SubworldEnterText.SeamapEnter: entering seamap
+Entering: Now travelling to:
+
+Biomes: {
+	ShoalsBiome: {
+		DisplayName: Shoals Biome
+		TownNPCDialogueName: the Shoals Biome
+	}
+}

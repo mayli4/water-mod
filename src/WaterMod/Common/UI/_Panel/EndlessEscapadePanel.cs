@@ -109,8 +109,8 @@ internal sealed class EndlessEscapadePanel : ModPanelStyleExt {
         effect.Parameters["sky_gradient_top_color_night"].SetValue(new Vector4(0.02f, 0.05f, 0.15f, 1.0f));
         effect.Parameters["sky_gradient_bottom_color_night"].SetValue(new Color(148, 88, 97).ToVector4());
         
-        effect.Parameters["water_top_color_night"].SetValue(new Vector4(0.0f, 0.05f, 0.15f, 1.0f));
-        effect.Parameters["water_bottom_color_night"].SetValue(new Color(43, 37, 28).ToVector4());
+        effect.Parameters["water_top_color_night"].SetValue(new Color(148, 88, 97).ToVector4() * 0.5f);
+        effect.Parameters["water_bottom_color_night"].SetValue(new Vector4(0.0f, 0.05f, 0.15f, 1.0f));
         
         effect.Parameters["surface_line_color_night"].SetValue(new Vector3(0.2f, 0.3f, 0.4f));
         
