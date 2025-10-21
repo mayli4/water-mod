@@ -108,18 +108,20 @@ float4 main(float2 fragCoord : SV_POSITION, float2 tex_coords : TEXCOORD0, float
     float4 flatPanelBaseColor = small_panel ? color : baseColor;
     flatPanelBaseColor.rgb = (flatPanelBaseColor.rgb - 0.05f) + (hover_intensity * 0.1f);
 
-    float4 currentSkyTop    = lerp(sky_gradient_top_color_night, sky_gradient_top_color_day, daylight_intensity);
+    float4 currentSkyTop = lerp(sky_gradient_top_color_night, sky_gradient_top_color_day, daylight_intensity);
     float4 currentSkyBottom = lerp(sky_gradient_bottom_color_night, sky_gradient_bottom_color_day, daylight_intensity);
-    float4 currentWaterTop  = lerp(water_top_color_night, water_top_color_day, daylight_intensity);
+    float4 currentWaterTop = lerp(water_top_color_night, water_top_color_day, daylight_intensity);
     float4 currentWaterBottom = lerp(water_bottom_color_night, water_bottom_color_day, daylight_intensity);
     float3 currentSurfaceLine = lerp(surface_line_color_night, surface_line_color_day, daylight_intensity);
 
     float scrolledUVX = uv.x - time * water_scroll_speed;
+    
     float totalWaveOffset = wave_amplitude * (
         sin(wave_frequency * scrolledUVX + time * wave_speed) +
         0.5f * sin(wave_frequency * 2.0f * scrolledUVX - time * wave_speed * 1.5f) +
         0.25f * sin(wave_frequency * 3.0f * scrolledUVX + time * wave_speed * 0.7f)
     );
+    
     float waterSurfaceY = water_base_level + totalWaveOffset;
 
     float4 finalPixelColorMultiplier;
@@ -131,7 +133,6 @@ float4 main(float2 fragCoord : SV_POSITION, float2 tex_coords : TEXCOORD0, float
     
     float waterNoiseOffset = (waterNoise - 0.5f);
 
-
     if (uv.y < waterSurfaceY) {
         float wavyuv = uv.y + waterNoiseOffset * 0.10f;
         
@@ -140,7 +141,7 @@ float4 main(float2 fragCoord : SV_POSITION, float2 tex_coords : TEXCOORD0, float
 
         float distToSurface = waterSurfaceY - uv.y;
         float highlightStrength = 1.0f - smoothstep(0.0f, 0.05f * max(0.1f, wave_amplitude * 10.0f), distToSurface);
-        float3 tintedWaterColor = lerp(gradientWaterColor.rgb, 1.0f.xxx, highlightStrength * 0.3f);
+        float3 tintedWaterColor = lerp(gradientWaterColor.rgb, 1.0f, highlightStrength * 0.3f);
 
         finalPixelColorMultiplier.rgb = tintedWaterColor * water_effect_power;
         finalPixelColorMultiplier.a = gradientWaterColor.a;
@@ -175,7 +176,7 @@ float4 main(float2 fragCoord : SV_POSITION, float2 tex_coords : TEXCOORD0, float
 
     float4 outputColor = tex2D(uImage0, finalTexCoords) * finalPixelColorMultiplier;
     
-    float4 safeResolutionDivisor = max(1.0f.xxxx, color_quantization_resolution - 1.0f);
+    float4 safeResolutionDivisor = max(1.0f, color_quantization_resolution - 1.0f);
     outputColor = floor(outputColor * color_quantization_resolution) / safeResolutionDivisor;
     
     return outputColor;

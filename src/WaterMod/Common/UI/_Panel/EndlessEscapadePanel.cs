@@ -1,19 +1,48 @@
 ﻿using Daybreak.Common.Features.ModPanel;
 using Daybreak.Common.Rendering;
 using Microsoft.Xna.Framework;
+using ReLogic.Content;
 using System;
+using System.Collections.Generic;
+using System.Text;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader.UI;
+using Terraria.UI.Chat;
 
 namespace WaterMod.Common.UI;
 
-
 #nullable enable
 internal sealed class EndlessEscapadePanel : ModPanelStyleExt {
-    public override UIImage? ModifyModIcon(UIModItem element, UIImage modIcon, ref int modIconAdjust) => null;
-
+    public static float CurrentDaylightIntensity;
+    
+    private static RenderTarget2D? PanelTarget;
+    
     public override Color ModifyEnabledTextColor(bool enabled, Color color) =>
         enabled ? Color.Aquamarine : Color.MediumAquamarine;
+    
+    public override UIText ModifyModName(UIModItem element, UIText modName) {
+        return new ModName("Endless Escapade" + $" v{element._mod.Version}")
+        {
+            Left = modName.Left,
+            Top = modName.Top,
+        };
+    }
+    
+    public override UIImage ModifyModIcon(UIModItem element, UIImage modIcon, ref int modIconAdjust) {
+        return new BoatIcon() {
+            Left = modIcon.Left,
+            Top = modIcon.Top,
+            Width = modIcon.Width,
+            Height = modIcon.Height,
+        };
+    }
+    
+    public override Dictionary<TextureKind, Asset<Texture2D>> TextureOverrides { get; } = new() {
+        { TextureKind.ModInfo, Textures.UI.InfoIcon },
+        { TextureKind.ModConfig, Textures.UI.ConfigIcon },
+        { TextureKind.Deps, Textures.UI.DepsIcon }
+    };
 
     public override bool PreDrawPanel(UIModItem element, SpriteBatch sb, ref bool drawDivider) {
         drawDivider = false;
@@ -41,6 +70,8 @@ internal sealed class EndlessEscapadePanel : ModPanelStyleExt {
             float duskRamp = MathHelper.Clamp((1.0f - dayProgress) / transitionRatio, 0.0f, 1.0f);
             uDaylightIntensityValue = Math.Min(dawnRamp, duskRamp);
         }
+        
+        EndlessEscapadePanel.CurrentDaylightIntensity = uDaylightIntensityValue;
         
         effect.Parameters["source"].SetValue(Transform(new Vector4(dims.Width, dims.Height, dims.X, dims.Y)));
         effect.Parameters["time"].SetValue(Main.GlobalTimeWrappedHourly);
@@ -104,7 +135,83 @@ internal sealed class EndlessEscapadePanel : ModPanelStyleExt {
         return new Vector4(vec1, vec2.X, vec2.Y);
     }
 
-    internal sealed class BoatIcon() {
+    internal sealed class BoatIcon : UIImage {
+        private readonly Asset<Texture2D> icon;
         
+        public BoatIcon() : base(TextureAssets.MagicPixel) {
+            icon = Textures.UI.ModIcon;
+            
+            SetImage(Textures.UI.ModIcon);
+        }
+
+        public override void DrawSelf(SpriteBatch spriteBatch) {
+            const int offset = 40;
+
+            var dims = GetDimensions();
+            dims.X += offset;
+            dims.Y += offset;
+            
+            var origin = icon.Size() / 2f;
+
+            var offsetpos = new Vector2(10, 0);
+            
+            spriteBatch.Draw(
+                icon.Value,
+                dims.Position() + offsetpos,
+                null,
+                Color.White,
+                0.0f,
+                origin,
+                1f,
+                SpriteEffects.None,
+                0f
+            );
+        }
+    }
+    
+    public sealed class ModName : UIText {
+        private readonly string originalText;
+
+        private static readonly Color DayTextPulseStart = Color.LightYellow;
+        private static readonly Color DayTextPulseEnd = Color.Orange;
+        private static readonly Color NightTextPulseStart = Color.SkyBlue;
+        private static readonly Color NightTextPulseEnd = Color.MediumPurple;
+
+
+        public ModName(string text, float textScale = 1, bool large = false) : base(text, textScale, large) {
+            if (ChatManager.Regexes.Format.Matches(text).Count != 0) {
+                throw new InvalidOperationException("The text cannot contain formatting.");
+            }
+
+            originalText = text;
+        }
+
+        public override void DrawSelf(SpriteBatch spriteBatch) {
+            var formattedText = GetPulsatingText(originalText, Main.GlobalTimeWrappedHourly, EndlessEscapadePanel.CurrentDaylightIntensity);
+            SetText(formattedText);
+
+            base.DrawSelf(spriteBatch);
+        }
+
+        public static string GetPulsatingText(string text, float time, float daylightIntensity) {
+            var currentLightColor = Color.Lerp(NightTextPulseStart, DayTextPulseStart, daylightIntensity);
+            var currentDarkColor = Color.Lerp(NightTextPulseEnd, DayTextPulseEnd, daylightIntensity);
+
+            const float speed = 3f;
+            const float offset = 0.3f;
+
+            // [c/______:x]
+            const int character_length = 12;
+
+            var sb = new StringBuilder(character_length * text.Length);
+            for (var i = 0; i < text.Length; i++) {
+                var wave = MathF.Sin(time * speed + i * offset);
+                var color = Color.Lerp(currentLightColor, currentDarkColor, (wave + 1f) / 2f);
+
+                sb.Append($"[c/{color.Hex3()}:{text[i]}]");
+            }
+
+            return sb.ToString();
+        }
     }
 }
