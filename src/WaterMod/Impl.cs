@@ -1,6 +1,7 @@
 ﻿using Daybreak.Common.Features.Hooks;
 using Microsoft.Xna.Framework.Input;
 using SubworldLibrary;
+using System;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -11,7 +12,7 @@ namespace WaterMod;
 partial class WaterModImpl : Mod;
 
 #if DEBUG
-internal sealed class Debug {
+internal sealed class Debug : ILoadable {
     [SubscribesTo<ModSystemHooks.PostUpdateEverything>(Side = ModSide.Client)]
     void DebugKeys(ModSystemHooks.PostUpdateEverything.Original orig, ModSystem self) {
         orig();
@@ -20,6 +21,14 @@ internal sealed class Debug {
             SubworldSystem.Enter<SeamapSubworld>();
             Main.NewText(Language.GetText("Mods.WaterMod.SubworldEnterText.SeamapEnter"));
         }
+    }
+
+    public void Load(Mod mod) {
+        
+    }
+
+    public void Unload() {
+        
     }
 }
 #endif

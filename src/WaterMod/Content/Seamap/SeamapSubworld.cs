@@ -29,4 +29,3 @@ internal sealed class SeamapSubworld : Subworld {
         bar.Draw(Main.spriteBatch);
     }
 }
-
