@@ -18,7 +18,7 @@ internal sealed class Debug : ILoadable {
     void DebugKeys(ModSystemHooks.PostUpdateEverything.Original orig, ModSystem self) {
         orig();
 
-        #region  seamap
+        #region seamap
         if(!SubworldSystem.IsActive<SeamapSubworld>() && Main.keyState.IsKeyDown(Keys.P) && Main.keyState.IsKeyDown(Keys.LeftShift) ) {
             SubworldSystem.Enter<SeamapSubworld>();
             Main.NewText(Language.GetText("Mods.WaterMod.SubworldEnterText.SeamapEnter"));

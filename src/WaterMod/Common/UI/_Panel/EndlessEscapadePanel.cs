@@ -16,8 +16,6 @@ namespace WaterMod.Common.UI;
 internal sealed class EndlessEscapadePanel : ModPanelStyleExt {
     public static float CurrentDaylightIntensity;
     
-    private static RenderTarget2D? PanelTarget;
-    
     public override Color ModifyEnabledTextColor(bool enabled, Color color) =>
         enabled ? Color.Aquamarine : Color.MediumAquamarine;
     

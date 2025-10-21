@@ -1,6 +1,6 @@
 ﻿namespace WaterMod.Content.Reefs;
 
-public class ShoalsWaterStyle : ModWaterStyle {
+internal sealed class ShoalsWaterStyle : ModWaterStyle {
     public override string Texture => Textures.Waters.KEY_ShoalsWaterStyle;
 
     public override int ChooseWaterfallStyle() => ModContent.GetInstance<ShoalsWaterStyle>().Slot;

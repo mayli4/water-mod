@@ -7,3 +7,10 @@ Biomes: {
 		TownNPCDialogueName: the Shoals Biome
 	}
 }
+
+Items: {
+	CoralsandItem: {
+		DisplayName: Coralsand
+		Tooltip: ""
+	}
+}

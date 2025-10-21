@@ -22,7 +22,8 @@ internal sealed class ReefsSubworld : Subworld {
 
             Main.worldSurface = Main.maxTilesY - 42;
             Main.rockLayer = Main.maxTilesY;
-        })
+        }),
+        new InitialShoalsSurfacePass("Initial Shoals Block Placement", 1.0f), 
     };
     
     public override void OnLoad() {
