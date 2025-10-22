@@ -1,5 +1,6 @@
 ﻿using Daybreak.Common.Features.Hooks;
 using SubworldLibrary;
+using Terraria;
 
 namespace WaterMod.Content.Seamap;
 

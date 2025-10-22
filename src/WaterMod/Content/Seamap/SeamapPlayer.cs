@@ -1,4 +1,5 @@
 ﻿using SubworldLibrary;
+using Terraria.ModLoader;
 
 namespace WaterMod.Content.Seamap;
 

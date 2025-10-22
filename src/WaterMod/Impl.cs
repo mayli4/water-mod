@@ -1,4 +1,11 @@
-﻿using Daybreak.Common.Features.Hooks;
+﻿//global using static WaterMod.Assets.Assets;
+global using WaterMod.Localization;
+global using Terraria.ModLoader;
+global using Terraria;
+global using Microsoft.Xna.Framework;
+global using Microsoft.Xna.Framework.Graphics;
+
+using Daybreak.Common.Features.Hooks;
 using Microsoft.Xna.Framework.Input;
 using SubworldLibrary;
 using System;
