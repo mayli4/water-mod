@@ -3,7 +3,7 @@
 namespace WaterMod.Content.Reefs;
 
 internal sealed class CoralsandTile : ModTile {
-    public override string Texture => Textures.Tiles.Reefs.Shoals.KEY_CoralsandTile;
+    public override string Texture => Assets.Textures.Tiles.Reefs.Shoals.CoralsandTile.KEY;
     
     public override void SetStaticDefaults() {
         base.SetStaticDefaults();
@@ -29,7 +29,7 @@ internal sealed class CoralsandTile : ModTile {
 }
 
 internal sealed class CoralsandItem : ModItem {
-    public override string Texture => Textures.Tiles.Reefs.Shoals.KEY_CoralsandItem;
+    public override string Texture => Assets.Textures.Tiles.Reefs.Shoals.CoralsandItem.KEY;
 
     public override void SetDefaults() {
         base.SetDefaults();
