@@ -37,9 +37,9 @@ internal sealed class EndlessEscapadePanel : ModPanelStyleExt {
     }
     
     public override Dictionary<TextureKind, Asset<Texture2D>> TextureOverrides { get; } = new() {
-        { TextureKind.ModInfo, Textures.UI.InfoIcon },
-        { TextureKind.ModConfig, Textures.UI.ConfigIcon },
-        { TextureKind.Deps, Textures.UI.DepsIcon }
+        { TextureKind.ModInfo, Assets.Textures.UI.InfoIcon.Asset },
+        { TextureKind.ModConfig, Assets.Textures.UI.ConfigIcon.Asset },
+        { TextureKind.Deps, Assets.Textures.UI.DepsIcon.Asset }
     };
 
     public override bool PreDrawPanel(UIModItem element, SpriteBatch sb, ref bool drawDivider) {
@@ -51,7 +51,6 @@ internal sealed class EndlessEscapadePanel : ModPanelStyleExt {
             element.LoadTextures();
         }
 
-        var effect = Shaders.Panel.WavingWater.Value;
         
         float uDaylightIntensityValue = 0.0f;
         float dawnDuskTransitionDuration = 3600f; 
@@ -71,59 +70,70 @@ internal sealed class EndlessEscapadePanel : ModPanelStyleExt {
         
         EndlessEscapadePanel.CurrentDaylightIntensity = uDaylightIntensityValue;
         
-        effect.Parameters["source"].SetValue(Transform(new Vector4(dims.Width, dims.Height, dims.X, dims.Y)));
-        effect.Parameters["time"].SetValue(Main.GlobalTimeWrappedHourly);
-        effect.Parameters["water_effect_power"].SetValue(1.0f);
-        effect.Parameters["wave_amplitude"].SetValue(0.06f);
-        effect.Parameters["wave_frequency"].SetValue(2.0f);
-        effect.Parameters["wave_speed"].SetValue(2.0f);
-        effect.Parameters["water_base_level"].SetValue(0.3f);
-        effect.Parameters["pixel"].SetValue(2f);
+        sb.End(out var ss);
+        sb.Begin(
+            SpriteSortMode.Immediate,
+            BlendState.NonPremultiplied,
+            SamplerState.PointClamp,
+            DepthStencilState.None,
+            ss.RasterizerState,
+            null,
+            Main.UIScaleMatrix
+        );
+
+        var effect = Assets.Shaders.Panel.WavingWater.CreatePanelShaderPass();
         
-        effect.Parameters["water_gradient_intensity"].SetValue(1.5f);
+        effect.Parameters.source = Transform(new Vector4(dims.Width, dims.Height, dims.X, dims.Y));
+        effect.Parameters.time = Main.GlobalTimeWrappedHourly;
+        effect.Parameters.water_effect_power = 1.0f;
+        effect.Parameters.wave_amplitude = 0.06f;
+        effect.Parameters.wave_frequency = 2.0f;
+        effect.Parameters.wave_speed = 2.0f;
+        effect.Parameters.water_base_level = 0.3f;
+        effect.Parameters.pixel = 2f;
         
-        effect.Parameters["cloud_color"].SetValue(new Vector4(1.0f, 1.0f, 1.0f, 0.8f));
+        effect.Parameters.water_gradient_intensity = 1.5f;
+        
+        effect.Parameters.cloud_color = new Vector4(1.0f, 1.0f, 1.0f, 0.8f);
         // effect.Parameters["cloud_color_day"].SetValue(new Vector4(1.0f, 1.0f, 1.0f, 0.8f));
         // effect.Parameters["cloud_color_night"].SetValue(new Vector4(0.5f, 0.5f, 0.5f, 10f));
-        effect.Parameters["cloud_density"].SetValue(0.9f);
-        effect.Parameters["cloud_scale"].SetValue(0.3f);
-        effect.Parameters["cloud_speed"].SetValue(0.05f);
+        effect.Parameters.cloud_density = 0.9f;
+        effect.Parameters.cloud_scale = 0.3f;
+        effect.Parameters.cloud_speed = 0.05f;
         
-        effect.Parameters["uTexture"].SetValue(Textures.Sample.Pebbles.Value); 
-        effect.Parameters["uWaterNoiseTexture"].SetValue(Textures.Sample.Pebbles.Value); 
+        effect.Parameters.uTexture = Assets.Textures.Sample.Pebbles.Asset.Value; 
+        effect.Parameters.uWaterNoiseTexture = Assets.Textures.Sample.Pebbles.Asset.Value; 
         
-        effect.Parameters["daylight_intensity"].SetValue(uDaylightIntensityValue);
+        effect.Parameters.daylight_intensity = uDaylightIntensityValue;
         
         //day colors
-        effect.Parameters["sky_gradient_top_color_day"].SetValue(new Vector4(0.2f, 0.4f, 0.8f, 1.0f));
-        effect.Parameters["sky_gradient_bottom_color_day"].SetValue(new Vector4(0.5f, 0.7f, 1.0f, 1.0f));
+        effect.Parameters.sky_gradient_top_color_day = new Vector4(0.2f, 0.4f, 0.8f, 1.0f);
+        effect.Parameters.sky_gradient_bottom_color_day = new Vector4(0.5f, 0.7f, 1.0f, 1.0f);
         
-        effect.Parameters["water_top_color_day"].SetValue(new Color(37, 86, 132).ToVector4());
-        effect.Parameters["water_bottom_color_day"].SetValue(new Color(25, 58, 87).ToVector4());
+        effect.Parameters.water_top_color_day = new Color(37, 86, 132).ToVector4();
+        effect.Parameters.water_bottom_color_day = new Color(25, 58, 87).ToVector4();
         
-        effect.Parameters["surface_line_color_day"].SetValue(new Color(137, 186, 232).ToVector4());
+        effect.Parameters.surface_line_color_day = new Color(137, 186, 232).ToVector3();
 
         //night colors
-        effect.Parameters["sky_gradient_top_color_night"].SetValue(new Vector4(0.02f, 0.05f, 0.15f, 1.0f));
-        effect.Parameters["sky_gradient_bottom_color_night"].SetValue(new Color(148, 88, 97).ToVector4());
+        effect.Parameters.sky_gradient_top_color_night = new Vector4(0.02f, 0.05f, 0.15f, 1.0f);
+        effect.Parameters.sky_gradient_bottom_color_night = new Color(148, 88, 97).ToVector4();
         
-        effect.Parameters["water_top_color_night"].SetValue(new Color(148, 88, 97).ToVector4() * 0.5f);
-        effect.Parameters["water_bottom_color_night"].SetValue(new Vector4(0.0f, 0.05f, 0.15f, 1.0f));
+        effect.Parameters.water_top_color_night = new Color(148, 88, 97).ToVector4() * 0.5f;
+        effect.Parameters.water_bottom_color_night = new Vector4(0.0f, 0.05f, 0.15f, 1.0f);
         
-        effect.Parameters["surface_line_color_night"].SetValue(new Vector3(0.2f, 0.3f, 0.4f));
+        effect.Parameters.surface_line_color_night = new Vector3(0.2f, 0.3f, 0.4f);
         
-        effect.Parameters["water_scroll_speed"].SetValue(-0.3f);
-        effect.Parameters["color_quantization_resolution"].SetValue(new Vector4(24.0f, 24.0f, 24.0f, 24.0f));
-        effect.Parameters["star_intensity"].SetValue(0.5f);
-        effect.Parameters["atmosphere_edge_color"].SetValue(new Vector4(0.05f, 0.08f, 0.15f, 0.3f));
-        effect.Parameters["atmosphere_curve_strength"].SetValue(0.7f);
+        effect.Parameters.water_scroll_speed = -0.3f;
+        effect.Parameters.color_quantization_resolution = new Vector4(24.0f, 24.0f, 24.0f, 24.0f);
+        effect.Parameters.star_intensity = 0.5f;
+        effect.Parameters.atmosphere_edge_color = new Vector4(0.05f, 0.08f, 0.15f, 0.3f);
+        effect.Parameters.atmosphere_curve_strength = 0.7f;
         
+        effect.Apply();
         
-        sb.End(out var ss);
-        sb.Begin(new SpriteBatchSnapshot() with { TransformMatrix = Main.UIScaleMatrix, CustomEffect = effect });
-
         element.DrawPanel(sb, element._backgroundTexture.Value, element.BorderColor);
-        sb.Restart(in ss);
+        sb.Restart(ss with { BlendState = BlendState.NonPremultiplied });
         
         element.DrawPanel(sb, element._borderTexture.Value, element.BorderColor);
         return false;
@@ -138,14 +148,14 @@ internal sealed class EndlessEscapadePanel : ModPanelStyleExt {
         private readonly Asset<Texture2D> iconAsset;
         
         public BoatIcon() : base(TextureAssets.MagicPixel) {
-            iconAsset = Textures.UI.ModIcon_Flag;
+            iconAsset = Assets.Textures.UI.ModIcon_Flag.Asset;
             
             Width.Set(96, 0f);
             Height.Set(80, 0f);
         }
 
-        public override void DrawSelf(SpriteBatch spriteBatch) {
-            int currentFrame = (int)((Main.GlobalTimeWrappedHourly / 0.25f) % 3);
+        protected override void DrawSelf(SpriteBatch spriteBatch) {
+            int currentFrame = (int)(Main.GlobalTimeWrappedHourly / 0.25f % 3);
 
             var sourceRect = new Rectangle(
                 currentFrame * 96,
@@ -163,7 +173,7 @@ internal sealed class EndlessEscapadePanel : ModPanelStyleExt {
             
             float swayRotation = MathF.Sin(Main.GlobalTimeWrappedHourly * 1.5f) * 0.01f;
             
-            spriteBatch.Draw(Textures.UI.ModIcon_Pole.Value, dims.Position() + offsetposPole, null, Color.White, 0.0f, origin, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(Assets.Textures.UI.ModIcon_Pole.Asset.Value, dims.Position() + offsetposPole, null, Color.White, 0.0f, origin, 1f, SpriteEffects.None, 0f);
             spriteBatch.Draw(iconAsset.Value, dims.Position() + offsetpos, sourceRect, Color.White, swayRotation, origin, 1f, SpriteEffects.None, 0f);
         }
     }
@@ -185,7 +195,7 @@ internal sealed class EndlessEscapadePanel : ModPanelStyleExt {
             originalText = text;
         }
 
-        public override void DrawSelf(SpriteBatch spriteBatch) {
+        protected override void DrawSelf(SpriteBatch spriteBatch) {
             var formattedText = GetPulsatingText(originalText, Main.GlobalTimeWrappedHourly, EndlessEscapadePanel.CurrentDaylightIntensity);
             SetText(formattedText);
 

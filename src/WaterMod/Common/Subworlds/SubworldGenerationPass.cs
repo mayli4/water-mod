@@ -15,5 +15,5 @@ internal class SubworldGenerationPass : GenPass {
         this.method = method;
     }
 
-    public override void ApplyPass(GenerationProgress progress, GameConfiguration configuration) => method(progress);
+    protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration) => method(progress);
 }

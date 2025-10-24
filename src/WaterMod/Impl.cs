@@ -8,7 +8,6 @@ global using Microsoft.Xna.Framework.Graphics;
 using Daybreak.Common.Features.Hooks;
 using Microsoft.Xna.Framework.Input;
 using SubworldLibrary;
-using System;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;

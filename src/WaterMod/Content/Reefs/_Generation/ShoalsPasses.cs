@@ -8,7 +8,7 @@ namespace WaterMod.Content.Reefs;
 internal sealed class InitialShoalsSurfacePass : GenPass {
     public InitialShoalsSurfacePass(string name, double loadWeight) : base(name, loadWeight) {}
     
-    public override void ApplyPass(GenerationProgress progress, GameConfiguration configuration) {
+    protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration) {
         progress.Message = "Shoveling shoals...";
     }
 }

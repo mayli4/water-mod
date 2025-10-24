@@ -1,78 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-    <Import Project="..\..\..\tModLoader.targets" />
-
-    <Import Project="..\Build\KBOFXC\KBOFXCTask.props" />
-    <Import Project="..\Build\KBOFXC\KBOFXCTask.targets" />
+<Project Sdk="Tomat.Terraria.ModLoader.Sdk">
 
     <PropertyGroup>
-        <AssemblyName>WaterMod</AssemblyName>
-        
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <TargetFramework>net8.0</TargetFramework>
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <LangVersion>latest</LangVersion>
-
-        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-        <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
-
-        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
-        <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
-    </PropertyGroup>
-
-    <PropertyGroup>
         <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
     </PropertyGroup>
 
     <ItemGroup>
-        <Reference Include="Daybreak">
-            <HintPath>lib\Daybreak.dll</HintPath>
-        </Reference>
-        <Reference Include="StructureHelper">
-            <HintPath>lib\StructureHelper.dll</HintPath>
-        </Reference>
-        <Reference Include="SubworldLibrary">
-            <HintPath>lib\SubworldLibrary.dll</HintPath>
-        </Reference>
+        <Publicize Include="FNA" IncludeCompilerGeneratedMembers="false" IncludeVirtualMembers="false" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Content\Shipyard\" />
-    </ItemGroup>
-
-
-    <ItemGroup>
-        <ProjectReference Include="..\Generators\Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <AdditionalFiles Include="Assets/**/*.png" />
-        <AdditionalFiles Include="Assets/**/*.fxc" />
-        <AdditionalFiles Include="Assets/**/*.wav" />
-        <AdditionalFiles Include="Assets/**/*.ogg" />
-        <AdditionalFiles Include="Assets/**/*.mp3" />
-        <AdditionalFiles Include="Localization/**/*.hjson" />
-    </ItemGroup>
-
-    <PropertyGroup>
-        <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="JetBrains.Annotations" Version="2025.2.2" />
-        <PackageReference Include="Krafs.Publicizer" Version="2.3.0" PrivateAssets="all" ExcludeAssets="runtime" />
-    </ItemGroup>
-
-    <ItemGroup Label="Publicized assemblies">
-        <!-- It's reasonable to publicize tModLoader.  Don't include
-             compiler-generated members since it breaks events and some other
-             stuff. -->
-        <Publicize Include="tModLoader" IncludeCompilerGeneratedMembers="false" />
-        <Publicize Include="FNA" IncludeCompilerGeneratedMembers="false" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Include="Assets\Shaders\common.h" />
-      <None Include="Assets\Shaders\pixelation.h" />
-    </ItemGroup>
 </Project>

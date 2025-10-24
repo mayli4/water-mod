@@ -1,7 +1,7 @@
 ﻿namespace WaterMod.Content.Reefs;
 
 internal sealed class ShoalsWaterStyle : ModWaterStyle {
-    public override string Texture => Textures.Waters.KEY_ShoalsWaterStyle;
+    public override string Texture => Assets.Textures.Waters.ShoalsWaterStyle.KEY;
 
     public override int ChooseWaterfallStyle() => ModContent.GetInstance<ShoalsWaterStyle>().Slot;
 
@@ -21,7 +21,7 @@ internal sealed class ShoalsWaterStyle : ModWaterStyle {
 }
 
 internal sealed class ShoalWaterfallStyle : ModWaterfallStyle {
-    public override string Texture => Textures.Waters.KEY_ShoalsWaterfallStyle;
+    public override string Texture => Assets.Textures.Waters.ShoalsWaterfallStyle.KEY;
     
     public override void AddLight(int i, int j) 
         => Lighting.AddLight(new Vector2(i, j).ToWorldCoordinates(), Color.Cyan.ToVector3() * 0.5f);
