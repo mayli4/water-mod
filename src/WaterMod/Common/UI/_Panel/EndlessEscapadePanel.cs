@@ -133,7 +133,7 @@ internal sealed class EndlessEscapadePanel : ModPanelStyleExt {
         effect.Apply();
         
         element.DrawPanel(sb, element._backgroundTexture.Value, element.BorderColor);
-        sb.Restart(in ss);
+        sb.Restart(ss with { BlendState = BlendState.NonPremultiplied });
         
         element.DrawPanel(sb, element._borderTexture.Value, element.BorderColor);
         return false;
