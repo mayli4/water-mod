@@ -81,5 +81,7 @@ internal class Test : ModSystem {
                 Main.spriteBatch.DrawString(font, healthText, drawPos, textColor, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }
         }
+        
+        Main.spriteBatch.End();
     }
 }

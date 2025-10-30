@@ -1,4 +1,4 @@
-﻿using Daybreak.Common.Features.ModPanel;
+using Daybreak.Common.Features.ModPanel;
 using Daybreak.Common.Rendering;
 using Microsoft.Xna.Framework;
 using ReLogic.Content;

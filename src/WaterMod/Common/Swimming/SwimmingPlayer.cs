@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Terraria.DataStructures;
 using Terraria.WorldBuilding;
 using WaterMod.Common.World;

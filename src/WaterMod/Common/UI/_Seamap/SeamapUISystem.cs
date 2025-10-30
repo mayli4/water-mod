@@ -1,4 +1,4 @@
-﻿using Daybreak.Common.Features.Hooks;
+using Daybreak.Common.Features.Hooks;
 using ReLogic.Graphics;
 using SubworldLibrary;
 using System.Collections.Generic;
