@@ -4,10 +4,9 @@ global using Microsoft.Xna.Framework;
 global using Microsoft.Xna.Framework.Graphics;
 
 using Daybreak.Common.Features.Hooks;
+using JetBrains.Annotations;
 using Microsoft.Xna.Framework.Input;
 using SubworldLibrary;
-using System.IO;
-using Terraria.ID;
 using Terraria.Localization;
 using WaterMod.Common.Networking;
 using WaterMod.Content.Reefs;
@@ -16,8 +15,15 @@ using WaterMod.Content.Seamap;
 namespace WaterMod;
 
 partial class ModImpl {
+    public ModImpl() {
+        MusicAutoloadingEnabled = false;
+        CloudAutoloadingEnabled = false;
+    }
+
     public override void HandlePacket(System.IO.BinaryReader reader, int whoAmI) => MultiplayerHandler.HandlePacket(reader, whoAmI);
 
+#if DEBUG
+    [UsedImplicitly]
     [SubscribesTo<ModSystemHooks.PostUpdateEverything>(Side = ModSide.Client)]
     static void DebugKeys(ModSystemHooks.PostUpdateEverything.Original orig, ModSystem self) {
         orig();
@@ -47,6 +53,6 @@ partial class ModImpl {
         }
 
         #endregion
-
     }   
+#endif
 }
