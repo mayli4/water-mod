@@ -22,8 +22,7 @@ internal sealed class SwimmingPlayer : ModPlayer {
     private float _targetBodyRotation;
     private float _targetHeadRotation;
     
-    public override void ResetEffects()
-    {
+    public override void ResetEffects() {
         base.ResetEffects();
 
         _speedModifier = new();
@@ -90,6 +89,8 @@ internal sealed class SwimmingPlayer : ModPlayer {
                 Player.controlRight.ToInt() + -Player.controlLeft.ToInt(),
                 Player.controlDown.ToInt() + -Player.controlUp.ToInt()
             );
+
+            if (Player.mount.Active) Player.mount.Dismount(Player);
 
             direction = direction.SafeNormalize(Vector2.Zero);
 
