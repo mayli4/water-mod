@@ -3,6 +3,8 @@
     <PropertyGroup>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+
+        <TmlBuildUseDefaultModImpl>true</TmlBuildUseDefaultModImpl>
     </PropertyGroup>
 
     <ItemGroup>

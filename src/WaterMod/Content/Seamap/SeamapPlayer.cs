@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Daybreak.Common.Features.Hooks;
+using Microsoft.Xna.Framework.Input;
 using ReLogic.Graphics;
 using SubworldLibrary;
 using Terraria.DataStructures;
@@ -38,7 +39,7 @@ internal sealed class SeamapPlayer : ModPlayer {
             TakeShipDamage(5);
         }
         
-        Main.NewText("ship life: " + ShipCurrentLife);
+        //Main.NewText("ship life: " + ShipCurrentLife);
     }
 
     public override void SendClientChanges(ModPlayer clientPlayer) {
@@ -56,10 +57,11 @@ internal sealed class SeamapPlayer : ModPlayer {
     public override void LoadData(TagCompound tag) {
         base.LoadData(tag);
     }
-}
 
-internal class Test : ModSystem {
-    public override void PostDrawTiles() {
+    [SubscribesTo<ModSystemHooks.PostDrawTiles>]
+    static void DrawLifeText(ModSystemHooks.PostDrawTiles.Original orig, ModSystem system) {
+        orig();
+        
         Main.spriteBatch.Begin();
         
         for (int i = 0; i < Main.maxPlayers; i++) {

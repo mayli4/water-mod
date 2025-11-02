@@ -1,6 +1,4 @@
-﻿//global using static WaterMod.Assets.Assets;
-global using WaterMod.Localization;
-global using Terraria.ModLoader;
+﻿global using Terraria.ModLoader;
 global using Terraria;
 global using Microsoft.Xna.Framework;
 global using Microsoft.Xna.Framework.Graphics;
@@ -8,20 +6,20 @@ global using Microsoft.Xna.Framework.Graphics;
 using Daybreak.Common.Features.Hooks;
 using Microsoft.Xna.Framework.Input;
 using SubworldLibrary;
-using Terraria;
+using System.IO;
+using Terraria.ID;
 using Terraria.Localization;
-using Terraria.ModLoader;
+using WaterMod.Common.Networking;
 using WaterMod.Content.Reefs;
 using WaterMod.Content.Seamap;
 
 namespace WaterMod;
 
-partial class WaterModImpl : Mod;
+partial class ModImpl {
+    public override void HandlePacket(System.IO.BinaryReader reader, int whoAmI) => MultiplayerHandler.HandlePacket(reader, whoAmI);
 
-#if DEBUG
-internal sealed class Debug : ILoadable {
     [SubscribesTo<ModSystemHooks.PostUpdateEverything>(Side = ModSide.Client)]
-    void DebugKeys(ModSystemHooks.PostUpdateEverything.Original orig, ModSystem self) {
+    static void DebugKeys(ModSystemHooks.PostUpdateEverything.Original orig, ModSystem self) {
         orig();
 
         #region seamap
@@ -50,14 +48,5 @@ internal sealed class Debug : ILoadable {
 
         #endregion
 
-    }
-
-    public void Load(Mod mod) {
-        
-    }
-
-    public void Unload() {
-        
-    }
+    }   
 }
-#endif
