@@ -11,4 +11,8 @@
         <Publicize Include="FNA" IncludeCompilerGeneratedMembers="false" IncludeVirtualMembers="false" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Assets\Sound\Music\" />
+    </ItemGroup>
+
 </Project>

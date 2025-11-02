@@ -14,3 +14,15 @@ Items: {
 		Tooltip: ""
 	}
 }
+
+Achievements: {
+	SetSailAchievement: {
+		FriendlyName: Set Sail
+		Description: Mods.WaterMod.Achievements.SetSailAchievement.Description
+	}
+
+	ReefsAchievement: {
+		FriendlyName: Reefs Achievement
+		Description: Mods.WaterMod.Achievements.ReefsAchievement.Description
+	}
+}
