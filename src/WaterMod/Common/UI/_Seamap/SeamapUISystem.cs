@@ -1,26 +1,28 @@
 using Daybreak.Common.Features.Hooks;
-using ReLogic.Graphics;
+using JetBrains.Annotations;
 using SubworldLibrary;
 using System.Collections.Generic;
 using Terraria.GameContent;
 using Terraria.GameInput;
-using Terraria.ID;
 using Terraria.UI;
 using WaterMod.Content.Seamap;
 
 namespace WaterMod.Common.UI;
 
-internal partial class SeamapUI {
+internal class SeamapUI {
+    [UsedImplicitly]
     [OnLoad]
     static void SubscribeToHooks() {
         On_Main.DrawInterface_16_MapOrMinimap += On_MainOnDrawInterface_16_MapOrMinimap;
     }
     
+    [UsedImplicitly]
     [OnUnload]
     static void UnsubscribeFromHooks() {
         On_Main.DrawInterface_16_MapOrMinimap -= On_MainOnDrawInterface_16_MapOrMinimap;
     }
 
+    [UsedImplicitly]
     [SubscribesTo<ModSystemHooks.PostUpdateInput>]
     static void KillMinimapInputs(ModSystemHooks.PostUpdateInput.Original orig, ModSystem self) {
         orig();
@@ -31,6 +33,7 @@ internal partial class SeamapUI {
         PlayerInput.Triggers.Current.MapStyle = false;
     }
     
+    [UsedImplicitly]
     [SubscribesTo<ModSystemHooks.ModifyInterfaceLayers>]
     static void InjectCustomMinimap(ModSystemHooks.ModifyInterfaceLayers.Original orig, ModSystem self, List<GameInterfaceLayer> layers) {
         orig(layers); 
