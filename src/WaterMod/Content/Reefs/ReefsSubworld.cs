@@ -6,6 +6,7 @@ using Terraria.GameContent.Shaders;
 using Terraria.WorldBuilding;
 using WaterMod.Common.Rendering;
 using WaterMod.Common.Subworlds;
+using WaterMod.Content.Achievements;
 
 namespace WaterMod.Content.Reefs;
 
@@ -15,6 +16,13 @@ internal sealed class ReefsSubworld : Subworld {
     public override int Height => 1200;
 
     public override string Name => "Coral Reefs";
+    
+    public override void OnEnter() {
+        if (ModContent.GetInstance<ReefsAchievement>() is { } achievement) {
+            achievement.SubworldEnteredCondition.Complete();
+        }
+        base.OnEnter();
+    }
 
     public override List<GenPass> Tasks => new List<GenPass>() {
         new SubworldGenerationPass(progress => {

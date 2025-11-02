@@ -1,14 +1,12 @@
-﻿using Microsoft.Xna.Framework;
-using ReLogic.Graphics;
+﻿using ReLogic.Graphics;
 using SubworldLibrary;
 using System.Collections.Generic;
-using Terraria;
 using Terraria.GameContent;
-using Terraria.GameContent.UI.Elements;
 using Terraria.Localization;
 using Terraria.UI.Chat;
 using Terraria.WorldBuilding;
 using WaterMod.Common.Subworlds;
+using WaterMod.Content.Achievements;
 
 namespace WaterMod.Content.Seamap;
 
@@ -18,6 +16,13 @@ internal sealed class SeamapSubworld : Subworld {
     public override int Height => 300;
 
     public override string Name => "Sea";
+
+    public override void OnEnter() {
+        if (ModContent.GetInstance<SetSailAchievement>() is { } achievement) {
+            achievement.SubworldEnteredCondition.Complete();
+        }
+        base.OnEnter();
+    }
 
     public override void OnLoad() {
         SubworldSystem.noReturn = true;
