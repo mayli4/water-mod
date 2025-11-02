@@ -7,20 +7,28 @@ using WaterMod.Utilities;
 namespace WaterMod.Common.Swimming;
 
 internal sealed class SwimmingPlayer : ModPlayer {
-    private StatModifier speedModifier = new();
-    private StatModifier accelerationModifier = new();
+    private StatModifier _speedModifier = new();
+    private StatModifier _accelerationModifier = new();
 
     // TODO: Move this to a separate player to provide usability across the entire project, and not just this.
-    private bool oldUnderwater;
+    private bool _oldUnderwater;
 
     // TODO: Ensure this works properly across multiplayer.
-    private Vector2 velocity;
+    private Vector2 _velocity;
 
-    private float bodyRotation;
-    private float headRotation;
+    private float _bodyRotation;
+    private float _headRotation;
 
-    private float targetBodyRotation;
-    private float targetHeadRotation;
+    private float _targetBodyRotation;
+    private float _targetHeadRotation;
+    
+    public override void ResetEffects()
+    {
+        base.ResetEffects();
+
+        _speedModifier = new();
+        _accelerationModifier = new();
+    }
 
     public override void PostUpdate() {
         base.PostUpdate();
@@ -42,8 +50,8 @@ internal sealed class SwimmingPlayer : ModPlayer {
 
         var drawPlayer = drawInfo.drawPlayer;
 
-        drawPlayer.headRotation = headRotation;
-        drawPlayer.fullRotation = bodyRotation;
+        drawPlayer.headRotation = _headRotation;
+        drawPlayer.fullRotation = _bodyRotation;
         drawPlayer.fullRotationOrigin = drawPlayer.Size / 2f;
 
         if (!Player.IsUnderwater() || (!Player.HeldItem.IsAir && Player.controlUseItem)) {
@@ -57,25 +65,25 @@ internal sealed class SwimmingPlayer : ModPlayer {
             swimArmRotation += MathHelper.Pi;
         }
 
-        drawPlayer.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, bodyRotation + swimArmRotation - MathHelper.PiOver2);
-        drawPlayer.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, bodyRotation - swimArmRotation - MathHelper.PiOver2);
+        drawPlayer.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, _bodyRotation + swimArmRotation - MathHelper.PiOver2);
+        drawPlayer.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, _bodyRotation - swimArmRotation - MathHelper.PiOver2);
     }
 
     public ref StatModifier GetMovementSpeed() {
-        return ref speedModifier;
+        return ref _speedModifier;
     }
 
     public ref StatModifier GetMovementAcceleration() {
-        return ref accelerationModifier;
+        return ref _accelerationModifier;
     }
 
     private void UpdateMovement() {
-        if (Player.IsUnderwater() && !oldUnderwater) {
-            velocity = Player.velocity;
+        if (Player.IsUnderwater() && !_oldUnderwater) {
+            _velocity = Player.velocity;
         }
 
         if (!Player.IsUnderwater()) {
-            velocity = Vector2.Zero;
+            _velocity = Vector2.Zero;
         }
         else {
             var direction = new Vector2(
@@ -86,20 +94,20 @@ internal sealed class SwimmingPlayer : ModPlayer {
             direction = direction.SafeNormalize(Vector2.Zero);
 
             if (direction.LengthSquared() > 0f) {
-                var acceleration = accelerationModifier.ApplyTo(0.25f);
-                var speed = speedModifier.ApplyTo(4f);
+                var acceleration = _accelerationModifier.ApplyTo(0.25f);
+                var speed = _speedModifier.ApplyTo(4f);
 
-                velocity += direction * acceleration;
-                velocity = Vector2.Clamp(velocity, new Vector2(-speed), new Vector2(speed));
+                _velocity += direction * acceleration;
+                _velocity = Vector2.Clamp(_velocity, new Vector2(-speed), new Vector2(speed));
             }
             else {
-                velocity *= 0.95f;
+                _velocity *= 0.95f;
             }
 
-            Player.velocity = velocity;
+            Player.velocity = _velocity;
         }
 
-        oldUnderwater = Player.IsUnderwater();
+        _oldUnderwater = Player.IsUnderwater();
     }
 
     private void UpdateVisuals() {
@@ -127,30 +135,30 @@ internal sealed class SwimmingPlayer : ModPlayer {
             var maxHeadRotation = MathHelper.ToRadians(80f);
             var minHeadRotation = MathHelper.ToRadians(-80f);
 
-            targetHeadRotation = MathHelper.Clamp(rotation, minHeadRotation, maxHeadRotation);
+            _targetHeadRotation = MathHelper.Clamp(rotation, minHeadRotation, maxHeadRotation);
 
             if (Player.direction == -1) {
-                targetHeadRotation += MathHelper.PiOver4;
+                _targetHeadRotation += MathHelper.PiOver4;
             }
             else {
-                targetHeadRotation -= MathHelper.PiOver4;
+                _targetHeadRotation -= MathHelper.PiOver4;
             }
 
-            targetBodyRotation = Player.velocity.ToRotation() + MathHelper.PiOver2;
+            _targetBodyRotation = Player.velocity.ToRotation() + MathHelper.PiOver2;
 
             if (Player.velocity.LengthSquared() > 0f) {
-                targetBodyRotation = Player.velocity.ToRotation() + MathHelper.PiOver2;
+                _targetBodyRotation = Player.velocity.ToRotation() + MathHelper.PiOver2;
             }
             else {
-                targetBodyRotation = 0f;
+                _targetBodyRotation = 0f;
             }
         }
         else {
-            targetHeadRotation = 0f;
-            targetBodyRotation = 0f;
+            _targetHeadRotation = 0f;
+            _targetBodyRotation = 0f;
         }
 
-        headRotation = headRotation.AngleLerp(targetHeadRotation, 0.2f);
-        bodyRotation = bodyRotation.AngleLerp(targetBodyRotation, 0.2f);
+        _headRotation = _headRotation.AngleLerp(_targetHeadRotation, 0.2f);
+        _bodyRotation = _bodyRotation.AngleLerp(_targetBodyRotation, 0.2f);
     }
 }
