@@ -7,7 +7,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using WaterMod.Utilities;
 
-namespace SpiritReforged.Content.Ocean.Boids;
+namespace WaterMod.Common.Ambience;
 
 /*
  * TODO:
@@ -27,7 +27,7 @@ internal struct Flock {
     public List<Boid> Boids;
 }
 
-internal sealed class SpiritReforgedBoidSystem {
+internal sealed class BoidSystem {
     private static List<Flock> _flocks = new();
     private static int _nextFlockId;
 
@@ -47,6 +47,42 @@ internal sealed class SpiritReforgedBoidSystem {
     static void Unload() {
         _flocks.Clear();
         _flocks = null!;
+    }
+    
+    [UsedImplicitly]
+    [SubscribesTo<ModSystemHooks.PostUpdateEverything>]
+    static void PostUpdateEverything(ModSystemHooks.PostUpdateEverything.Original orig, ModSystem system) {
+        orig();
+        
+        foreach (var flock in _flocks) {
+            for (int i = 0; i < flock.Boids.Count; i++) {
+                var currentBoid = flock.Boids[i];
+                UpdateBoid(ref currentBoid, flock.Boids);
+                flock.Boids[i] = currentBoid;
+            }
+        }
+
+        if(Main.keyState.IsKeyDown(Keys.F) && !Main.oldKeyState.IsKeyDown(Keys.F)) {
+            Vector2 mouseWorldPosition = Main.MouseWorld;
+            SpawnFlockAtPos(mouseWorldPosition);
+        }
+    }
+    
+    [UsedImplicitly]
+    [SubscribesTo<ModSystemHooks.PostDrawTiles>]
+    static void PostDrawTiles(ModSystemHooks.PostDrawTiles.Original orig, ModSystem system) {
+        orig();
+        if (Main.spriteBatch == null || Main.gameMenu) return;
+
+        Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+        
+        foreach (var flock in _flocks) {
+            foreach (var boid in flock.Boids) {
+                DrawBoid(Main.spriteBatch, boid);
+            }
+        }
+
+        Main.spriteBatch.End();
     }
 
     public static Vector2 AvoidTiles(Vector2 position, Vector2 velocity, int range) {
@@ -239,41 +275,5 @@ internal sealed class SpiritReforgedBoidSystem {
         }
 
         _flocks.Add(newFlock);
-    }
-
-    [UsedImplicitly]
-    [SubscribesTo<ModSystemHooks.PostUpdateEverything>]
-    static void PostUpdateEverything(ModSystemHooks.PostUpdateEverything.Original orig, ModSystem system) {
-        orig();
-        
-        foreach (var flock in _flocks) {
-            for (int i = 0; i < flock.Boids.Count; i++) {
-                var currentBoid = flock.Boids[i];
-                UpdateBoid(ref currentBoid, flock.Boids);
-                flock.Boids[i] = currentBoid;
-            }
-        }
-
-        if(Main.keyState.IsKeyDown(Keys.F) && !Main.oldKeyState.IsKeyDown(Keys.F)) {
-            Vector2 mouseWorldPosition = Main.MouseWorld;
-            SpawnFlockAtPos(mouseWorldPosition);
-        }
-    }
-    
-    [UsedImplicitly]
-    [SubscribesTo<ModSystemHooks.PostDrawTiles>]
-    static void PostDrawTiles(ModSystemHooks.PostDrawTiles.Original orig, ModSystem system) {
-        orig();
-        if (Main.spriteBatch == null || Main.gameMenu) return;
-
-        Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-        
-        foreach (var flock in _flocks) {
-            foreach (var boid in flock.Boids) {
-                DrawBoid(Main.spriteBatch, boid);
-            }
-        }
-
-        Main.spriteBatch.End();
     }
 }
