@@ -3,6 +3,12 @@
 namespace WaterMod.Utilities;
 
 internal static class VectorExtensions {
+    public static Vector2 Limit(Vector2 vec, float val) {
+        if (vec.LengthSquared() > val * val)
+            return Vector2.Normalize(vec) * val;
+        return vec;
+    }
+    
     public static Vector2 NormalizeSafe(this Vector2 vec, Vector2? defVec = null) {
         vec.Normalize();
         if (Utils.HasNaNs(vec))
