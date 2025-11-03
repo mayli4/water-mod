@@ -20,6 +20,11 @@ internal struct Boid {
     public Vector2 Position;
     public Vector2 Velocity;
     public Vector2 Acceleration;
+
+    public Color PrimaryColor;
+    public Color SecondaryColor; 
+    
+    public Rectangle Frame;
 }
 
 internal struct Flock {
@@ -42,6 +47,7 @@ internal sealed class BoidSystem {
     static void InitStuff() {
         _flocks = new List<Flock>();
     }
+    
     [UsedImplicitly]
     [OnUnload]
     static void Unload() {
@@ -57,15 +63,15 @@ internal sealed class BoidSystem {
         foreach (var flock in _flocks) {
             for (int i = 0; i < flock.Boids.Count; i++) {
                 var currentBoid = flock.Boids[i];
-                UpdateBoid(ref currentBoid, flock.Boids);
+                UpdateBoid(ref currentBoid, flock.Boids.ToArray().AsSpan());
                 flock.Boids[i] = currentBoid;
             }
         }
 
-        if(Main.keyState.IsKeyDown(Keys.F) && !Main.oldKeyState.IsKeyDown(Keys.F)) {
-            Vector2 mouseWorldPosition = Main.MouseWorld;
-            SpawnFlockAtPos(mouseWorldPosition);
-        }
+        // if(Main.keyState.IsKeyDown(Keys.F) && !Main.oldKeyState.IsKeyDown(Keys.F)) {
+        //     Vector2 mouseWorldPosition = Main.MouseWorld;
+        //     SpawnFlockAtPos(mouseWorldPosition);
+        // }
     }
     
     [UsedImplicitly]
@@ -140,7 +146,7 @@ internal sealed class BoidSystem {
         return Vector2.Zero;
     }
 
-    public static Vector2 Separation(Vector2 currentPosition, Vector2 currentVelocity, List<Boid> flockBoids, int range) {
+    public static Vector2 Separation(Vector2 currentPosition, Vector2 currentVelocity, Span<Boid> flockBoids, int range) {
         int count = 0;
         var sum = Vector2.Zero;
         float rangeSq = range * range;
@@ -167,7 +173,7 @@ internal sealed class BoidSystem {
         return Vector2.Zero;
     }
 
-    public static Vector2 Alignment(Vector2 currentPosition, Vector2 currentVelocity, List<Boid> flockBoids, int range) {
+    public static Vector2 Alignment(Vector2 currentPosition, Vector2 currentVelocity, Span<Boid> flockBoids, int range) {
         int count = 0;
         var sum = Vector2.Zero;
         float rangeSq = range * range;
@@ -193,7 +199,7 @@ internal sealed class BoidSystem {
         return Vector2.Zero;
     }
 
-    public static Vector2 Cohesion(Vector2 currentPosition, Vector2 currentVelocity, List<Boid> flockBoids, int range) {
+    public static Vector2 Cohesion(Vector2 currentPosition, Vector2 currentVelocity, Span<Boid> flockBoids, int range) {
         int count = 0;
         var sum = Vector2.Zero;
         float rangeSq = range * range;
@@ -227,7 +233,7 @@ internal sealed class BoidSystem {
         boid.Acceleration = Vector2.Zero;
     }
 
-    public static void UpdateBoid(ref Boid boid, List<Boid> flockBoids) {
+    public static void UpdateBoid(ref Boid boid, Span<Boid> flockBoids) {
         boid.Acceleration += Separation(boid.Position, boid.Velocity, flockBoids, 25) * 1.5f;
         boid.Acceleration += Alignment(boid.Position, boid.Velocity, flockBoids, 50) * 1f;
         boid.Acceleration += Cohesion(boid.Position, boid.Velocity, flockBoids, 50) * 1f;
