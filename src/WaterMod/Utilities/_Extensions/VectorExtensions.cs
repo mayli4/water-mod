@@ -3,6 +3,10 @@
 namespace WaterMod.Utilities;
 
 internal static class VectorExtensions {
+    public static Vector2 ClampMagnitude(this Vector2 v, float min, float max) {
+        return v.SafeNormalize(Vector2.UnitY) * MathHelper.Clamp(v.Length(), min, max);
+    }
+    
     public static Vector2 Limit(Vector2 vec, float val) {
         if (vec.LengthSquared() > val * val)
             return Vector2.Normalize(vec) * val;
