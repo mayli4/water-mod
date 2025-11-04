@@ -68,10 +68,10 @@ internal sealed class BoidSystem {
             }
         }
 
-        // if(Main.keyState.IsKeyDown(Keys.F) && !Main.oldKeyState.IsKeyDown(Keys.F)) {
-        //     Vector2 mouseWorldPosition = Main.MouseWorld;
-        //     SpawnFlockAtPos(mouseWorldPosition);
-        // }
+        if(Main.keyState.IsKeyDown(Keys.G) && !Main.oldKeyState.IsKeyDown(Keys.G)) {
+            Vector2 mouseWorldPosition = Main.MouseWorld;
+            SpawnFlockAtPos(mouseWorldPosition);
+        }
     }
     
     [UsedImplicitly]

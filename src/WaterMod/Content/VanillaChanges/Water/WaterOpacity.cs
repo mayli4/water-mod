@@ -40,11 +40,18 @@ internal sealed class WaterAlpha {
 		if (!Main.LocalPlayer.ZoneBeach)
 			return;
 
-		Clamp(ref colors.TopLeftColor, x, y);
-		Clamp(ref colors.TopRightColor, x, y);
-		Clamp(ref colors.BottomLeftColor, x, y);
-		Clamp(ref colors.BottomRightColor, x, y);
+		adjustColor(ref colors.TopLeftColor);
+		adjustColor(ref colors.TopRightColor);
+		adjustColor(ref colors.BottomLeftColor);
+		adjustColor(ref colors.BottomRightColor);
+        return;
 
-		void Clamp(ref Color color, int x, int y) => color.A = (byte)Math.Min(color.A, 160f);
+        void adjustColor(ref Color color) {
+            color.A = (byte)Math.Min(color.A, 160f);
+            
+            color.B = (byte)(color.B * 0.5f);
+            color.R = (byte)Math.Min(255, color.R * 1.1f);
+            color.G = (byte)Math.Min(255, color.G * 1.1f);
+        }
 	}
 }

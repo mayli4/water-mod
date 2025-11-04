@@ -6,6 +6,11 @@ Biomes: {
 		DisplayName: Shoals Biome
 		TownNPCDialogueName: the Shoals Biome
 	}
+
+	ShipyardBiome: {
+		DisplayName: Shipyard Biome
+		TownNPCDialogueName: the Shipyard Biome
+	}
 }
 
 Items: {
