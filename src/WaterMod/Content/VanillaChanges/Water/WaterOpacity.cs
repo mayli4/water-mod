@@ -1,5 +1,6 @@
 ﻿using Daybreak.Common.Features.Hooks;
 using JetBrains.Annotations;
+using SubworldLibrary;
 using System;
 using Terraria.GameContent.Drawing;
 using Terraria.GameContent.Liquid;
@@ -37,7 +38,7 @@ internal sealed class WaterAlpha {
 	}
 
 	private static void ModifyColors(int x, int y, ref VertexColors colors, bool isPartial = false) {
-		if (!Main.LocalPlayer.ZoneBeach)
+		if (!Main.LocalPlayer.ZoneBeach && !SubworldSystem.AnyActive())
 			return;
 
 		adjustColor(ref colors.TopLeftColor);
