@@ -1,5 +1,7 @@
 using System;
 using Terraria.DataStructures;
+using Terraria.GameContent.Shaders;
+using Terraria.Graphics.Effects;
 using Terraria.WorldBuilding;
 using WaterMod.Common.World;
 using WaterMod.Utilities;
@@ -100,6 +102,11 @@ internal sealed class SwimmingPlayer : ModPlayer {
 
                 _velocity += direction * acceleration;
                 _velocity = Vector2.Clamp(_velocity, new Vector2(-speed), new Vector2(speed));
+                
+                if (Filters.Scene["WaterDistortion"].GetShader() is not WaterShaderData data)
+                    return;
+                
+                data.QueueRipple(Player.Center, 5, RippleShape.Circle, MathHelper.PiOver4);
             }
             else {
                 _velocity *= 0.95f;
