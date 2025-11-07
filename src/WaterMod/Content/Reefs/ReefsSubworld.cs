@@ -21,6 +21,12 @@ internal sealed class ReefsSubworld : Subworld {
         if (ModContent.GetInstance<ReefsAchievement>() is { } achievement) {
             achievement.SubworldEnteredCondition.Complete();
         }
+        for (int x = 0; x < Main.maxTilesX; x++) {
+            for (int y = 0; y < Main.maxTilesY; y++) {
+                Main.tile[x, y].ClearEverything();
+            }
+        }
+        InitialShoalsSurfacePass.GenTest();
         base.OnEnter();
     }
 
@@ -35,11 +41,13 @@ internal sealed class ReefsSubworld : Subworld {
     };
     
     public override void OnLoad() {
-        SubworldSystem.noReturn = true;
+        //SubworldSystem.noReturn = true;
     }
 
     public override void Update() {
         Liquid.UpdateLiquid();
+        if(Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Z) && !Main.oldKeyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Z))
+            Main.NewText(InitialShoalsSurfacePass.GetMoundHeight((int)(Main.LocalPlayer.Center.X / 16), 40, 60));
         base.Update();
     }
 }
