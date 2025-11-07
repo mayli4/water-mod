@@ -21,12 +21,12 @@ internal sealed class ReefsSubworld : Subworld {
         if (ModContent.GetInstance<ReefsAchievement>() is { } achievement) {
             achievement.SubworldEnteredCondition.Complete();
         }
-        for (int x = 0; x < Main.maxTilesX; x++) {
-            for (int y = 0; y < Main.maxTilesY; y++) {
-                Main.tile[x, y].ClearEverything();
-            }
-        }
-        InitialShoalsSurfacePass.GenTest();
+        // for (int x = 0; x < Main.maxTilesX; x++) {
+        //     for (int y = 0; y < Main.maxTilesY; y++) {
+        //         Main.tile[x, y].ClearEverything();
+        //     }
+        // }
+        // InitialShoalsSurfacePass.GenTest();
         base.OnEnter();
     }
 
@@ -38,6 +38,8 @@ internal sealed class ReefsSubworld : Subworld {
             Main.rockLayer = Main.maxTilesY;
         }),
         new InitialShoalsSurfacePass("Initial Shoals Block Placement", 1.0f), 
+        new SmoothPass("smoothy", 0.4f), 
+        new FillWaterPass("Fill It Up!", 0.3f)
     };
     
     public override void OnLoad() {
@@ -57,6 +59,8 @@ internal sealed class ReefsSubworld : Subworld {
                 }
             }
             InitialShoalsSurfacePass.GenTest();
+            SmoothPass.SmoothenWorld();
+            FillWaterPass.FillRegionWithWater(Main.maxTilesX, Main.maxTilesY - 360, new Vector2(0, 360));
         }
         base.Update();
     }
