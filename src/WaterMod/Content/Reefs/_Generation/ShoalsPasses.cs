@@ -16,8 +16,8 @@ internal sealed class InitialShoalsSurfacePass : GenPass {
     public static void GenTest() {
         for(int x = 0; x < Main.maxTilesX; x++) {
             float topY = InitialShoalsSurfacePass.GetSurfaceLevelThreshold(x, 12, Main.maxTilesY / 2, 0.2f, 1);
-            topY += -InitialShoalsSurfacePass.GetSurfaceLevelThreshold(x, 8, Main.maxTilesY / 2, 0.15f, 15) * 0.25f;
-            topY = GetMoundHeight(x, 40, 100);
+            //topY += -InitialShoalsSurfacePass.GetSurfaceLevelThreshold(x, 8, Main.maxTilesY / 2, 0.15f, 15) * 0.25f;
+            //topY = GetMoundHeight(x, 40, 1100);
             for(int y = 0; y < Main.maxTilesY; y++) {
                 if(y > topY)
                     Main.tile[x, y].ResetToType(TileID.Sandstone);

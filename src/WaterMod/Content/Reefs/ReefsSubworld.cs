@@ -48,6 +48,16 @@ internal sealed class ReefsSubworld : Subworld {
         Liquid.UpdateLiquid();
         if(Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Z) && !Main.oldKeyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Z))
             Main.NewText(InitialShoalsSurfacePass.GetMoundHeight((int)(Main.LocalPlayer.Center.X / 16), 40, 60));
+
+        if(Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.X) &&
+           !Main.oldKeyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.X)) {
+            for (int x = 0; x < Main.maxTilesX; x++) {
+                for (int y = 0; y < Main.maxTilesY; y++) {
+                    Main.tile[x, y].ClearEverything();
+                }
+            }
+            InitialShoalsSurfacePass.GenTest();
+        }
         base.Update();
     }
 }
