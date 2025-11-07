@@ -10,8 +10,7 @@ using WaterMod.Utilities;
 
 namespace WaterMod.Content.Shipyard;
 
-public sealed class ShipyardGenerationSystem : ModSystem
-{
+internal sealed class ShipyardGenerationSystem : ModSystem {
     /// <summary>
     ///     The unique identifier for the Shipyard's <see cref="PassLegacy" /> added during world
     ///     generation in <see cref="ModifyWorldGenTasks" />.
@@ -86,7 +85,7 @@ public sealed class ShipyardGenerationSystem : ModSystem
 
     private void GenerateShipyard(GenerationProgress progress, GameConfiguration configuration)
     {
-        progress.Message = Mod.GetLocalization("UI.Generation.Shipyard").Value;
+        progress.Message = "asd";
 
         var foundOcean = false;
 
@@ -128,14 +127,11 @@ public sealed class ShipyardGenerationSystem : ModSystem
 
         var biggestY = startY;
 
-        for (var i = startX; i < startX + 50; i++)
-        {
-            for (var j = 0; j < Main.maxTilesY; j++)
-            {
+        for (var i = startX; i < startX + 50; i++) {
+            for (var j = 0; j < Main.maxTilesY; j++) {
                 var tile = Framing.GetTileSafely(i, j);
 
-                if (tile.HasTileType(TileID.Sand) && !tile.HasAnyLiquidAmount() && j < biggestY)
-                {
+                if (tile.HasTileType(TileID.Sand) && !tile.HasAnyLiquidAmount() && j < biggestY) {
                     biggestY = j;
                     break;
                 }
@@ -148,8 +144,8 @@ public sealed class ShipyardGenerationSystem : ModSystem
         var shipyard = GenVars.configuration.CreateBiome<ShipyardMicroBiome>();
         var sailboat = GenVars.configuration.CreateBiome<BrokenSailboatMicroBiome>();
 
-        shipyard.Place(ShipyardOrigin, GenVars.structures);
-        sailboat.Place(SailboatOrigin, GenVars.structures);
+        // shipyard.Place(ShipyardOrigin, GenVars.structures);
+        // sailboat.Place(SailboatOrigin, GenVars.structures);
     }
 }
 
@@ -241,6 +237,18 @@ public sealed class ShipyardMicroBiome : MicroBiome
         }
 
         for (var i = 0; i < PILLAR_WIDTH; i++) { }
+        
+        
+
+        // for (var i = 0; i < PILLAR_WIDTH; i++)
+        // {
+        //     WorldgenUtils.ExtendDownwards(origin.X + FIRST_DECK_PILLAR_OFFSET_X + i, origin.Y + DECK_PILLAR_OFFSET_Y);
+        //     WorldgenUtils.ExtendDownwards(origin.X + SECOND_DECK_PILLAR_OFFSET_X + i, origin.Y + DECK_PILLAR_OFFSET_Y);
+        //     WorldgenUtils.ExtendDownwards(origin.X + THIRD_DECK_PILLAR_OFFSET_X + i, origin.Y + DECK_PILLAR_OFFSET_Y);
+        //     WorldgenUtils.ExtendDownwards(origin.X + FIRST_HOUSE_PILLAR_OFFSET_X + i, origin.Y + HOUSE_PILLAR_OFFSET_Y);
+        //     WorldgenUtils.ExtendDownwards(origin.X + SECOND_HOUSE_PILLAR_OFFSET_X + i, origin.Y + HOUSE_PILLAR_OFFSET_Y);
+        //
+        // }
 
         var sailorX = (int)((origin.X + SAILOR_ROOM_OFFSET_X) * 16f);
         var sailorY = (int)((origin.Y + SAILOR_ROOM_OFFSET_Y) * 16f);
