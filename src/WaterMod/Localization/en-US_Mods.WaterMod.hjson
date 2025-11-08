@@ -32,10 +32,5 @@ Achievements: {
 	}
 }
 
-UI: {
-    ModIcon: {
-        AuthorHeader: Made by:
-    }
-}
-
+UI.ModIcon.AuthorHeader: Made by:
 AuthorTags.Mathica.DisplayName: Mathica

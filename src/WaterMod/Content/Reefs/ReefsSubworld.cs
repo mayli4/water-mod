@@ -6,6 +6,10 @@ using WaterMod.Content.Achievements;
 
 namespace WaterMod.Content.Reefs;
 
+/* todo
+ - randomized gen, per seed
+ */
+
 internal sealed class ReefsSubworld : Subworld {
     public override int Width => 1000;
 
@@ -55,8 +59,8 @@ internal sealed class ReefsSubworld : Subworld {
                 }
             }
             InitialShoalsSurfacePass.GenTest();
-            SmoothPass.SmoothenWorld();
-            FillWaterPass.FillRegionWithWater(Main.maxTilesX, Main.maxTilesY - 360, new Vector2(0, 360));
+            //SmoothPass.SmoothenWorld();
+            //FillWaterPass.FillRegionWithWater(Main.maxTilesX, Main.maxTilesY - 360, new Vector2(0, 360));
         }
         base.Update();
     }
