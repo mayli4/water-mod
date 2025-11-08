@@ -1,10 +1,6 @@
-﻿using ReLogic.Content;
-using SubworldLibrary;
+﻿using SubworldLibrary;
 using System.Collections.Generic;
-using System.Reflection;
-using Terraria.GameContent.Shaders;
 using Terraria.WorldBuilding;
-using WaterMod.Common.Rendering;
 using WaterMod.Common.Subworlds;
 using WaterMod.Content.Achievements;
 
@@ -21,16 +17,18 @@ internal sealed class ReefsSubworld : Subworld {
         if (ModContent.GetInstance<ReefsAchievement>() is { } achievement) {
             achievement.SubworldEnteredCondition.Complete();
         }
-        // for (int x = 0; x < Main.maxTilesX; x++) {
-        //     for (int y = 0; y < Main.maxTilesY; y++) {
-        //         Main.tile[x, y].ClearEverything();
-        //     }
-        // }
-        // InitialShoalsSurfacePass.GenTest();
+        for (int x = 0; x < Main.maxTilesX; x++) {
+            for (int y = 0; y < Main.maxTilesY; y++) {
+                Main.tile[x, y].ClearEverything();
+            }
+        }
+        InitialShoalsSurfacePass.GenTest();
+        SmoothPass.SmoothenWorld();
+        FillWaterPass.FillRegionWithWater(Main.maxTilesX, Main.maxTilesY - 360, new Vector2(0, 360));
         base.OnEnter();
     }
 
-    public override List<GenPass> Tasks => new List<GenPass>() {
+    public override List<GenPass> Tasks => new() {
         new SubworldGenerationPass(progress => {
             progress.Message = "Spawning Seamap";
 
