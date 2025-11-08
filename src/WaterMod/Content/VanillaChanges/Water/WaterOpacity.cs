@@ -38,8 +38,8 @@ internal sealed class WaterAlpha {
 	}
 
 	private static void ModifyColors(int x, int y, ref VertexColors colors, bool isPartial = false) {
-		if (!Main.LocalPlayer.ZoneBeach && !SubworldSystem.AnyActive())
-			return;
+		if (!Main.LocalPlayer.ZoneBeach) return;
+        if(SubworldSystem.AnyActive()) return;
 
 		adjustColor(ref colors.TopLeftColor);
 		adjustColor(ref colors.TopRightColor);
