@@ -31,3 +31,11 @@ Achievements: {
 		Description: Mods.WaterMod.Achievements.ReefsAchievement.Description
 	}
 }
+
+UI: {
+    ModIcon: {
+        AuthorHeader: Made by:
+    }
+}
+
+AuthorTags.Mathica.DisplayName: Mathica

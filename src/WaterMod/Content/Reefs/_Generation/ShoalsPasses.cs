@@ -22,6 +22,7 @@ internal sealed class InitialShoalsSurfacePass(string name, double loadWeight) :
             }
         }
     }
+    
     public static float GetMoundHeight(int x, int moundLength, int frequency, int offsetY = 0) {
         x = (x % frequency)-20;
         return -hyperbole(x) + hyperbole(x-moundLength);
@@ -30,6 +31,7 @@ internal sealed class InitialShoalsSurfacePass(string name, double loadWeight) :
             return MathF.Sqrt(1 + (x * x)) - MathF.Sqrt(1 + MathF.Pow(2 + (x * x), 2));
         }
     }
+    
     public static float GetSurfaceLevelThreshold(int x, int octaves, int offsetY = 0, float frequency = 1, float amplitude = 1) {
         float threshold = 0f;
         for (int i = 0; i < octaves; i++) {

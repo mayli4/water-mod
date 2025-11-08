@@ -2,8 +2,9 @@
 global using Terraria;
 global using Microsoft.Xna.Framework;
 global using Microsoft.Xna.Framework.Graphics;
-
+using Daybreak.Common.Features.Authorship;
 using Daybreak.Common.Features.Hooks;
+using Daybreak.Common.Features.ModPanel;
 using JetBrains.Annotations;
 using Microsoft.Xna.Framework.Input;
 using SubworldLibrary;
@@ -14,10 +15,15 @@ using WaterMod.Content.Seamap;
 
 namespace WaterMod;
 
-partial class ModImpl {
+partial class ModImpl : IHasCustomAuthorMessage {
     public ModImpl() {
         MusicAutoloadingEnabled = false;
         CloudAutoloadingEnabled = false;
+    }
+    
+    public string GetAuthorText()
+    {
+        return AuthorText.GetAuthorTooltip(this, Mods.WaterMod.UI.ModIcon.AuthorHeader.GetTextValue());
     }
 
     public override void HandlePacket(System.IO.BinaryReader reader, int whoAmI) => MultiplayerHandler.HandlePacket(reader, whoAmI);

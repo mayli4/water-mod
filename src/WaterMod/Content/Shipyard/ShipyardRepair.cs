@@ -3,10 +3,8 @@
 // using Terraria.Graphics.Effects;
 // using Terraria.Graphics.Shaders;
 // using Terraria.ID;
-// using Filters = Terraria.GameContent.Bestiary.Filters;
 //
 // namespace WaterMod.Content.Shipyard;
-//
 //
 // class ShipyardRepairPlayer : ModPlayer
 // {
