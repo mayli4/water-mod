@@ -114,10 +114,12 @@ internal sealed class BoidSystem {
 
             for (int i = 0; i < currentFlockBoids.Length; i++) {
                 int globalBoidIndex = data.StartBoidIndex + i;
-                if (IsBoidActive(globalBoidIndex)) {
-                    ref Boid boidToUpdate = ref _boids[globalBoidIndex];
-                    UpdateBoid(ref boidToUpdate, currentFlockBoids);
+                if(!IsBoidActive(globalBoidIndex)) {
+                    continue;
                 }
+
+                ref Boid boidToUpdate = ref _boids[globalBoidIndex];
+                UpdateBoid(ref boidToUpdate, currentFlockBoids);
             }
         }
 
