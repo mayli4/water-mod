@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.CompilerServices;
+using Terraria.GameContent.Shaders;
+using Terraria.Graphics.Effects;
 using Terraria.ID;
 using WaterMod.Utilities;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
@@ -389,6 +391,11 @@ internal sealed class BoidSystem {
         boid.Acceleration += AvoidTiles(boid.Position, boid.Velocity, 100) * 5f;
         
         ApplyForces(ref boid);
+        
+        if (Filters.Scene["WaterDistortion"].GetShader() is not WaterShaderData data)
+            return;
+                
+        data.QueueRipple(boid.Position, 0.5f, RippleShape.Square, MathHelper.PiOver4);
         
         int worldWidth = Main.maxTilesX * 16;
         int worldHeight = Main.maxTilesY * 16;
