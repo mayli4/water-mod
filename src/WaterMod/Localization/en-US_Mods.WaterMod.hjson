@@ -33,4 +33,12 @@ Achievements: {
 }
 
 UI.ModIcon.AuthorHeader: Made by:
-AuthorTags.Mathica.DisplayName: Mathica
+
+AuthorTags: {
+	Mathica.DisplayName: mathicamathicamathicamathica
+	Paperclip.DisplayName: Paperclip
+	Roton.DisplayName: Roton
+	Jaqbix.DisplayName: Jaqbix
+	Tyeski.DisplayName: Tyeski
+	FunkDotIt.DisplayName: funk.it
+}

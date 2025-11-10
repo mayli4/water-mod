@@ -1,4 +1,5 @@
 ﻿using Daybreak.Common.Features.Authorship;
+using JetBrains.Annotations;
 
 namespace WaterMod.Content.Authorship;
 
@@ -8,4 +9,9 @@ public abstract class CommonAuthorTag : AuthorTag {
     public override string Texture => string.Join('/', Assets.Textures.UI.Mathica.KEY.Split('/')[..^1]) + '/' + Name;
 }
 
-public class MathicaTag : CommonAuthorTag;
+[UsedImplicitly] internal class MathicaTag : CommonAuthorTag;
+[UsedImplicitly] internal class RotonTag : CommonAuthorTag;
+[UsedImplicitly] internal class PaperclipTag : CommonAuthorTag;
+[UsedImplicitly] internal class JaqbixTag : CommonAuthorTag;
+[UsedImplicitly] internal class FunkDotItTag : CommonAuthorTag;
+[UsedImplicitly] internal class TyeskiTag : CommonAuthorTag;
