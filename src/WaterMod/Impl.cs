@@ -26,7 +26,7 @@ partial class ModImpl : IHasCustomAuthorMessage {
         return AuthorText.GetAuthorTooltip(this, Mods.WaterMod.UI.ModIcon.AuthorHeader.GetTextValue());
     }
 
-    public override void HandlePacket(System.IO.BinaryReader reader, int whoAmI) => MultiplayerHandler.HandlePacket(reader, whoAmI);
+    public override void HandlePacket(System.IO.BinaryReader reader, int whoAmI) => NetworkingHandler.HandlePacket(reader, whoAmI);
 
 #if DEBUG
     [UsedImplicitly]

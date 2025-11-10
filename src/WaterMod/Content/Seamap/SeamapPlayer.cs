@@ -7,7 +7,8 @@ using System.IO;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
-using WaterMod.Common.Networking;
+using WaterMod.Utilities;
+using WaterMod.Generator;
 
 namespace WaterMod.Content.Seamap;
 
@@ -105,23 +106,12 @@ internal sealed class SeamapPlayer : ModPlayer {
 }
 
 
-internal class ShipHealthPacket() : PacketData {
-    public int PlayerId { get; private set; }
-    public int CurrentShipHealth { get; private set; }
+[Packet]
+internal partial record struct ShipHealthPacket(int PlayerId, int CurrentShipHealth) {
+    [PacketHandler]
+    public static void OnReceive(in ShipHealthPacket packet, int whoAmI) {
 
-    public ShipHealthPacket(int playerId, int currentShipHealth) : this() {
-        PlayerId = playerId;
-        CurrentShipHealth = currentShipHealth;
-    }
-
-    public override void OnSend(ModPacket modPacket) {
-        modPacket.Write(PlayerId);
-        modPacket.Write(CurrentShipHealth);
-    }
-
-    public override void OnReceive(BinaryReader reader, int whoAmI) {
-        int playerId = reader.ReadInt32();
-        int currentShipHealth = reader.ReadInt32();
+        packet.Deconstruct(out int playerId, out int currentShipHealth);
 
         if (playerId is < 0 or >= Main.maxPlayers)
             return;
