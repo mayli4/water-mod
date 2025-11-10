@@ -30,5 +30,3 @@ internal class Packet<T> where T : unmanaged, IPacket {
         return MemoryMarshal.Read<T>(buf);
     }
 }
-[Packet]
-partial record struct Example(int X, int Y);
