@@ -7,22 +7,30 @@ using WaterMod.Generator;
 
 namespace WaterMod.Common.Networking;
 
-internal partial class NetworkingHandler : ILoadable {
+internal partial class NetworkingHandler {
     private static readonly Dictionary<Type, PacketTypeData> _typeToMetadata = [];
     private static List<PacketTypeData> _packetTypeDataTable = [];
 
-    public void Load(Mod mod) {
-
-    }
-
-    public void Unload() {
-
-    }
-
     public static void SendPacket<T>(in T data, int toClient = -1, int ignoreClient = -1) where T : unmanaged, IPacket {
+        if(!_typeToMetadata.TryGetValue(typeof(T), out PacketTypeData id))
+            throw new ArgumentException($"{typeof(T).Name} is not registered packet type! Is it marked with the [Packet] attribute?");
+
         var packet = ModContent.GetInstance<ModImpl>().GetPacket();
+
+        packet.Write(id.Id);
         Packet<T>.Write(packet, in data);
+
         packet.Send(toClient, ignoreClient);
+    }
+
+    public static void HandlePacket(BinaryReader reader, int whoAmI) {
+        ushort id = reader.ReadUInt16();
+        if(id > _packetTypeDataTable.Count) {
+            ModContent.GetInstance<ModImpl>().Logger.Debug($"Invalid packet id of {id} received!");
+            return;
+        }
+
+        _packetTypeDataTable[id].InvokeReceive.Invoke(reader, whoAmI);
     }
 
     public static void RegisterPacketType<T>() where T : unmanaged, IPacket {
