@@ -13,16 +13,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Assets\Sound\Music\" />
-      <Folder Include="Assets\Textures\Tiles\Shipyard\" />
-      <Folder Include="Networking\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <AdditionalFiles Remove="Assets\Textures\Tiles\Shipyard\HangerTile.png" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\WaterMod.Generator\WaterMod.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     </ItemGroup>
 
