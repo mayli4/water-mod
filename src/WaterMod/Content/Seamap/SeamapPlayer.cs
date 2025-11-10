@@ -73,7 +73,8 @@ internal sealed class SeamapPlayer : ModPlayer {
             }
         }
     }
-    
+
+#if  DEBUG
     [UsedImplicitly]
     [SubscribesTo<ModSystemHooks.PostDrawTiles>]
     static void DrawLifeText(ModSystemHooks.PostDrawTiles.Original orig, ModSystem system) {
@@ -103,6 +104,7 @@ internal sealed class SeamapPlayer : ModPlayer {
         
         Main.spriteBatch.End();
     }
+#endif
 }
 
 
@@ -110,7 +112,6 @@ internal sealed class SeamapPlayer : ModPlayer {
 internal partial record struct ShipHealthPacket(int PlayerId, int CurrentShipHealth) {
     [PacketHandler]
     public static void OnReceive(in ShipHealthPacket packet, int whoAmI) {
-
         packet.Deconstruct(out int playerId, out int currentShipHealth);
 
         if (playerId is < 0 or >= Main.maxPlayers)

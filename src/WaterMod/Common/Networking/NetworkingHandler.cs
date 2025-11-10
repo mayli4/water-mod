@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Sockets;
 using System.Runtime.InteropServices;
-using WaterMod.Generator;
 
 namespace WaterMod.Common.Networking;
 
+//credits to LolXD87 for the gist draft that inspired this implementation: https://gist.github.com/LoLXD8783/374fa5d35f231436f86a1eac4af01899
+
 internal partial class NetworkingHandler {
     private static readonly Dictionary<Type, PacketTypeData> _typeToMetadata = [];
-    private static List<PacketTypeData> _packetTypeDataTable = [];
+    private static readonly List<PacketTypeData> _packetTypeDataTable = [];
 
     public static void SendPacket<T>(in T data, int toClient = -1, int ignoreClient = -1) where T : unmanaged, IPacket {
         if(!_typeToMetadata.TryGetValue(typeof(T), out PacketTypeData id))
