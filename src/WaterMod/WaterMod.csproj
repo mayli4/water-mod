@@ -1,6 +1,6 @@
-﻿<Project Sdk="Tomat.Terraria.ModLoader.Sdk">
+﻿<Project Sdk="Tomat.Terraria.ModLoader.Sdk/1.0.8">
 
-    <PropertyGroup>
+	<PropertyGroup>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
 
@@ -15,6 +15,7 @@
     <ItemGroup>
       <Folder Include="Assets\Sound\Music\" />
       <Folder Include="Assets\Textures\Tiles\Shipyard\" />
+      <Folder Include="Networking\" />
     </ItemGroup>
 
     <ItemGroup>

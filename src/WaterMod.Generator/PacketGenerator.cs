@@ -1,8 +1,10 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
+using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Threading;
+using System.Xml;
 using WaterMod.Generator.Models;
 using WaterMod.Generator.Utils;
 
@@ -12,59 +14,112 @@ namespace WaterMod.Generator;
 [Generator(LanguageNames.CSharp)]
 public class PacketGenerator : IIncrementalGenerator {
     private const string DeclaredEntityAttribute = """
-        using System;
-
         namespace WaterMod.Generator;
 
-        [AttributeUsage(AttributeTargets.Struct)]
-        public class PacketAttribute : Attribute { }
+        [global::System.AttributeUsage(global::System.AttributeTargets.Struct)]
+        internal class PacketAttribute : global::System.Attribute;
+        [global::System.AttributeUsage(global::System.AttributeTargets.Method)]
+        internal class PacketHandlerAttribute : global::System.Attribute;
         """;
 
     private const string PacketAttributeMetadataName = "WaterMod.Generator.PacketAttribute";
+    private const string PacketHandlerAttributeMetadataName = "WaterMod.Generator.PacketHandlerAttribute";
 
     public void Initialize(IncrementalGeneratorInitializationContext context) {
         context.RegisterPostInitializationOutput(c => c.AddSource("PacketAttribute.g.cs", DeclaredEntityAttribute));
 
         IncrementalValuesProvider<PacketModel> models =
-            context.SyntaxProvider.ForAttributeWithMetadataName(PacketAttributeMetadataName, (node, _) => true, CreatePacketModel);
+            context.SyntaxProvider.ForAttributeWithMetadataName(PacketAttributeMetadataName, (node, _) => node is TypeDeclarationSyntax, CreatePacketModel);
 
-        var sourceFiles = models.Select(ModelToSource);
+        context.RegisterSourceOutput(models.Select(PacketModelToSource), CreateSource);
 
-        context.RegisterSourceOutput(sourceFiles, (ctx, source) =>
-        {
+        IncrementalValuesProvider<PacketHandlerModel> handlers =
+            context.SyntaxProvider.ForAttributeWithMetadataName(PacketHandlerAttributeMetadataName, (node, _) => node is MethodDeclarationSyntax, CreatePacketHandlerModel);
+
+        context.RegisterSourceOutput(handlers.Collect().Combine(models.Collect()).Select(PacketHandlerModelToSource), CreateSource);
+
+        void CreateSource(SourceProductionContext ctx, (string Name, string Source) source) {
             if(source == default)
                 return;
             ctx.AddSource(source.Name, source.Source);
-        });
+        }
+    }
+
+    private static PacketHandlerModel CreatePacketHandlerModel(GeneratorAttributeSyntaxContext context, CancellationToken ct) {
+        MethodDeclarationSyntax method = (MethodDeclarationSyntax)context.TargetNode;
+        if(context.SemanticModel.GetDeclaredSymbol(method) is not IMethodSymbol methodSymbol)
+            return default;
+
+        if(methodSymbol.Parameters.Length != 2)
+            return default;
+            
+        string packetTypeName = methodSymbol.Parameters[0].Type.ToString();
+
+        if(methodSymbol.ReceiverType is null)
+            return default;
+            
+        return new PacketHandlerModel(methodSymbol.ReceiverType.ToString(), methodSymbol.Name, packetTypeName);
     }
 
     private static PacketModel CreatePacketModel(GeneratorAttributeSyntaxContext context, CancellationToken ct) {
-        StructDeclarationSyntax type = (StructDeclarationSyntax)context.TargetNode;
+        TypeDeclarationSyntax type = (TypeDeclarationSyntax)context.TargetNode;
         if(context.SemanticModel.GetDeclaredSymbol(type) is not INamedTypeSymbol { TypeKind: TypeKind.Struct } structTypeSymbol)
             return default;
-
         Stack<TypeDeclarationModel> outerTypes = new();
 
         INamedTypeSymbol outerType = structTypeSymbol.ContainingType;
-        do {
+        while(outerType is not null) {
             outerTypes.Push(new TypeDeclarationModel(
                     outerType.IsRecord,
                     outerType.TypeKind,
                     outerType.Name
                     ));
             outerType = outerType.ContainingType;
-        } while(outerType is not null);
+        }
 
         return new PacketModel(
-            structTypeSymbol.ContainingNamespace.IsGlobalNamespace ? null : structTypeSymbol.ContainingNamespace.ToString(), 
+            structTypeSymbol.ContainingNamespace.IsGlobalNamespace ? null : structTypeSymbol.ContainingNamespace.ToString(),
+            structTypeSymbol.ToString(),
             new TypeDeclarationModel(structTypeSymbol.IsRecord, TypeKind.Struct, structTypeSymbol.Name), 
             new EquatableArray<TypeDeclarationModel>(outerTypes.ToArray()));
     }
 
-    private static (string Name, string Source) ModelToSource(PacketModel model, CancellationToken ct) {
+    private static (string Name, string Source) PacketHandlerModelToSource((ImmutableArray<PacketHandlerModel>, ImmutableArray<PacketModel>) models, CancellationToken ct) {
+        var handlerModels = models.Item1;
+        var packetModels = models.Item2;
+
+        CodeBuilder cb = new CodeBuilder();
+
+        cb
+            .AppendLine("// <auto-generated />")
+            .AppendLine()
+            .AppendLine("namespace WaterMod.Common.Networking;")
+            .AppendLine()
+            .AppendLine("partial class NetworkingHandler")
+            .Scope()
+                .AppendLine("static NetworkingHandler()")
+                .Scope()
+                    .Foreach(handlerModels.AsSpan(), ct, (in PacketHandlerModel model, CodeBuilder cb, CancellationToken _) =>
+                    {
+                        cb.Append("global::WaterMod.Common.Networking.Packet<global::").Append(model.HandlerFor).Append(">.OnReceive += global::")
+                            .Append(model.ReceiverType).Append(".")
+                            .Append(model.MethodName)
+                            .AppendLine(";");
+                    })
+                    .AppendLine()
+                    .Foreach(packetModels.AsSpan(), ct, (in PacketModel model, CodeBuilder cb, CancellationToken _) =>
+                    {
+                        cb.Append("RegisterPacketType<global::").Append(model.FullyQualifiedName).AppendLine(">();");
+                    })
+                .Unscope()
+            .Unscope();
+
+        return new("NetworkingHandler.g.cs", cb.ToString());
+    }
+
+    private static (string Name, string Source) PacketModelToSource(PacketModel model, CancellationToken ct) {
         if(model == default)
             return default;
-
         CodeBuilder cb = new CodeBuilder();
 
         string? @namespace = model.Namespace;
@@ -85,10 +140,7 @@ public class PacketGenerator : IIncrementalGenerator {
                     }).AppendLine(typeInfo.Name).Scope())
                     
                     .AppendLine("[global::System.Runtime.InteropServices.StructLayout(global::System.Runtime.InteropServices.LayoutKind.Sequential, Pack = 1)]")
-                    .Append("partial ").If(model.Type.IsRecord, c => c.Append("record ")).Append("struct ").Append(model.Type.Name).Append(" : global::WaterMod.Networking.IPacket").AppendLine()
-
-                    .Scope()
-                    .Unscope()
+                    .Append("partial ").If(model.Type.IsRecord, c => c.Append("record ")).Append("struct ").Append(model.Type.Name).Append(" : global::WaterMod.Common.Networking.IPacket;").AppendLine()
 
                 .Foreach((ReadOnlySpan<TypeDeclarationModel>)model.NestedTypes, ct, (in TypeDeclarationModel s, CodeBuilder cb, CancellationToken _) => cb.Unscope())
 
