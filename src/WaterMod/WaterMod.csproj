@@ -1,4 +1,4 @@
-<Project Sdk="Tomat.Terraria.ModLoader.Sdk">
+﻿<Project Sdk="Tomat.Terraria.ModLoader.Sdk">
 
     <PropertyGroup>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -19,6 +19,10 @@
 
     <ItemGroup>
       <AdditionalFiles Remove="Assets\Textures\Tiles\Shipyard\HangerTile.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\WaterMod.Generator\WaterMod.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     </ItemGroup>
 
 </Project>
