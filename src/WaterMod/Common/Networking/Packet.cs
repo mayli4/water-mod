@@ -12,7 +12,7 @@ delegate void ReceivePacket<T>(in T packet, int fromWho);
 internal class Packet<T> where T : unmanaged, IPacket {
     public static event ReceivePacket<T>? OnReceive;
 
-    public static void Recieve(in T data, int fromWho) {
+    public static void Receive(in T data, int fromWho) {
         OnReceive?.Invoke(in data, fromWho);
     }
 
