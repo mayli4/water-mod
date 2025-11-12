@@ -15,7 +15,7 @@ internal class SeamapUI {
     static void SubscribeToHooks() {
         On_Main.DrawInterface_16_MapOrMinimap += On_MainOnDrawInterface_16_MapOrMinimap;
     }
-    
+
     [UsedImplicitly]
     [OnUnload]
     static void UnsubscribeFromHooks() {
@@ -28,23 +28,23 @@ internal class SeamapUI {
         orig();
 
         if(!SubworldSystem.IsActive<SeamapSubworld>()) return;
-        
+
         PlayerInput.Triggers.Current.MapFull = false;
         PlayerInput.Triggers.Current.MapStyle = false;
     }
-    
+
     [UsedImplicitly]
     [SubscribesTo<ModSystemHooks.ModifyInterfaceLayers>]
     static void InjectCustomMinimap(ModSystemHooks.ModifyInterfaceLayers.Original orig, ModSystem self, List<GameInterfaceLayer> layers) {
-        orig(layers); 
-        
+        orig(layers);
+
         if(!SubworldSystem.IsActive<SeamapSubworld>()) return;
 
         int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
         layers.RemoveAll(layer => layer.Name.Equals("Vanilla: Resource Bars"));
         layers.RemoveAll(layer => layer.Name.Equals("Vanilla: Inventory"));
 
-        if (mouseTextIndex != -1) {
+        if(mouseTextIndex != -1) {
             layers.Insert(
                 mouseTextIndex,
                 new LegacyGameInterfaceLayer(
@@ -70,7 +70,7 @@ internal class SeamapUI {
             );
         }
     }
-    
+
     static void On_MainOnDrawInterface_16_MapOrMinimap(On_Main.orig_DrawInterface_16_MapOrMinimap orig, Main self) {
         if(SubworldSystem.IsActive<SeamapSubworld>()) return;
 

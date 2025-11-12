@@ -2,6 +2,6 @@
 
 internal class SeamapNetworking {
     static void HandlePackets() {
-        
+
     }
 }

@@ -12,7 +12,7 @@ public sealed class ShipyardBiome : ModBiome {
     public override void SpecialVisuals(Player player, bool isActive) {
         base.SpecialVisuals(player, isActive);
 
-        if (isActive /* && !ShipyardGenerationSystem.Repaired */) {
+        if(isActive /* && !ShipyardGenerationSystem.Repaired */) {
             player.ZoneGraveyard = true;
         }
     }

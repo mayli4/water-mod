@@ -18,59 +18,60 @@ public class ShipPlayer : ModPlayer {
     public override void Initialize() {
         _previousShipCurrentLife = ShipCurrentLife;
     }
-    
+
     public void TakeShipDamage(int damage) {
         ShipCurrentLife -= damage;
-        if (ShipCurrentLife < 0) {
+        if(ShipCurrentLife < 0) {
             ShipCurrentLife = 0;
-            if (Player.whoAmI == Main.myPlayer || Main.netMode == NetmodeID.Server) {
+            if(Player.whoAmI == Main.myPlayer || Main.netMode == NetmodeID.Server) {
                 Player.KillMe(PlayerDeathReason.ByOther(1), 1, 0);
             }
         }
     }
-    
+
     public void HealShipDamage(int amount) {
         ShipCurrentLife += amount;
-        if (ShipCurrentLife > ShipMaxLife) {
+        if(ShipCurrentLife > ShipMaxLife) {
             ShipCurrentLife = ShipMaxLife;
         }
     }
 
     public override void PostUpdate() {
-        if(Main.keyState.IsKeyDown(Keys.O) && !Main.oldKeyState.IsKeyDown(Keys.O) ) {
-            if (Main.netMode != NetmodeID.MultiplayerClient || Player.whoAmI == Main.myPlayer) {
+        if(Main.keyState.IsKeyDown(Keys.O) && !Main.oldKeyState.IsKeyDown(Keys.O)) {
+            if(Main.netMode != NetmodeID.MultiplayerClient || Player.whoAmI == Main.myPlayer) {
                 TakeShipDamage(5);
             }
         }
-        
-        if(Main.keyState.IsKeyDown(Keys.P) && !Main.oldKeyState.IsKeyDown(Keys.P) ) {
-            if (Main.netMode != NetmodeID.MultiplayerClient || Player.whoAmI == Main.myPlayer) {
+
+        if(Main.keyState.IsKeyDown(Keys.P) && !Main.oldKeyState.IsKeyDown(Keys.P)) {
+            if(Main.netMode != NetmodeID.MultiplayerClient || Player.whoAmI == Main.myPlayer) {
                 HealShipDamage(5);
             }
         }
-        
-        if (ShipCurrentLife != _previousShipCurrentLife) {
+
+        if(ShipCurrentLife != _previousShipCurrentLife) {
             _previousShipCurrentLife = ShipCurrentLife;
-            
-            if (Main.netMode == NetmodeID.MultiplayerClient && Player.whoAmI == Main.myPlayer) {
+
+            if(Main.netMode == NetmodeID.MultiplayerClient && Player.whoAmI == Main.myPlayer) {
                 new ShipHealthPacket(Player.whoAmI, ShipCurrentLife).Send();
-            } else if (Main.netMode == NetmodeID.Server) {
+            }
+            else if(Main.netMode == NetmodeID.Server) {
                 new ShipHealthPacket(Player.whoAmI, ShipCurrentLife).Send(ignoreClient: Player.whoAmI);
             }
         }
     }
-    
+
 #if DEBUG
     [UsedImplicitly]
     [SubscribesTo<ModSystemHooks.PostDrawTiles>]
     static void DrawLifeText(ModSystemHooks.PostDrawTiles.Original orig, ModSystem system) {
         orig();
-        
+
         Main.spriteBatch.Begin();
-        
-        for (int i = 0; i < Main.maxPlayers; i++) {
+
+        for(int i = 0; i < Main.maxPlayers; i++) {
             var currentPlayer = Main.player[i];
-            
+
             if(!currentPlayer.active || currentPlayer.dead) {
                 continue;
             }
@@ -79,7 +80,7 @@ public class ShipPlayer : ModPlayer {
 
             string healthText = $"ship hp: {player.ShipCurrentLife}/{player.ShipMaxLife}";
             Color textColor = Color.White;
-                                    
+
             var font = FontAssets.MouseText.Value;
 
             var textSize = font.MeasureString(healthText);
@@ -90,7 +91,7 @@ public class ShipPlayer : ModPlayer {
 
             Main.spriteBatch.DrawString(font, healthText, drawPos, textColor, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
-        
+
         Main.spriteBatch.End();
     }
 #endif
@@ -102,7 +103,7 @@ internal partial record struct ShipHealthPacket(int PlayerId, int CurrentShipHea
     public static void OnReceive(in ShipHealthPacket packet, int whoAmI) {
         packet.Deconstruct(out int playerId, out int currentShipHealth);
 
-        if (playerId is < 0 or >= Main.maxPlayers)
+        if(playerId is < 0 or >= Main.maxPlayers)
             return;
 
         foreach(var player in Main.ActivePlayers) {
@@ -110,7 +111,7 @@ internal partial record struct ShipHealthPacket(int PlayerId, int CurrentShipHea
             seamapPlayer.ShipCurrentLife = currentShipHealth;
         }
 
-        if (Main.netMode == NetmodeID.Server) {
+        if(Main.netMode == NetmodeID.Server) {
             new ShipHealthPacket(playerId, currentShipHealth).Send(ignoreClient: whoAmI);
         }
     }

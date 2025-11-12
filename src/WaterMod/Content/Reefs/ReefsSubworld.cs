@@ -15,9 +15,9 @@ internal sealed class ReefsSubworld : Subworld {
     public override int Height => 1200;
 
     public override string Name => "Coral Reefs";
-    
+
     public override void OnEnter() {
-        if (ModContent.GetInstance<ReefsAchievement>() is { } achievement) {
+        if(ModContent.GetInstance<ReefsAchievement>() is { } achievement) {
             achievement.SubworldEnteredCondition.Complete();
         }
         base.OnEnter();
@@ -30,11 +30,11 @@ internal sealed class ReefsSubworld : Subworld {
             Main.worldSurface = Main.maxTilesY - 42;
             Main.rockLayer = Main.maxTilesY;
         }),
-        new InitialShoalsSurfacePass("Initial Shoals Block Placement", 1.0f), 
-        new SmoothPass("smoothy", 0.4f), 
+        new InitialShoalsSurfacePass("Initial Shoals Block Placement", 1.0f),
+        new SmoothPass("smoothy", 0.4f),
         new FillWaterPass("Fill It Up!", 0.3f)
     };
-    
+
     public override void OnLoad() {
         //SubworldSystem.noReturn = true;
     }
@@ -42,18 +42,18 @@ internal sealed class ReefsSubworld : Subworld {
     public override void Update() {
         Liquid.UpdateLiquid();
         if(!SubworldSystem.IsActive<ReefsSubworld>()) return;
-        
-        if (Main.maxTilesX != Width || Main.maxTilesY != Height) {
+
+        if(Main.maxTilesX != Width || Main.maxTilesY != Height) {
             return;
         }
-        
+
         if(Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Z) && !Main.oldKeyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Z))
             Main.NewText(InitialShoalsSurfacePass.GetMoundHeight((int)(Main.LocalPlayer.Center.X / 16), 40, 60));
 
         if(Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.X) &&
            !Main.oldKeyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.X)) {
-            for (int x = 0; x < Main.maxTilesX; x++) {
-                for (int y = 0; y < Main.maxTilesY; y++) {
+            for(int x = 0; x < Main.maxTilesX; x++) {
+                for(int y = 0; y < Main.maxTilesY; y++) {
                     Main.tile[x, y].ClearEverything();
                 }
             }
