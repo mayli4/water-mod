@@ -146,7 +146,6 @@ float4 main(float2 fragCoord : SV_POSITION, float2 tex_coords : TEXCOORD0, float
         finalPixelColorMultiplier.rgb = tintedWaterColor * water_effect_power;
         finalPixelColorMultiplier.a = gradientWaterColor.a;
         
-        // NEW: Apply dithering to the water as well
         float2 pixelatedCoords = floor(panelCoords / pixel);
         float dither = bayer_2x2(pixelatedCoords) - 0.5f;
         float quantizationStepSize = 1.0f / max(1.0f, color_quantization_resolution.x - 1.0f);
