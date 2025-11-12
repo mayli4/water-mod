@@ -2,13 +2,21 @@
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using WaterMod.Common.Networking;
-using WaterMod.Generator;
 
 namespace WaterMod.Common.Networking;
 
-delegate void ReceivePacket<T>(in T packet, int fromWho);
+/// <summary>
+///     A delegate for handling a received packet of type <typeparamref name="T"/>.
+/// </summary>
+///     <typeparam name="T">The type of the packet being received.</typeparam>
+///     <param name="packet">The deserialized packet data.</param>
+///     <param name="fromWho">The client id from whom the packet was received.</param>
+internal delegate void ReceivePacket<T>(in T packet, int fromWho);
 
+/// <summary>
+///     Contains methods for writing and reading packets to and from a binary stream, and manages event subscriptions for packet receiving.
+/// </summary>
+///     <typeparam name="T">A struct that represents the packet.</typeparam>
 internal class Packet<T> where T : unmanaged, IPacket {
     public static event ReceivePacket<T>? OnReceive;
 
