@@ -21,10 +21,7 @@ partial class ModImpl : IHasCustomAuthorMessage {
         CloudAutoloadingEnabled = false;
     }
     
-    public string GetAuthorText()
-    {
-        return AuthorText.GetAuthorTooltip(this, Mods.WaterMod.UI.ModIcon.AuthorHeader.GetTextValue());
-    }
+    public string GetAuthorText() => AuthorText.GetAuthorTooltip(this, Mods.WaterMod.UI.ModIcon.AuthorHeader.GetTextValue());
 
     public override void HandlePacket(System.IO.BinaryReader reader, int whoAmI) => NetworkingHandler.HandlePacket(reader, whoAmI);
 

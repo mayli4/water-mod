@@ -1,27 +1,24 @@
 ﻿using Daybreak.Common.Features.Hooks;
 using JetBrains.Annotations;
-using Microsoft.Xna.Framework.Input;
-using ReLogic.Graphics;
 using SubworldLibrary;
-using System.IO;
-using Terraria.DataStructures;
-using Terraria.GameContent;
-using Terraria.ID;
-using WaterMod.Utilities;
-using WaterMod.Generator;
 
 namespace WaterMod.Content.Seamap;
 
 internal sealed class SeamapPlayer : ModPlayer {
-    public override void PreUpdate() {
+    
+    [UsedImplicitly]
+    [SubscribesTo<ModPlayerHooks.PreUpdate>]
+    static void RestrictMovement(ModPlayerHooks.PreUpdate.Original orig, ModPlayer player) {
+        orig();
+        
         if (!SubworldSystem.IsActive<SeamapSubworld>())
             return;
 
-        Player.position = Player.oldPosition;
+        player.Player.position = player.Player.oldPosition;
 
-        Player.position.X = 0;
-        Player.position.Y = 0;
+        player.Player.position.X = 0;
+        player.Player.position.Y = 0;
 
-        Player.fallStart = (int)(Player.position.Y / 16f);
+        player.Player.fallStart = (int)(player.Player.position.Y / 16f);
     }
 }
