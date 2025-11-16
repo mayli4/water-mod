@@ -10,6 +10,7 @@ using Terraria.Graphics.Effects;
 using Terraria.ID;
 using WaterMod.Utilities;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
+using System.Linq;
 
 namespace WaterMod.Common.Ambience;
 
@@ -38,9 +39,8 @@ internal sealed class BoidSystem {
     private const float max_velocity = 2f;
 
     private static readonly List<FlockData> flock_data = new();
-    private static int _nextFlockId;
 
-    private struct FlockData {
+    internal struct FlockData {
         public Texture2D Atlas;
         public int StartBoidIndex;
         public int EndBoidIndex;
@@ -54,8 +54,10 @@ internal sealed class BoidSystem {
             if(_boids.Length < _maxBoids) {
                 Array.Resize(ref _boids, (int)_maxBoids);
             }
-            if(_presenceMask.Length < _maxBoids / bits_per_mask) {
-                Array.Resize(ref _presenceMask, (int)Math.Max(1, _maxBoids / bits_per_mask));
+            
+            int requiredMaskLength = (int)((_maxBoids + bits_per_mask - 1) / bits_per_mask);
+            if(_presenceMask.Length < requiredMaskLength) {
+                Array.Resize(ref _presenceMask, requiredMaskLength);
             }
         }
     }
@@ -71,9 +73,7 @@ internal sealed class BoidSystem {
     static void Unload() {
         Array.Clear(_boids);
         Array.Clear(_presenceMask);
-
         flock_data.Clear();
-        _nextFlockId = 0;
     }
 
     [UsedImplicitly]
@@ -86,15 +86,16 @@ internal sealed class BoidSystem {
         const int maxBoidLifeTime = 300 * 60;
         const float maxOffScreenDespawnDistanceSqr = 3000f * 3000f;
 
-        for(int maskIndex = 0, baseIndex = 0; maskIndex < _presenceMask.Length; maskIndex++, baseIndex += bits_per_mask) {
+        for(int maskIndex = 0; maskIndex < _presenceMask.Length; maskIndex++) {
             ref ulong maskRef = ref _presenceMask[maskIndex];
             ulong maskCopy = maskRef;
 
-            while(maskCopy != 0) {
-                int bitIndex = BitOperations.TrailingZeroCount(maskCopy);
-                int globalBoidIndex = baseIndex + bitIndex;
+            if (maskCopy == 0) continue;
 
-                maskCopy &= ~(1ul << bitIndex);
+            for (int bitIndex = 0; bitIndex < bits_per_mask; bitIndex++) {
+                if ((maskCopy & (1ul << bitIndex)) == 0) continue;
+
+                int globalBoidIndex = (maskIndex * bits_per_mask) + bitIndex;
                 if(globalBoidIndex >= _boids.Length) continue;
 
                 ref var currentBoid = ref _boids[globalBoidIndex];
@@ -102,28 +103,39 @@ internal sealed class BoidSystem {
                 bool despawn = currentBoid.LifeTime++ >= maxBoidLifeTime || Vector2.DistanceSquared(currentBoid.Position, screenCenter) >= maxOffScreenDespawnDistanceSqr;
 
                 if(despawn) {
-                    DeallocateBoid(maskIndex, bitIndex);
+                    DeallocateBoid(globalBoidIndex);
                 }
             }
         }
 
-        foreach(var data in flock_data) {
-            if(data.StartBoidIndex < 0 || data.EndBoidIndex > _boids.Length || data.StartBoidIndex >= data.EndBoidIndex) {
-                continue;
-            }
+        for(int maskIndex = 0; maskIndex < _presenceMask.Length; maskIndex++) {
+            ulong maskCopy = _presenceMask[maskIndex];
 
-            var currentFlockBoids = _boids.AsSpan(data.StartBoidIndex, data.EndBoidIndex - data.StartBoidIndex);
+            if (maskCopy == 0) continue;
 
-            for(int i = 0; i < currentFlockBoids.Length; i++) {
-                int globalBoidIndex = data.StartBoidIndex + i;
-                if(!IsBoidActive(globalBoidIndex)) {
-                    continue;
-                }
+            for (int bitIndex = 0; bitIndex < bits_per_mask; bitIndex++)
+            {
+                if ((maskCopy & (1ul << bitIndex)) == 0) continue;
+
+                int globalBoidIndex = (maskIndex * bits_per_mask) + bitIndex;
+                if(globalBoidIndex >= _boids.Length) continue;
 
                 ref Boid boidToUpdate = ref _boids[globalBoidIndex];
-                UpdateBoid(ref boidToUpdate, currentFlockBoids);
+
+                FlockData? currentFlockData = null;
+                for(int fIdx = 0; fIdx < flock_data.Count; fIdx++) {
+                    if (globalBoidIndex >= flock_data[fIdx].StartBoidIndex && globalBoidIndex < flock_data[fIdx].EndBoidIndex) {
+                        currentFlockData = flock_data[fIdx];
+                        break;
+                    }
+                }
+
+                if (currentFlockData.HasValue) {
+                    UpdateBoid(ref boidToUpdate, currentFlockData.Value, globalBoidIndex);
+                }
             }
         }
+
 
         for(int i = flock_data.Count - 1; i >= 0; i--) {
             var flockData = flock_data[i];
@@ -136,7 +148,6 @@ internal sealed class BoidSystem {
             }
             if(!hasActiveBoids) {
                 flock_data.RemoveAt(i);
-                _nextFlockId--;
             }
         }
 
@@ -154,14 +165,16 @@ internal sealed class BoidSystem {
 
         Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
-        for(int maskIndex = 0, baseIndex = 0; maskIndex < _presenceMask.Length; maskIndex++, baseIndex += bits_per_mask) {
-            var maskCopy = _presenceMask[maskIndex];
+        for(int maskIndex = 0; maskIndex < _presenceMask.Length; maskIndex++) {
+            ulong maskCopy = _presenceMask[maskIndex];
 
-            while(maskCopy != 0) {
-                int bitIndex = BitOperations.TrailingZeroCount(maskCopy);
-                maskCopy &= ~(1ul << bitIndex);
+            if (maskCopy == 0) continue;
 
-                int globalBoidIndex = baseIndex + bitIndex;
+            for (int bitIndex = 0; bitIndex < bits_per_mask; bitIndex++)
+            {
+                if ((maskCopy & (1ul << bitIndex)) == 0) continue;
+
+                int globalBoidIndex = (maskIndex * bits_per_mask) + bitIndex;
                 if(globalBoidIndex >= _boids.Length) continue;
 
                 ref var boid = ref _boids[globalBoidIndex];
@@ -194,40 +207,39 @@ internal sealed class BoidSystem {
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static void DeallocateBoid(int maskIndex, int bitIndex) {
+    private static void DeallocateBoid(int globalBoidIndex) {
+        if(globalBoidIndex < 0 || globalBoidIndex >= MaxBoids) {
+            return;
+        }
+        int maskIndex = globalBoidIndex / bits_per_mask;
+        int bitIndex = globalBoidIndex % bits_per_mask;
         _presenceMask[maskIndex] &= ~(1ul << bitIndex);
+        _boids[globalBoidIndex] = default;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int AllocateBoidIndex() {
-        int index, maskIndex;
-        int baseIndex;
+        int maskIndex;
 
-        for(maskIndex = 0, baseIndex = 0; maskIndex < _presenceMask.Length; maskIndex++, baseIndex += bits_per_mask) {
+        for(maskIndex = 0; maskIndex < _presenceMask.Length; maskIndex++) {
             int bitIndex = BitOperations.TrailingZeroCount(~_presenceMask[maskIndex]);
 
-            if(bitIndex != bits_per_mask) {
-                index = baseIndex + bitIndex;
+            if(bitIndex < bits_per_mask) {
+                int index = (maskIndex * bits_per_mask) + bitIndex;
                 if(index < MaxBoids) {
-                    _presenceMask[maskIndex] |= 1ul << bitIndex;
+                    _presenceMask[maskIndex] |= (1ul << bitIndex);
                     return index;
                 }
             }
         }
 
-        if(MaxBoids == 0) return -1;
-
-        index = Main.rand.Next((int)MaxBoids);
-        int oldMaskIndex = index / bits_per_mask;
-        int oldBitIndex = index % bits_per_mask;
-        _presenceMask[oldMaskIndex] |= 1ul << oldBitIndex;
-
-        return index;
+        return -1;
     }
 
     public static Vector2 AvoidTiles(Vector2 position, Vector2 velocity, int range) {
         var sum = Vector2.Zero;
         var tilePos = position.ToTileCoordinates();
+        float rangeSq = range * range;
 
         const int tileRange = 2;
 
@@ -245,23 +257,23 @@ internal sealed class BoidSystem {
 
                     if(tile.HasTile && Main.tileSolid[tile.TileType]) {
                         isObstacle = true;
-                    }
-                    else if(tile.LiquidAmount > 0) {
+                    } else if(tile.LiquidAmount > 0) {
                         if(tile.LiquidAmount < 255 || tile.LiquidType != LiquidID.Water) {
                             isObstacle = true;
                         }
-                    }
-                    else if(tile is { HasTile: false, LiquidAmount: 0 }) {
+                    } else if(tile is { HasTile: false, LiquidAmount: 0 }) {
                         isObstacle = true;
                     }
 
 
-                    if(pdistSq < range * range && pdistSq > 0.001f && isObstacle) {
-                        var d = position - tileCenter;
-                        var norm = Vector2.Normalize(d);
-                        var weight = norm / (pdistSq / (16f * 16f));
-                        sum += weight;
+                    if(!(pdistSq < rangeSq) || !(pdistSq > 0.001f) || !isObstacle) {
+                        continue;
                     }
+
+                    var d = position - tileCenter;
+                    var norm = Vector2.Normalize(d);
+                    var weight = norm / (pdistSq / (16f * 16f));
+                    sum += weight;
                 }
             }
         }
@@ -280,9 +292,11 @@ internal sealed class BoidSystem {
         }
 
         float pdistSq = Vector2.DistanceSquared(position, Main.LocalPlayer.Center);
+        float rangeSq = range * range;
+
         var sum = Vector2.Zero;
 
-        if(pdistSq < range * range && pdistSq > 0.001f) {
+        if(pdistSq < rangeSq && pdistSq > 0.001f) {
             var d = position - Main.LocalPlayer.Center;
             var norm = Vector2.Normalize(d);
             sum += norm;
@@ -296,14 +310,16 @@ internal sealed class BoidSystem {
         return Vector2.Zero;
     }
 
-    public static Vector2 Separation(Vector2 currentPosition, Vector2 currentVelocity, Span<Boid> flockBoids, int range) {
+    public static Vector2 Separation(Vector2 currentPosition, Vector2 currentVelocity, in FlockData flockInfo, int globalCurrentBoidIndex, int range) {
         int count = 0;
         var sum = Vector2.Zero;
         float rangeSq = range * range;
 
-        foreach(var otherBoid in flockBoids) {
-            if(otherBoid.Position == currentPosition && otherBoid.Velocity == currentVelocity) continue;
+        for (int i = flockInfo.StartBoidIndex; i < flockInfo.EndBoidIndex; i++) {
+            if (i == globalCurrentBoidIndex) continue;
+            if (!IsBoidActive(i)) continue;
 
+            ref Boid otherBoid = ref _boids[i];
             float distSq = Vector2.DistanceSquared(currentPosition, otherBoid.Position);
             if(distSq < rangeSq && distSq > 0.001f) {
                 var d = currentPosition - otherBoid.Position;
@@ -323,13 +339,16 @@ internal sealed class BoidSystem {
         return Vector2.Zero;
     }
 
-    public static Vector2 Alignment(Vector2 currentPosition, Vector2 currentVelocity, Span<Boid> flockBoids, int range) {
+    public static Vector2 Alignment(Vector2 currentPosition, Vector2 currentVelocity, in FlockData flockInfo, int globalCurrentBoidIndex, int range) {
         int count = 0;
         var sum = Vector2.Zero;
         float rangeSq = range * range;
 
-        foreach(var otherBoid in flockBoids) {
-            if(otherBoid.Position == currentPosition && otherBoid.Velocity == currentVelocity) continue;
+        for (int i = flockInfo.StartBoidIndex; i < flockInfo.EndBoidIndex; i++) {
+            if (i == globalCurrentBoidIndex) continue;
+            if (!IsBoidActive(i)) continue;
+
+            ref Boid otherBoid = ref _boids[i];
 
             float distSq = Vector2.DistanceSquared(currentPosition, otherBoid.Position);
             if(distSq < rangeSq && distSq > 0.001f) {
@@ -349,13 +368,16 @@ internal sealed class BoidSystem {
         return Vector2.Zero;
     }
 
-    public static Vector2 Cohesion(Vector2 currentPosition, Vector2 currentVelocity, Span<Boid> flockBoids, int range) {
+    public static Vector2 Cohesion(Vector2 currentPosition, Vector2 currentVelocity, in FlockData flockInfo, int globalCurrentBoidIndex, int range) {
         int count = 0;
         var sum = Vector2.Zero;
         float rangeSq = range * range;
 
-        foreach(var otherBoid in flockBoids) {
-            if(otherBoid.Position == currentPosition && otherBoid.Velocity == currentVelocity) continue;
+        for (int i = flockInfo.StartBoidIndex; i < flockInfo.EndBoidIndex; i++) {
+            if (i == globalCurrentBoidIndex) continue;
+            if (!IsBoidActive(i)) continue;
+
+            ref Boid otherBoid = ref _boids[i];
 
             float distSq = Vector2.DistanceSquared(currentPosition, otherBoid.Position);
             if(distSq < rangeSq && distSq > 0.001f) {
@@ -383,10 +405,10 @@ internal sealed class BoidSystem {
         boid.Acceleration = Vector2.Zero;
     }
 
-    public static void UpdateBoid(ref Boid boid, Span<Boid> flockBoids) {
-        boid.Acceleration += Separation(boid.Position, boid.Velocity, flockBoids, 25) * 1.5f;
-        boid.Acceleration += Alignment(boid.Position, boid.Velocity, flockBoids, 50) * 1f;
-        boid.Acceleration += Cohesion(boid.Position, boid.Velocity, flockBoids, 50) * 1f;
+    public static void UpdateBoid(ref Boid boid, in FlockData flockInfo, int globalBoidIndex) {
+        boid.Acceleration += Separation(boid.Position, boid.Velocity, flockInfo, globalBoidIndex, 25) * 1.5f;
+        boid.Acceleration += Alignment(boid.Position, boid.Velocity, flockInfo, globalBoidIndex, 50) * 1f;
+        boid.Acceleration += Cohesion(boid.Position, boid.Velocity, flockInfo, globalBoidIndex, 50) * 1f;
         boid.Acceleration += AvoidPlayers(boid.Position, boid.Velocity, 50) * 4f;
         boid.Acceleration += AvoidTiles(boid.Position, boid.Velocity, 100) * 5f;
 
@@ -428,11 +450,11 @@ internal sealed class BoidSystem {
             return;
         }
 
-        if(flock_data.Count + numBoids > MaxBoids && MaxBoids > 0) {
+        int currentActiveBoids = _presenceMask.Sum(BitOperations.PopCount);
+
+        if(currentActiveBoids + numBoids > MaxBoids && MaxBoids > 0) {
             return;
         }
-
-        int currentFlockId = _nextFlockId++;
 
         int minBoidIndex = int.MaxValue;
         int maxBoidIndex = int.MinValue;
@@ -472,7 +494,8 @@ internal sealed class BoidSystem {
                 Velocity = Main.rand.NextVector2Circular(max_velocity * 0.5f, max_velocity * 0.5f),
                 Acceleration = Vector2.Zero,
                 Color = randomColor,
-                TextureFrame = rect
+                TextureFrame = rect,
+                LifeTime = 0
             };
         }
 
@@ -487,6 +510,5 @@ internal sealed class BoidSystem {
             EndBoidIndex = maxBoidIndex + 1
         };
         flock_data.Add(newFlock);
-
     }
 }
