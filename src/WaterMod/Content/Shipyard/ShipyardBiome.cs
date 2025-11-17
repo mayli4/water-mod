@@ -13,7 +13,7 @@ public sealed class ShipyardBiome : ModBiome {
         base.SpecialVisuals(player, isActive);
 
         if(isActive /* && !ShipyardGenerationSystem.Repaired */) {
-            player.ZoneGraveyard = true;
+            //player.ZoneGraveyard = true;
         }
     }
 }

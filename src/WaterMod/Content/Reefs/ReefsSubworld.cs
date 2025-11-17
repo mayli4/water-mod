@@ -11,8 +11,8 @@ namespace WaterMod.Content.Reefs;
  */
 
 internal sealed class ReefsSubworld : Subworld {
-    public override int Width => 1000;
-    public override int Height => 1200;
+    public override int Width => 900;
+    public override int Height => 1600;
 
     public override string Name => "Coral Reefs";
 

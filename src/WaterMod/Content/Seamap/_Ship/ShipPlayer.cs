@@ -89,7 +89,7 @@ public class ShipPlayer : ModPlayer {
             drawPos.Y += currentPlayer.height / 2 + 10;
             drawPos.X -= textSize.X / 2;
 
-            Main.spriteBatch.DrawString(font, healthText, drawPos, textColor, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            //Main.spriteBatch.DrawString(font, healthText, drawPos, textColor, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
         Main.spriteBatch.End();
