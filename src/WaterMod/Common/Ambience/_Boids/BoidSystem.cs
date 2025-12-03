@@ -77,9 +77,8 @@ internal sealed class BoidSystem {
     }
 
     [UsedImplicitly]
-    [SubscribesTo<ModSystemHooks.PostUpdateEverything>]
-    static void PostUpdateEverything(ModSystemHooks.PostUpdateEverything.Original orig, ModSystem _) {
-        orig();
+    [ModSystemHooks.PostUpdateEverything]
+    static void PostUpdateEverything() {
 
         var screenCenter = Main.screenPosition + new Vector2(Main.screenWidth, Main.screenHeight) / 2f;
 
@@ -158,9 +157,8 @@ internal sealed class BoidSystem {
     }
 
     [UsedImplicitly]
-    [SubscribesTo<ModSystemHooks.PostDrawTiles>]
-    static void PostDrawTiles(ModSystemHooks.PostDrawTiles.Original orig, ModSystem _) {
-        orig();
+    [ModSystemHooks.PostDrawTiles]
+    static void PostDrawTiles() {
         if(Main.spriteBatch == null || Main.gameMenu) return;
 
         Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);

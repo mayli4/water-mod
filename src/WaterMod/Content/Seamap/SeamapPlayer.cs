@@ -5,20 +5,15 @@ using SubworldLibrary;
 namespace WaterMod.Content.Seamap;
 
 internal sealed class SeamapPlayer : ModPlayer {
-
-    [UsedImplicitly]
-    [SubscribesTo<ModPlayerHooks.PreUpdate>]
-    static void RestrictMovement(ModPlayerHooks.PreUpdate.Original orig, ModPlayer player) {
-        orig();
-
+    public override void PreUpdate() {
         if(!SubworldSystem.IsActive<SeamapSubworld>())
             return;
 
-        player.Player.position = player.Player.oldPosition;
+        Player.position = Player.oldPosition;
 
-        player.Player.position.X = 0;
-        player.Player.position.Y = 0;
+        Player.position.X = 0;
+        Player.position.Y = 0;
 
-        player.Player.fallStart = (int)(player.Player.position.Y / 16f);
+        Player.fallStart = (int)(Player.position.Y / 16f);
     }
 }

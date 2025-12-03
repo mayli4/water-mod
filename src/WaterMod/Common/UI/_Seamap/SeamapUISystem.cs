@@ -23,10 +23,8 @@ internal class SeamapUI {
     }
 
     [UsedImplicitly]
-    [SubscribesTo<ModSystemHooks.PostUpdateInput>]
-    static void KillMinimapInputs(ModSystemHooks.PostUpdateInput.Original orig, ModSystem self) {
-        orig();
-
+    [ModSystemHooks.PostUpdateInput]
+    static void KillMinimapInputs() {
         if(!SubworldSystem.IsActive<SeamapSubworld>()) return;
 
         PlayerInput.Triggers.Current.MapFull = false;
@@ -34,9 +32,8 @@ internal class SeamapUI {
     }
 
     [UsedImplicitly]
-    [SubscribesTo<ModSystemHooks.ModifyInterfaceLayers>]
-    static void InjectCustomMinimap(ModSystemHooks.ModifyInterfaceLayers.Original orig, ModSystem self, List<GameInterfaceLayer> layers) {
-        orig(layers);
+    [ModSystemHooks.ModifyInterfaceLayers]
+    static void InjectCustomMinimap(List<GameInterfaceLayer> layers) {
 
         if(!SubworldSystem.IsActive<SeamapSubworld>()) return;
 

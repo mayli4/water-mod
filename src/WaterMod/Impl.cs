@@ -27,7 +27,7 @@ partial class ModImpl : IHasCustomAuthorMessage {
 
 #if DEBUG
     [UsedImplicitly]
-    [SubscribesTo<ModSystemHooks.PostUpdateEverything>(Side = ModSide.Client)]
+    [ModSystemHooks.PostUpdateEverything(Side = ModSide.Client)]
     static void DebugKeys(ModSystemHooks.PostUpdateEverything.Original orig, ModSystem self) {
         orig();
 

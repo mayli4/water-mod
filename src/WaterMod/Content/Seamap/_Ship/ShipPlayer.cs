@@ -61,40 +61,40 @@ public class ShipPlayer : ModPlayer {
         }
     }
 
-#if DEBUG
-    [UsedImplicitly]
-    [SubscribesTo<ModSystemHooks.PostDrawTiles>]
-    static void DrawLifeText(ModSystemHooks.PostDrawTiles.Original orig, ModSystem system) {
-        orig();
-
-        Main.spriteBatch.Begin();
-
-        for(int i = 0; i < Main.maxPlayers; i++) {
-            var currentPlayer = Main.player[i];
-
-            if(!currentPlayer.active || currentPlayer.dead) {
-                continue;
-            }
-
-            var player = currentPlayer.GetModPlayer<ShipPlayer>();
-
-            string healthText = $"ship hp: {player.ShipCurrentLife}/{player.ShipMaxLife}";
-            Color textColor = Color.White;
-
-            var font = FontAssets.MouseText.Value;
-
-            var textSize = font.MeasureString(healthText);
-
-            var drawPos = currentPlayer.Center - Main.screenPosition;
-            drawPos.Y += currentPlayer.height / 2 + 10;
-            drawPos.X -= textSize.X / 2;
-
-            //Main.spriteBatch.DrawString(font, healthText, drawPos, textColor, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-        }
-
-        Main.spriteBatch.End();
-    }
-#endif
+//#if DEBUG
+//     [UsedImplicitly]
+//     [SubscribesTo<ModSystemHooks.PostDrawTiles>]
+//     static void DrawLifeText(ModSystemHooks.PostDrawTiles.Original orig, ModSystem system) {
+//         orig();
+//
+//         Main.spriteBatch.Begin();
+//
+//         for(int i = 0; i < Main.maxPlayers; i++) {
+//             var currentPlayer = Main.player[i];
+//
+//             if(!currentPlayer.active || currentPlayer.dead) {
+//                 continue;
+//             }
+//
+//             var player = currentPlayer.GetModPlayer<ShipPlayer>();
+//
+//             string healthText = $"ship hp: {player.ShipCurrentLife}/{player.ShipMaxLife}";
+//             Color textColor = Color.White;
+//
+//             var font = FontAssets.MouseText.Value;
+//
+//             var textSize = font.MeasureString(healthText);
+//
+//             var drawPos = currentPlayer.Center - Main.screenPosition;
+//             drawPos.Y += currentPlayer.height / 2 + 10;
+//             drawPos.X -= textSize.X / 2;
+//
+//             //Main.spriteBatch.DrawString(font, healthText, drawPos, textColor, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+//         }
+//
+//         Main.spriteBatch.End();
+//     }
+// #endif
 }
 
 [Packet]
