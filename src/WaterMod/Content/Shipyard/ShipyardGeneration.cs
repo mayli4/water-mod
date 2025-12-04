@@ -39,22 +39,19 @@ internal sealed class ShipyardGenerationSystem : ModSystem {
     /// </summary>
     public event Action OnShipRepair;
 
-    public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
-    {
+    public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight) {
         base.ModifyWorldGenTasks(tasks, ref totalWeight);
 
         var index = tasks.FindIndex(static pass => pass.Name == "Final Cleanup");
 
-        if (index == -1)
-        {
+        if(index == -1) {
             return;
         }
 
         tasks.Insert(index + 1, new PassLegacy(SHIPYARD_PASS_NAME, GenerateShipyard));
     }
 
-    public override void ClearWorld()
-    {
+    public override void ClearWorld() {
         base.ClearWorld();
 
         Repaired = false;
@@ -63,8 +60,7 @@ internal sealed class ShipyardGenerationSystem : ModSystem {
         SailboatOrigin = Point.Zero;
     }
 
-    public override void SaveWorldData(TagCompound tag)
-    {
+    public override void SaveWorldData(TagCompound tag) {
         base.SaveWorldData(tag);
 
         tag["repaired"] = Repaired;
@@ -73,8 +69,7 @@ internal sealed class ShipyardGenerationSystem : ModSystem {
         tag["sailboatOrigin"] = SailboatOrigin;
     }
 
-    public override void LoadWorldData(TagCompound tag)
-    {
+    public override void LoadWorldData(TagCompound tag) {
         base.LoadWorldData(tag);
 
         Repaired = tag.GetBool("repaired");
@@ -83,8 +78,7 @@ internal sealed class ShipyardGenerationSystem : ModSystem {
         SailboatOrigin = tag.Get<Point>("sailboatOrigin");
     }
 
-    private void GenerateShipyard(GenerationProgress progress, GameConfiguration configuration)
-    {
+    private void GenerateShipyard(GenerationProgress progress, GameConfiguration configuration) {
         progress.Message = "asd";
 
         var foundOcean = false;
@@ -92,12 +86,10 @@ internal sealed class ShipyardGenerationSystem : ModSystem {
         var startX = 0;
         var startY = (int)(Main.worldSurface * 0.35f);
 
-        while (!foundOcean)
-        {
+        while(!foundOcean) {
             var tile = Framing.GetTileSafely(startX, startY);
 
-            if (tile.HasLiquidType(LiquidID.Water) && tile.HasLiquidAmount(byte.MaxValue))
-            {
+            if(tile.HasLiquidType(LiquidID.Water) && tile.HasLiquidAmount(byte.MaxValue)) {
                 foundOcean = true;
                 break;
             }
@@ -107,12 +99,10 @@ internal sealed class ShipyardGenerationSystem : ModSystem {
 
         var foundBeach = false;
 
-        while (!foundBeach)
-        {
+        while(!foundBeach) {
             var tile = Framing.GetTileSafely(startX, startY);
 
-            if (tile.HasTileType(TileID.Sand) && tile.IsSolid())
-            {
+            if(tile.HasTileType(TileID.Sand) && tile.IsSolid()) {
                 foundBeach = true;
                 break;
             }
@@ -120,18 +110,17 @@ internal sealed class ShipyardGenerationSystem : ModSystem {
             startX++;
         }
 
-        if (!foundOcean || !foundBeach)
-        {
+        if(!foundOcean || !foundBeach) {
             return;
         }
 
         var biggestY = startY;
 
-        for (var i = startX; i < startX + 50; i++) {
-            for (var j = 0; j < Main.maxTilesY; j++) {
+        for(var i = startX; i < startX + 50; i++) {
+            for(var j = 0; j < Main.maxTilesY; j++) {
                 var tile = Framing.GetTileSafely(i, j);
 
-                if (tile.HasTileType(TileID.Sand) && !tile.HasAnyLiquidAmount() && j < biggestY) {
+                if(tile.HasTileType(TileID.Sand) && !tile.HasAnyLiquidAmount() && j < biggestY) {
                     biggestY = j;
                     break;
                 }
@@ -149,8 +138,7 @@ internal sealed class ShipyardGenerationSystem : ModSystem {
     }
 }
 
-public sealed class ShipyardMicroBiome : MicroBiome
-{
+public sealed class ShipyardMicroBiome : MicroBiome {
     /// <summary>
     ///     The path to the Shipyard structure file, not qualified by the mod's internal name.
     /// </summary>
@@ -206,8 +194,7 @@ public sealed class ShipyardMicroBiome : MicroBiome
     /// </summary>
     public const int SAILOR_ROOM_OFFSET_Y = 10;
 
-    public override bool Place(Point origin, StructureMap structures)
-    {
+    public override bool Place(Point origin, StructureMap structures) {
         var mod = ModContent.GetInstance<ModImpl>();
         var dims = Point16.Zero;
 
@@ -217,8 +204,7 @@ public sealed class ShipyardMicroBiome : MicroBiome
 
         var canPlaceShipyard = structures.CanPlace(new Rectangle(origin.X, origin.Y, dims.X, dims.Y));
 
-        if (!canPlaceShipyard)
-        {
+        if(!canPlaceShipyard) {
             return false;
         }
 
@@ -226,8 +212,7 @@ public sealed class ShipyardMicroBiome : MicroBiome
 
         structures.AddProtectedStructure(new Rectangle(origin.X, origin.Y, dims.X, dims.Y));
 
-        for (var j = origin.Y + 30; j < origin.Y + dims.Y; j++)
-        {
+        for(var j = origin.Y + 30; j < origin.Y + dims.Y; j++) {
             var offset = WorldGen.genRand.Next(-4, 4);
 
             var strength = WorldGen.genRand.Next(10, 17);
@@ -236,9 +221,9 @@ public sealed class ShipyardMicroBiome : MicroBiome
             WorldGen.TileRunner(origin.X + dims.X + offset, j, strength, steps, TileID.Sand, true);
         }
 
-        for (var i = 0; i < PILLAR_WIDTH; i++) { }
-        
-        
+        for(var i = 0; i < PILLAR_WIDTH; i++) { }
+
+
 
         // for (var i = 0; i < PILLAR_WIDTH; i++)
         // {
@@ -261,8 +246,7 @@ public sealed class ShipyardMicroBiome : MicroBiome
     }
 }
 
-public sealed class BrokenSailboatMicroBiome : MicroBiome
-{
+public sealed class BrokenSailboatMicroBiome : MicroBiome {
     /// <summary>
     ///     The path to the Broken Sailboat structure file, not qualified by the mod's internal name.
     /// </summary>
@@ -277,8 +261,7 @@ public sealed class BrokenSailboatMicroBiome : MicroBiome
 
         var canPlaceSailboat = structures.CanPlace(new Rectangle(origin.X, origin.Y, sailboatSize.X, sailboatSize.Y));
 
-        if (!canPlaceSailboat)
-        {
+        if(!canPlaceSailboat) {
             return false;
         }
 

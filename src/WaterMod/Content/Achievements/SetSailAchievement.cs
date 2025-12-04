@@ -24,12 +24,13 @@ internal class SetSailAchievement : ModAchievement {
     [OnLoad]
     [UsedImplicitly]
     static void ReplaceAchievementSound() {
-        On_AchievementInitializer.OnAchievementCompleted += (orig, achievement) => {
-            if (achievement.ModAchievement is SetSailAchievement) {
+        On_AchievementInitializer.OnAchievementCompleted += (orig, achievement) =>
+        {
+            if(achievement.ModAchievement is SetSailAchievement) {
                 var sound = Assets.Sound.SetSailAchievement.Asset;
-                
+
                 Main.NewText(Language.GetTextValue("Achievements.Completed", AchievementTagHandler.GenerateTag(achievement)));
-                if (SoundEngine.FindActiveSound(sound) == null)
+                if(SoundEngine.FindActiveSound(sound) == null)
                     SoundEngine.PlayTrackedSound(sound);
             }
             else {

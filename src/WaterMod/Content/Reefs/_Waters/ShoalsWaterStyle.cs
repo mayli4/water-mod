@@ -22,7 +22,7 @@ internal sealed class ShoalsWaterStyle : ModWaterStyle {
 
 internal sealed class ShoalWaterfallStyle : ModWaterfallStyle {
     public override string Texture => Assets.Textures.Waters.ShoalsWaterfallStyle.KEY;
-    
-    public override void AddLight(int i, int j) 
+
+    public override void AddLight(int i, int j)
         => Lighting.AddLight(new Vector2(i, j).ToWorldCoordinates(), Color.Cyan.ToVector3() * 0.5f);
 }

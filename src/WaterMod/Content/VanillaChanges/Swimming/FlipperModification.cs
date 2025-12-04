@@ -13,7 +13,7 @@ internal sealed class FlipperGlobalItem : GlobalItem {
 
         player.accFlipper = false;
 
-        if (!player.TryGetModPlayer(out SwimmingPlayer swimmingPlayer)) {
+        if(!player.TryGetModPlayer(out SwimmingPlayer swimmingPlayer)) {
             return;
         }
 

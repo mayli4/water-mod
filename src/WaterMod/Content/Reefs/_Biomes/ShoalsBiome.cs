@@ -17,7 +17,7 @@ internal sealed class ShoalsBiome : ModBiome {
     }
 
     public override void SpecialVisuals(Player player, bool isActive) {
-        if (isActive) {
+        if(isActive) {
             Main.bgStyle = Main.oceanBG;
             Main.rockLayer = Main.maxTilesY;
         }

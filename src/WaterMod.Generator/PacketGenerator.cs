@@ -4,16 +4,15 @@ using System;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Threading;
-using System.Xml;
 using WaterMod.Generator.Models;
 using WaterMod.Generator.Utils;
+// ReSharper disable VariableHidesOuterVariable
 
 namespace WaterMod.Generator;
 
-
 [Generator(LanguageNames.CSharp)]
 public class PacketGenerator : IIncrementalGenerator {
-    private const string DeclaredEntityAttribute = """
+    private const string declared_entity_attribute = """
         namespace WaterMod.Generator;
 
         [global::System.AttributeUsage(global::System.AttributeTargets.Struct)]
@@ -22,23 +21,23 @@ public class PacketGenerator : IIncrementalGenerator {
         internal class PacketHandlerAttribute : global::System.Attribute;
         """;
 
-    private const string PacketAttributeMetadataName = "WaterMod.Generator.PacketAttribute";
-    private const string PacketHandlerAttributeMetadataName = "WaterMod.Generator.PacketHandlerAttribute";
+    private const string packet_attribute_metadata_name = "WaterMod.Generator.PacketAttribute";
+    private const string packet_handler_attribute_metadata_name = "WaterMod.Generator.PacketHandlerAttribute";
 
     public void Initialize(IncrementalGeneratorInitializationContext context) {
-        context.RegisterPostInitializationOutput(c => c.AddSource("PacketAttribute.g.cs", DeclaredEntityAttribute));
+        context.RegisterPostInitializationOutput(c => c.AddSource("PacketAttribute.g.cs", declared_entity_attribute));
 
         IncrementalValuesProvider<PacketModel> models =
-            context.SyntaxProvider.ForAttributeWithMetadataName(PacketAttributeMetadataName, (node, _) => node is TypeDeclarationSyntax, CreatePacketModel);
+            context.SyntaxProvider.ForAttributeWithMetadataName(packet_attribute_metadata_name, (node, _) => node is TypeDeclarationSyntax, CreatePacketModel);
 
-        context.RegisterSourceOutput(models.Select(PacketModelToSource), CreateSource);
+        context.RegisterSourceOutput(models.Select(PacketModelToSource), createSource);
 
         IncrementalValuesProvider<PacketHandlerModel> handlers =
-            context.SyntaxProvider.ForAttributeWithMetadataName(PacketHandlerAttributeMetadataName, (node, _) => node is MethodDeclarationSyntax, CreatePacketHandlerModel);
+            context.SyntaxProvider.ForAttributeWithMetadataName(packet_handler_attribute_metadata_name, (node, _) => node is MethodDeclarationSyntax, CreatePacketHandlerModel);
 
-        context.RegisterSourceOutput(handlers.Collect().Combine(models.Collect()).Select(PacketHandlerModelToSource), CreateSource);
+        context.RegisterSourceOutput(handlers.Collect().Combine(models.Collect()).Select(PacketHandlerModelToSource), createSource);
 
-        void CreateSource(SourceProductionContext ctx, (string Name, string Source) source) {
+        void createSource(SourceProductionContext ctx, (string Name, string Source) source) {
             if(source == default)
                 return;
             ctx.AddSource(source.Name, source.Source);
@@ -52,12 +51,12 @@ public class PacketGenerator : IIncrementalGenerator {
 
         if(methodSymbol.Parameters.Length != 2)
             return default;
-            
+
         string packetTypeName = methodSymbol.Parameters[0].Type.ToString();
 
         if(methodSymbol.ReceiverType is null)
             return default;
-            
+
         return new PacketHandlerModel(methodSymbol.ReceiverType.ToString(), methodSymbol.Name, packetTypeName);
     }
 
@@ -80,7 +79,7 @@ public class PacketGenerator : IIncrementalGenerator {
         return new PacketModel(
             structTypeSymbol.ContainingNamespace.IsGlobalNamespace ? null : structTypeSymbol.ContainingNamespace.ToString(),
             structTypeSymbol.ToString(),
-            new TypeDeclarationModel(structTypeSymbol.IsRecord, TypeKind.Struct, structTypeSymbol.Name), 
+            new TypeDeclarationModel(structTypeSymbol.IsRecord, TypeKind.Struct, structTypeSymbol.Name),
             new EquatableArray<TypeDeclarationModel>(outerTypes.ToArray()));
     }
 
@@ -99,7 +98,7 @@ public class PacketGenerator : IIncrementalGenerator {
             .Scope()
                 .AppendLine("static NetworkingHandler()")
                 .Scope()
-                    .Foreach(handlerModels.AsSpan(), ct, (in PacketHandlerModel model, CodeBuilder cb, CancellationToken _) =>
+                    .Foreach(handlerModels.AsSpan(), ct, (in model, cb, _) =>
                     {
                         cb.Append("global::WaterMod.Common.Networking.Packet<global::").Append(model.HandlerFor).Append(">.OnReceive += global::")
                             .Append(model.ReceiverType).Append(".")
@@ -107,7 +106,7 @@ public class PacketGenerator : IIncrementalGenerator {
                             .AppendLine(";");
                     })
                     .AppendLine()
-                    .Foreach(packetModels.AsSpan(), ct, (in PacketModel model, CodeBuilder cb, CancellationToken _) =>
+                    .Foreach(packetModels.AsSpan(), ct, (in model, cb, _) =>
                     {
                         cb.Append("RegisterPacketType<global::").Append(model.FullyQualifiedName).AppendLine(">();");
                     })
@@ -130,7 +129,7 @@ public class PacketGenerator : IIncrementalGenerator {
             .If(@namespace is not null, @namespace, (ns, c) => c.Append("namespace ").AppendLine(ns).Scope())
 
                 .Foreach((ReadOnlySpan<TypeDeclarationModel>)model.NestedTypes, ct,
-                    (in TypeDeclarationModel typeInfo, CodeBuilder cb, CancellationToken _) =>
+                    (in typeInfo, cb, _) =>
                     cb.Append("partial ").If(typeInfo.IsRecord, c => c.Append("record")).Append(typeInfo.TypeKind switch
                     {
                         TypeKind.Struct => "struct ",
@@ -138,19 +137,19 @@ public class PacketGenerator : IIncrementalGenerator {
                         TypeKind.Interface => "interface ",
                         _ => throw new NotImplementedException()
                     }).AppendLine(typeInfo.Name).Scope())
-                    
+
                     .AppendLine("[global::System.Runtime.InteropServices.StructLayout(global::System.Runtime.InteropServices.LayoutKind.Sequential, Pack = 1)]")
                     .Append("partial ").If(model.Type.IsRecord, c => c.Append("record ")).Append("struct ").Append(model.Type.Name).Append(" : global::WaterMod.Common.Networking.IPacket;").AppendLine()
 
-                .Foreach((ReadOnlySpan<TypeDeclarationModel>)model.NestedTypes, ct, (in TypeDeclarationModel s, CodeBuilder cb, CancellationToken _) => cb.Unscope())
+                .Foreach((ReadOnlySpan<TypeDeclarationModel>)model.NestedTypes, ct, (in _, _, _) => cb.Unscope())
 
             .If(@namespace is not null, c => c.Unscope());
 
-        return new(SanitizeNameForFile(model.Type.Name), cb.ToString());
+        return new(sanitizeNameForFile(model.Type.Name), cb.ToString());
 
-        static string SanitizeNameForFile(string name) {
-            const string FileEnd = ".g.cs";
-            Span<char> newName = stackalloc char[name.Length + FileEnd.Length];
+        static string sanitizeNameForFile(string name) {
+            const string fileEnd = ".g.cs";
+            Span<char> newName = stackalloc char[name.Length + fileEnd.Length];
             for(int i = 0; i < name.Length; i++) {
                 newName[i] = name[i] switch
                 {
@@ -158,20 +157,20 @@ public class PacketGenerator : IIncrementalGenerator {
                     _ => name[i],
                 };
             }
-            FileEnd.AsSpan().CopyTo(newName.Slice(name.Length));
+            fileEnd.AsSpan().CopyTo(newName.Slice(name.Length));
             string res = newName.ToString();
             return res;
         }
     }
 
-    static bool Launched = false;
+    static bool _launched;
 
     [Conditional("DEBUG")]
     [DebuggerStepThrough]
     [DebuggerHidden]
     internal static void LaunchDebugger() {
-        if(!Debugger.IsAttached && !Launched)
+        if(!Debugger.IsAttached && !_launched)
             Debugger.Launch();
-        Launched = true;
+        _launched = true;
     }
 }

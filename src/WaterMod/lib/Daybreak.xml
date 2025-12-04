@@ -118,37 +118,76 @@
                 API extensions for <see cref="T:MonoMod.Cil.ILCursor" />s and related APIs.
             </summary>
         </member>
+        <member name="M:Daybreak.Common.CIL.IlCursorExtensions.Substitute``1(MonoMod.Cil.ILCursor,``0,System.Func{``0,System.Boolean})">
+            <inheritdoc cref="M:Daybreak.Common.CIL.IlCursorExtensions.&lt;G&gt;$35F7F479822F409445C9B976880DEAD1.Substitute``1(``0,System.Func{``0,System.Boolean})"/>
+        </member>
         <member name="M:Daybreak.Common.CIL.IlCursorExtensions.AddVariable``1(MonoMod.Cil.ILCursor)">
-            <summary>
-                Creates a new <see cref="T:Mono.Cecil.Cil.VariableDefinition" /> appended to the body
-                contextualized by the <see cref="T:MonoMod.Cil.ILCursor" />'s
-                <see cref="T:MonoMod.Cil.ILContext" />.
-            </summary>
-            <param name="this">
+            <inheritdoc cref="M:Daybreak.Common.CIL.IlCursorExtensions.&lt;G&gt;$35F7F479822F409445C9B976880DEAD1.AddVariable``1"/>
+        </member>
+        <member name="M:Daybreak.Common.CIL.IlCursorExtensions.AddVariable(MonoMod.Cil.ILCursor,Mono.Cecil.TypeReference)">
+            <inheritdoc cref="M:Daybreak.Common.CIL.IlCursorExtensions.&lt;G&gt;$35F7F479822F409445C9B976880DEAD1.AddVariable(Mono.Cecil.TypeReference)"/>
+        </member>
+        <member name="M:Daybreak.Common.CIL.IlCursorExtensions.AddVariable``1(MonoMod.Cil.ILContext)">
+            <inheritdoc cref="M:Daybreak.Common.CIL.IlCursorExtensions.&lt;G&gt;$3C6B995D7A4DA09E292A1BD25F0878AD.AddVariable``1"/>
+        </member>
+        <member name="M:Daybreak.Common.CIL.IlCursorExtensions.AddVariable(MonoMod.Cil.ILContext,Mono.Cecil.TypeReference)">
+            <inheritdoc cref="M:Daybreak.Common.CIL.IlCursorExtensions.&lt;G&gt;$3C6B995D7A4DA09E292A1BD25F0878AD.AddVariable(Mono.Cecil.TypeReference)"/>
+        </member>
+        <member name="M:Daybreak.Common.CIL.IlCursorExtensions.AddVariable(Mono.Cecil.Cil.MethodBody,Mono.Cecil.TypeReference)">
+            <inheritdoc cref="M:Daybreak.Common.CIL.IlCursorExtensions.&lt;G&gt;$6160D5CF7D5BC94D6AFD4ACCA1B322F3.AddVariable(Mono.Cecil.TypeReference)"/>
+        </member>
+        <member name="T:Daybreak.Common.CIL.IlCursorExtensions.&lt;G&gt;$35F7F479822F409445C9B976880DEAD1.&lt;M&gt;$D87F71F2F95004AAC45C3DF601B05405">
+            <param name="cursor"></param>
+            <param name="cursor">
                 The <see cref="T:MonoMod.Cil.ILCursor" /> whose <see cref="P:MonoMod.Cil.ILCursor.Context" /> to
                 use to determine the <see cref="T:Mono.Cecil.Cil.MethodBody" /> to append to import
                 the CLR-represented type into a Cecil-represented type.
             </param>
-            <typeparam name="T">
-                The CLR-represented type to import as a Cecil-represented type to
-                define the variable.
-            </typeparam>
-            <returns>The newly-created <see cref="T:Mono.Cecil.Cil.VariableDefinition" />.</returns>
         </member>
-        <member name="M:Daybreak.Common.CIL.IlCursorExtensions.AddVariable(MonoMod.Cil.ILCursor,Mono.Cecil.TypeReference)">
+        <member name="M:Daybreak.Common.CIL.IlCursorExtensions.&lt;G&gt;$35F7F479822F409445C9B976880DEAD1.Substitute``1(``0,System.Func{``0,System.Boolean})">
+            <summary>
+                Attempts to substitute the value before the cursor given the
+                current value meets a given condition at runtime.
+            </summary>
+            <param name="substitute">
+                The value to substitute the real value with.
+            </param>
+            <param name="shouldSubstitute">
+                Determines whether the value should be substituted.
+            </param>
+            <typeparam name="T">
+                The type of the incoming value and what to potentially
+                substitute it with.
+            </typeparam>
+            <remarks>
+                This API is designed 
+            </remarks>
+        </member>
+        <member name="M:Daybreak.Common.CIL.IlCursorExtensions.&lt;G&gt;$35F7F479822F409445C9B976880DEAD1.AddVariable``1">
             <summary>
                 Creates a new <see cref="T:Mono.Cecil.Cil.VariableDefinition" /> appended to the body
                 contextualized by the <see cref="T:MonoMod.Cil.ILCursor" />'s
                 <see cref="T:MonoMod.Cil.ILContext" />.
             </summary>
-            <param name="this">
-                The <see cref="T:MonoMod.Cil.ILCursor" /> whose <see cref="P:MonoMod.Cil.ILCursor.Context" /> to
-                use to determine the <see cref="T:Mono.Cecil.Cil.MethodBody" /> to append to.
-            </param>
+            <typeparam name="T">
+                The CLR-represented type to import as a Cecil-represented type to
+                define the variable.
+            </typeparam>
+            <returns>The newly-created <see cref="T:Mono.Cecil.Cil.VariableDefinition" />.</returns>
+        </member>
+        <member name="M:Daybreak.Common.CIL.IlCursorExtensions.&lt;G&gt;$35F7F479822F409445C9B976880DEAD1.AddVariable(Mono.Cecil.TypeReference)">
+            <summary>
+                Creates a new <see cref="T:Mono.Cecil.Cil.VariableDefinition" /> appended to the body
+                contextualized by the <see cref="T:MonoMod.Cil.ILCursor" />'s
+                <see cref="T:MonoMod.Cil.ILContext" />.
+            </summary>
             <param name="type">The type of the variable.</param>
             <returns>The newly-created <see cref="T:Mono.Cecil.Cil.VariableDefinition" />.</returns>
         </member>
-        <member name="M:Daybreak.Common.CIL.IlCursorExtensions.AddVariable``1(MonoMod.Cil.ILContext)">
+        <member name="T:Daybreak.Common.CIL.IlCursorExtensions.&lt;G&gt;$3C6B995D7A4DA09E292A1BD25F0878AD.&lt;M&gt;$498FC6076C159F2E9899D591076E8F8B">
+            <param name="il"></param>
+        </member>
+        <member name="M:Daybreak.Common.CIL.IlCursorExtensions.&lt;G&gt;$3C6B995D7A4DA09E292A1BD25F0878AD.AddVariable``1">
             <summary>
                 Creates a new <see cref="T:Mono.Cecil.Cil.VariableDefinition" /> appended to the body
                 contextualized by this <see cref="T:MonoMod.Cil.ILContext" />.
@@ -159,25 +198,43 @@
             </typeparam>
             <returns>The newly-created <see cref="T:Mono.Cecil.Cil.VariableDefinition" />.</returns>
         </member>
-        <member name="M:Daybreak.Common.CIL.IlCursorExtensions.AddVariable(MonoMod.Cil.ILContext,Mono.Cecil.TypeReference)">
+        <member name="M:Daybreak.Common.CIL.IlCursorExtensions.&lt;G&gt;$3C6B995D7A4DA09E292A1BD25F0878AD.AddVariable(Mono.Cecil.TypeReference)">
             <summary>
                 Creates a new <see cref="T:Mono.Cecil.Cil.VariableDefinition" /> appended to the body
                 contextualized by this <see cref="T:MonoMod.Cil.ILContext" />.
             </summary>
-            <param name="this"></param>
             <param name="type">The type of the variable.</param>
             <returns>The newly-created <see cref="T:Mono.Cecil.Cil.VariableDefinition" />.</returns>
         </member>
-        <member name="M:Daybreak.Common.CIL.IlCursorExtensions.AddVariable(Mono.Cecil.Cil.MethodBody,Mono.Cecil.TypeReference)">
+        <member name="T:Daybreak.Common.CIL.IlCursorExtensions.&lt;G&gt;$6160D5CF7D5BC94D6AFD4ACCA1B322F3.&lt;M&gt;$7CE3F0233F720B358808048A2E237E2B">
+            <param name="body">
+                The <see cref="T:Mono.Cecil.Cil.MethodBody" /> to add a new variable to.
+            </param>
+        </member>
+        <member name="M:Daybreak.Common.CIL.IlCursorExtensions.&lt;G&gt;$6160D5CF7D5BC94D6AFD4ACCA1B322F3.AddVariable(Mono.Cecil.TypeReference)">
             <summary>
                 Creates a new <see cref="T:Mono.Cecil.Cil.VariableDefinition" /> appended to this
                 <see cref="T:Mono.Cecil.Cil.MethodBody" />.
             </summary>
-            <param name="this">
-                The <see cref="T:Mono.Cecil.Cil.MethodBody" /> to add a new variable to.
-            </param>
             <param name="type">The type of the variable.</param>
             <returns>The newly-created <see cref="T:Mono.Cecil.Cil.VariableDefinition" />.</returns>
+        </member>
+        <member name="T:Daybreak.Common.CodeAnalysis.ExpectCloneableAttribute">
+            <summary>
+                Requires that the annotated type's <c>IsCloneable</c> property be equal
+                to the value <paramref name="isCloneable"/>.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.CodeAnalysis.ExpectCloneableAttribute.#ctor(System.Boolean)">
+            <summary>
+                Requires that the annotated type's <c>IsCloneable</c> property be equal
+                to the value <paramref name="isCloneable"/>.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.CodeAnalysis.ExpectCloneableAttribute.IsCloneable">
+            <summary>
+                Whether the annotated type <c>IsCloneable</c>.
+            </summary>
         </member>
         <member name="T:Daybreak.Common.Features.Authorship.AuthorTag">
             <summary>
@@ -229,50 +286,142 @@
                 The tag names.
             </summary>
         </member>
-        <member name="E:Daybreak.Common.Features.Hooks.HookLoader.OnEarlyModLoad">
+        <member name="T:Daybreak.Common.Features.Hooks.OmittableAttribute">
             <summary>
-                Internally used to hook into the start of mod loading; useful for
-                injecting content into other mods.
+                Indicates a parameter in a delegate is omittable.
             </summary>
         </member>
-        <member name="T:Daybreak.Common.Features.Hooks.OnLoadAttribute">
+        <member name="T:Daybreak.Common.Features.Hooks.OriginalNameAttribute">
             <summary>
-                Automatically calls the decorated function on load.
-                <br />
-                If the method is instanced, it expects to be part of a parent type
-                implementing <see cref="T:Terraria.ModLoader.ILoadable" /> (in which case it is called
-                directly after <see cref="M:Terraria.ModLoader.ILoadable.Load(Terraria.ModLoader.Mod)" />).
-                <br />
-                If the method is static, it will just be called at the end of
-                <see cref="M:Terraria.ModLoader.Mod.Autoload" />.
+                Indicates a parameter has been renamed.  Required for dynamic binding to
+                support <see cref="T:Daybreak.Common.Features.Hooks.OmittableAttribute"/>-annotated parameters.
+            </summary>
+            <param name="name">The original parameter name.</param>
+        </member>
+        <member name="M:Daybreak.Common.Features.Hooks.OriginalNameAttribute.#ctor(System.String)">
+            <summary>
+                Indicates a parameter has been renamed.  Required for dynamic binding to
+                support <see cref="T:Daybreak.Common.Features.Hooks.OmittableAttribute"/>-annotated parameters.
+            </summary>
+            <param name="name">The original parameter name.</param>
+        </member>
+        <member name="P:Daybreak.Common.Features.Hooks.OriginalNameAttribute.Name">
+            <summary>
+                The original parameter name.
             </summary>
         </member>
-        <member name="P:Daybreak.Common.Features.Hooks.OnLoadAttribute.Side">
+        <member name="T:Daybreak.Common.Features.Hooks.AbstractPermitsVoidAttribute">
+            <summary>
+                
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Hooks.AbstractPermitsVoidAttribute.ModifyExpression(Daybreak.Common.Features.Hooks.HookSubscriber.ReturnExpressionContext)">
+            <summary>
+                Modifies the expression to permit void returns.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.Hooks.HookMetadataAttribute">
+            <summary>
+                Describes the data of a <see cref="T:Daybreak.Common.Features.Hooks.BaseHookAttribute"/>.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Hooks.HookMetadataAttribute.DelegateType">
+            <summary>
+                The delegate type representing the signature of the event.  If not
+                specified, it will attempt to be resolved from
+                <see cref="P:Daybreak.Common.Features.Hooks.HookMetadataAttribute.TypeContainingEvent"/> using <see cref="P:Daybreak.Common.Features.Hooks.HookMetadataAttribute.DelegateName"/>.
+                If still not resolved, it will use the event's type (assuming it was
+                resolved).
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Hooks.HookMetadataAttribute.TypeContainingEvent">
+            <summary>
+                The type containing the event.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Hooks.HookMetadataAttribute.EventName">
+            <summary>
+                The name of the event field within the type.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Hooks.HookMetadataAttribute.DelegateName">
+            <summary>
+                The name of the delegate within <see cref="P:Daybreak.Common.Features.Hooks.HookMetadataAttribute.TypeContainingEvent"/> if
+                <see cref="P:Daybreak.Common.Features.Hooks.HookMetadataAttribute.DelegateType"/> is unspecified.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Hooks.HookMetadataAttribute.CanStack">
+            <summary>
+                Whether multiple of this kind of hook can be applied at once.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.Hooks.BaseHookAttribute">
+            <summary>
+                Shared between all hooking attributes to provide a common base for
+                code analysis and code fixes.  Provides relevant information for parsing
+                out how to handle a given type.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Hooks.BaseHookAttribute.DelegateType">
+            <summary>
+                The delegate type representing the signature of the event.  If not
+                specified, it will attempt to be resolved from
+                <see cref="P:Daybreak.Common.Features.Hooks.BaseHookAttribute.TypeContainingEvent"/> using <see cref="P:Daybreak.Common.Features.Hooks.BaseHookAttribute.DelegateName"/>.
+                If still not resolved, it will use the event's type (assuming it was
+                resolved).
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Hooks.BaseHookAttribute.TypeContainingEvent">
+            <summary>
+                The type containing the event.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Hooks.BaseHookAttribute.EventName">
+            <summary>
+                The name of the event field within the type.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Hooks.BaseHookAttribute.DelegateName">
+            <summary>
+                The name of the delegate within <see cref="P:Daybreak.Common.Features.Hooks.BaseHookAttribute.TypeContainingEvent"/> if
+                <see cref="P:Daybreak.Common.Features.Hooks.BaseHookAttribute.DelegateType"/> is unspecified.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Hooks.BaseHookAttribute.Side">
             <summary>
                 The side to load this on.
             </summary>
         </member>
-        <member name="T:Daybreak.Common.Features.Hooks.OnUnloadAttribute">
+        <member name="M:Daybreak.Common.Features.Hooks.BaseHookAttribute.Apply(System.Reflection.MethodInfo,System.Object)">
             <summary>
-                Automatically calls the decorated function on unload.
-                <br />
-                If the method is instanced, it expects to be part of a parent type
-                implementing <see cref="T:Terraria.ModLoader.ILoadable" />.
-                <br />
-                All methods will be run in reverse order at the start of
-                <see cref="M:Terraria.ModLoader.ModContent.UnloadModContent" />
-                (before <see cref="M:Terraria.ModLoader.MenuLoader.Unload" />).
+                Applies this hook to the instance.
             </summary>
         </member>
-        <member name="P:Daybreak.Common.Features.Hooks.OnUnloadAttribute.Side">
+        <member name="M:Daybreak.Common.Features.Hooks.BaseHookAttribute.#ctor">
+            <summary/>
+        </member>
+        <member name="M:Daybreak.Common.Features.Hooks.BaseHookAttribute.GetDelegateType">
             <summary>
-                The side to load this on.
+                Attempts to resolve the delegate type from the outlined rules.
             </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Hooks.BaseHookAttribute.GetEventInfo">
+            <summary>
+                Attempts to resolve the event from the outlined rules.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Daybreak.Common.Features.Hooks.SubscribesToAttribute">
+            <inheritdoc cref="T:Daybreak.Common.Features.Hooks.SubscribesToAttribute`1"/>
+        </member>
+        <member name="M:Daybreak.Common.Features.Hooks.SubscribesToAttribute.Apply(System.Reflection.MethodInfo,System.Object)">
+            <inheritdoc />
         </member>
         <member name="T:Daybreak.Common.Features.Hooks.SubscribesToAttribute`1">
             <summary>
                 Automatically subscribes the decorated method to the hook of type
-                <typeparamref name="T" /> if applicable.
+                <typeparamref name="T" /> if applicable.  This variant is intended for
+                specially-generated hooks wrapping tModLoader hooks.
                 <br />
                 If this decorates an instance method, the hook will be subscribed when
                 <see cref="M:Terraria.ModLoader.Mod.AddContent(Terraria.ModLoader.ILoadable)" /> is called on the instance.  This means
@@ -285,11 +434,294 @@
                 does not have any generic parameters (technical limitation).
             </summary>
             <typeparam name="T">The hook type to subscribe the method to.</typeparam>
+            <remarks>
+                If the type is annotated with <see cref="T:Terraria.ModLoader.AutoloadAttribute"/>, whether
+                the type is autoload-able is also taken into account.  This means it
+                takes into account the Sided-ness of the containing type and whether
+                autoloading is enabled for it.
+            </remarks>
         </member>
-        <member name="P:Daybreak.Common.Features.Hooks.SubscribesToAttribute`1.Side">
+        <member name="P:Daybreak.Common.Features.Hooks.SubscribesToAttribute`1.DelegateType">
+            <inheritdoc />
+        </member>
+        <member name="P:Daybreak.Common.Features.Hooks.SubscribesToAttribute`1.TypeContainingEvent">
+            <inheritdoc />
+        </member>
+        <member name="P:Daybreak.Common.Features.Hooks.SubscribesToAttribute`1.EventName">
+            <inheritdoc />
+        </member>
+        <member name="P:Daybreak.Common.Features.Hooks.SubscribesToAttribute`1.DelegateName">
+            <inheritdoc />
+        </member>
+        <member name="T:Daybreak.Common.Features.Hooks.OnLoadAttribute">
             <summary>
-                The side to load this on.
+                Automatically calls the decorated function on load.
+                <br />
+                If the method is instanced, it expects to be part of a parent type
+                implementing <see cref="T:Terraria.ModLoader.ILoadable" /> (in which case it is called
+                directly after <see cref="M:Terraria.ModLoader.ILoadable.Load(Terraria.ModLoader.Mod)" />).
+                <br />
+                If the method is static, it will just be called at the end of
+                <see cref="M:Terraria.ModLoader.Mod.Autoload" />.
             </summary>
+            <remarks>
+                If the type is annotated with <see cref="T:Terraria.ModLoader.AutoloadAttribute"/>, whether
+                the type is autoload-able is also taken into account.  This means it
+                takes into account the Sided-ness of the containing type and whether
+                autoloading is enabled for it.
+            </remarks>
+        </member>
+        <member name="M:Daybreak.Common.Features.Hooks.OnLoadAttribute.Apply(System.Reflection.MethodInfo,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="T:Daybreak.Common.Features.Hooks.OnUnloadAttribute">
+            <summary>
+                Automatically calls the decorated function on unload.
+                <br />
+                If the method is instanced, it expects to be part of a parent type
+                implementing <see cref="T:Terraria.ModLoader.ILoadable" />.
+                <br />
+                All methods will be run in reverse order at the start of
+                <see cref="M:Terraria.ModLoader.ModContent.UnloadModContent" />
+                (before <see cref="M:Terraria.ModLoader.MenuLoader.Unload" />).
+            </summary>
+            <remarks>
+                If the type is annotated with <see cref="T:Terraria.ModLoader.AutoloadAttribute"/>, whether
+                the type is autoload-able is also taken into account.  This means it
+                takes into account the Sided-ness of the containing type and whether
+                autoloading is enabled for it.
+            </remarks>
+        </member>
+        <member name="M:Daybreak.Common.Features.Hooks.OnUnloadAttribute.Apply(System.Reflection.MethodInfo,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="E:Daybreak.Common.Features.Hooks.HookLoader.OnEarlyModLoad">
+            <summary>
+                Internally used to hook into the start of mod loading; useful for
+                injecting content into other mods.
+            </summary>
+        </member>
+        <member name="E:Daybreak.Common.Features.Hooks.HookLoader.OnEarlyModUnload">
+            <summary>
+                Internally used to hook into the start of mod unloading; useful for
+                terminating certain systems early.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.Hooks.HookSubscriber">
+            <summary>
+                Provides utilities and APIs for generating delegates with omitted
+                parameters and subscribing to event hooks.  Used to implement
+                <see cref="T:Daybreak.Common.Features.Hooks.BaseHookAttribute"/> and friends.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.Hooks.HookSubscriber.ReturnExpressionContext">
+            <summary>
+                Context used to generate void-permissive return handlers.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Hooks.HookSubscriber.ReturnExpressionContext.#ctor(System.Reflection.ParameterInfo[],System.Linq.Expressions.ParameterExpression[],System.Linq.Expressions.MethodCallExpression)">
+            <summary>
+                Context used to generate void-permissive return handlers.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Hooks.HookSubscriber.HandleSubscriber(Daybreak.Common.Features.Hooks.BaseHookAttribute,System.Reflection.MethodInfo,System.Object)">
+            <summary>
+                Handles wrapping a method per <see cref="M:Daybreak.Common.Features.Hooks.HookSubscriber.BuildWrapper(System.Type,System.Reflection.MethodInfo,System.Object)"/> and
+                subscribing that wrapper to an event given by
+                <paramref name="hookDefinition"/>.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Hooks.HookSubscriber.BuildWrapper``1(System.Reflection.MethodInfo,System.Object)">
+            <inheritdoc cref="M:Daybreak.Common.Features.Hooks.HookSubscriber.BuildWrapper``1(System.Reflection.MethodInfo,System.Object)"/>
+        </member>
+        <member name="M:Daybreak.Common.Features.Hooks.HookSubscriber.BuildWrapper(System.Type,System.Reflection.MethodInfo,System.Object)">
+            <summary>
+                Builds an invocable delegate which wraps the given
+                <see cref="!:bindingMethod"/>.  This wrapped delegate accounts for
+                <see cref="T:Daybreak.Common.Features.Hooks.OmittableAttribute"/>,
+                <see cref="T:Daybreak.Common.Features.Hooks.OriginalNameAttribute"/>, and
+                <see cref="T:Daybreak.Common.Features.Hooks.AbstractPermitsVoidAttribute"/> to build a new delegate
+                which can be invoked with the parameters of the
+                <paramref name="delegateType"/>.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.InterfaceModifiers.HideUserInterfaceModifier">
+            <summary>
+                A special modifier which can fade the UI in and out.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.InterfaceModifiers.InterfaceCapturer">
+            <summary>
+                Responsible for capturing the UI.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.InterfaceModifiers.InterfaceCapturer.Load">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Features.InterfaceModifiers.InterfaceCapturer.PauseCapture">
+            <summary>
+                Pauses the capture, rendering it to the screen rather than the UI
+                target.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.InterfaceModifiers.InterfaceCapturer.ResumeCapture">
+            <summary>
+                Resumes capture.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.InterfaceModifiers.IUserInterfaceModifier">
+            <summary>
+                A modifier applied to render target containing the user interface.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.InterfaceModifiers.IUserInterfaceModifier.Finished">
+            <summary>
+                Whether this modifier is finished applying and may be removed.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.InterfaceModifiers.IUserInterfaceModifier.Update(Daybreak.Common.Features.InterfaceModifiers.UserInterfaceInfo@)">
+            <summary>
+                Updates this modifier's state and the UI rendering info for the
+                frame.
+            </summary>
+            <param name="uiInfo">The UI rendering info.</param>
+        </member>
+        <member name="T:Daybreak.Common.Features.InterfaceModifiers.UserInterfaceInfo">
+            <summary>
+                Determines how to render the UI render target for a frame.
+            </summary>
+            <param name="OriginalPosition">
+                The original position of the UI buffer.  The origin is always
+                <c>(0,0)</c> (the top-left), so this value is generally always
+                <see cref="P:Microsoft.Xna.Framework.Vector2.Zero"/>.
+            </param>
+            <param name="OriginalTexture">
+                The buffer containing the original UI render.
+            </param>
+        </member>
+        <member name="M:Daybreak.Common.Features.InterfaceModifiers.UserInterfaceInfo.#ctor(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.Texture2D)">
+            <summary>
+                Determines how to render the UI render target for a frame.
+            </summary>
+            <param name="OriginalPosition">
+                The original position of the UI buffer.  The origin is always
+                <c>(0,0)</c> (the top-left), so this value is generally always
+                <see cref="P:Microsoft.Xna.Framework.Vector2.Zero"/>.
+            </param>
+            <param name="OriginalTexture">
+                The buffer containing the original UI render.
+            </param>
+        </member>
+        <member name="P:Daybreak.Common.Features.InterfaceModifiers.UserInterfaceInfo.OriginalPosition">
+            <summary>
+                The original position of the UI buffer.  The origin is always
+                <c>(0,0)</c> (the top-left), so this value is generally always
+                <see cref="P:Microsoft.Xna.Framework.Vector2.Zero"/>.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.InterfaceModifiers.UserInterfaceInfo.OriginalTexture">
+            <summary>
+                The buffer containing the original UI render.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.InterfaceModifiers.UserInterfaceInfo.Position">
+            <summary>
+                The position to render the UI at.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.InterfaceModifiers.UserInterfaceInfo.Texture">
+            <summary>
+                The current texture to render as the UI.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.InterfaceModifiers.UserInterfaceInfo.Center">
+            <summary>
+                The center of the image to be rendered, with the
+                <see cref="P:Daybreak.Common.Features.InterfaceModifiers.UserInterfaceInfo.Position"/> offset.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.InterfaceModifiers.UserInterfaceInfo.OriginalCenter">
+            <summary>
+                The original center of the original image to be rendered.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.InterfaceModifiers.UserInterfaceInfo.InventoryButtonOpensSettings">
+            <summary>
+                Whether the inventory button should open the settings menu instead
+                of the inventory.  Useful for cinematic modifiers such as fades
+                which need to give the player a degree of control still.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.InterfaceModifiers.UserInterfaceInfo.Color">
+            <summary>
+                The color to render the texture with.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.InterfaceModifiers.UserInterfaceInfo.Rotation">
+            <summary>
+                The rotation to render the texture with.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.InterfaceModifiers.UserInterfaceInfo.Scale">
+            <summary>
+                The scale to render the texture with.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.InterfaceModifiers.UserInterfaceInfo.SpriteEffects">
+            <summary>
+                The sprite effects to render the texture with.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.InterfaceModifiers.UserInterfaceModifier">
+            <summary>
+                Handles rendering the user interface with various effects.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.InterfaceModifiers.UserInterfaceModifier.Modifiers">
+            <summary>
+                All active modifiers to apply to the interface.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.InterfaceModifiers.UserInterfaceModifier.ShouldCaptureThisFrame">
+            <summary>
+                Whether the user interface should be captured this frame to apply
+                rendering modifiers.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.InterfaceModifiers.UserInterfaceModifier.PostDrawLayers">
+            <summary>
+                Layers to be rendered after the regular interfaces, drawn outside
+                the target.  This renders over the cursor!
+                <br />
+                This is cleared every frame and should be modified in
+                <see cref="M:Terraria.ModLoader.ModSystem.ModifyInterfaceLayers(System.Collections.Generic.List{Terraria.UI.GameInterfaceLayer})"/>.
+                <br />
+                This is still subject to <see cref="F:Terraria.Main.hideUI"/>.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.InterfaceModifiers.UserInterfaceModifier.Add(Daybreak.Common.Features.InterfaceModifiers.IUserInterfaceModifier)">
+            <summary>
+                Adds a new user interface modifier to apply.
+            </summary>
+            <param name="modifier">The user interface modifier.</param>
+        </member>
+        <member name="M:Daybreak.Common.Features.InterfaceModifiers.UserInterfaceModifier.ApplyTo(Daybreak.Common.Features.InterfaceModifiers.UserInterfaceInfo@)">
+            <summary>
+                Applies the currently active modifiers to <paramref name="uiInfo"/>.
+            </summary>
+            <param name="uiInfo">The UI rendering info.</param>
+        </member>
+        <member name="M:Daybreak.Common.Features.InterfaceModifiers.UserInterfaceModifier.Hide(System.Single)">
+            <summary>
+                Attempts to hide the user interface.  This function is special and
+                should be called every frame with the desired delta per frame.  The
+                greatest delta will be used.
+                <br />
+                If this function does not get called for a frame, it will attempt to
+                start showing the UI again, completing in half a second (30 ticks)
+                if it was completely hidden.
+            </summary>
+            <param name="deltaAlpha">The amount to subtract.</param>
         </member>
         <member name="T:Daybreak.Common.Features.Inventory.EquipmentPageId">
             <summary>
@@ -491,6 +923,520 @@
         </member>
         <member name="M:Daybreak.Common.Features.ItemSlots.ItemSlotLoader.Load">
             <inheritdoc />
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.BindingConfigurationAttribute">
+            <summary>
+                An abstract attribute definition which can perform arbitrary
+                configuration of a <see cref="T:Daybreak.Common.Features.Models.Binding`1"/>.  Should be applied to
+                <see cref="T:Daybreak.Common.Features.Models.Bound`1"/> definitions.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.BindingConfigurationAttribute.Configure``1(Daybreak.Common.Features.Models.Binding{``0})">
+            <summary>
+                Configures the <paramref name="binding"/>.
+            </summary>
+            <param name="binding">The <see cref="T:Daybreak.Common.Features.Models.Binding`1"/> to configure.</param>
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.BindingConfigurationAttribute`1">
+            <inheritdoc cref="T:Daybreak.Common.Features.Models.BindingConfigurationAttribute"/>
+            <remarks>
+                Helper for attributes that need the type parameter.
+            </remarks>
+            <typeparam name="T">The binding kind.</typeparam>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.BindingConfigurationAttribute`1.Configure``1(Daybreak.Common.Features.Models.Binding{``0})">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.BindingConfigurationAttribute`1.Configure(Daybreak.Common.Features.Models.Binding{`0})">
+            <inheritdoc cref="M:Daybreak.Common.Features.Models.BindingConfigurationAttribute`1.Configure``1(Daybreak.Common.Features.Models.Binding{``0})"/>
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.ResetToAttribute`1">
+            <summary>
+                Configures the annotated <see cref="T:Daybreak.Common.Features.Models.Bound`1"/>-object to set the value
+                to <paramref name="value"/> in <c>ResetEffects</c>.
+            </summary>
+            <param name="value">The value to reset to.</param>
+            <typeparam name="T">The value type.</typeparam>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.ResetToAttribute`1.#ctor(`0)">
+            <summary>
+                Configures the annotated <see cref="T:Daybreak.Common.Features.Models.Bound`1"/>-object to set the value
+                to <paramref name="value"/> in <c>ResetEffects</c>.
+            </summary>
+            <param name="value">The value to reset to.</param>
+            <typeparam name="T">The value type.</typeparam>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.ResetToAttribute`1.Value">
+            <summary>
+                The value to reset to.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.ResetToAttribute`1.Configure(Daybreak.Common.Features.Models.Binding{`0})">
+            <inheritdoc />
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.ResetToDefaultAttribute`1">
+            <summary>
+                Configures the annotated <see cref="T:Daybreak.Common.Features.Models.Bound`1"/>-object to set the value
+                to its default value specified in the <see cref="T:Daybreak.Common.Features.Models.Bound`1"/>
+                constructor.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.ResetToDefaultAttribute`1.Configure(Daybreak.Common.Features.Models.Binding{`0})">
+            <inheritdoc />
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.SerializeTagAttribute">
+            <summary>
+                Marks that the annotated <see cref="T:Daybreak.Common.Features.Models.Bound`1"/>-object should be
+                serialized and deserialized as <see cref="T:Terraria.ModLoader.IO.TagCompound"/> data.
+            </summary>
+            <param name="tagName">
+                The name to serialize with.  Uses the property name if not set.
+            </param>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.SerializeTagAttribute.#ctor(System.String)">
+            <summary>
+                Marks that the annotated <see cref="T:Daybreak.Common.Features.Models.Bound`1"/>-object should be
+                serialized and deserialized as <see cref="T:Terraria.ModLoader.IO.TagCompound"/> data.
+            </summary>
+            <param name="tagName">
+                The name to serialize with.  Uses the property name if not set.
+            </param>
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.IBinding">
+            <summary>
+                The type-unsafe contract for a <see cref="T:Daybreak.Common.Features.Models.Binding`1"/>.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.IBinding.Reset(Daybreak.Common.Features.Models.IBound)">
+            <inheritdoc cref="P:Daybreak.Common.Features.Models.Binding`1.Reset"/>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.IBinding.SaveTag(Daybreak.Common.Features.Models.IBound,Terraria.ModLoader.IO.TagCompound)">
+            <inheritdoc cref="P:Daybreak.Common.Features.Models.Binding`1.SaveTag"/>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.IBinding.LoadTag(Daybreak.Common.Features.Models.IBound,Terraria.ModLoader.IO.TagCompound)">
+            <inheritdoc cref="P:Daybreak.Common.Features.Models.Binding`1.LoadTag"/>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.IBinding.Configure(System.Reflection.PropertyInfo)">
+            <summary>
+                Configures this binding from attributes on the
+                <see cref="!:property"/>.
+            </summary>
+            <param name="property">The property.</param>
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.Binding`1">
+            <summary>
+                A configuration object determining the behavior of a
+                <see cref="T:Daybreak.Common.Features.Models.Bound`1"/> object.
+                <br />
+                A binding is a singleton object which will be shared across
+                <see cref="T:Daybreak.Common.Features.Models.Bound`1"/> instances bound to it.  The binding does not hold
+                any outside state.
+            </summary>
+            <typeparam name="T">The kind of value.</typeparam>
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.Binding`1.ResetToAction">
+            <summary>
+                Used to reset the <see cref="T:Daybreak.Common.Features.Models.Bound`1"/> object in
+                <c>ResetEffects</c>.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.Binding`1.Reset">
+            <summary>
+                Controls the behavior in <c>ResetEffects</c>.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.Binding`1.SaveTagAction">
+            <summary>
+                Used to write data in <c>SaveData</c>.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.Binding`1.LoadTagAction">
+            <summary>
+                Used to read data in <c>LoadData</c>.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.Binding`1.SaveTag">
+            <summary>
+                Controls behavior in <c>SaveTag</c>.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.Binding`1.LoadTag">
+            <summary>
+                Controls behavior in <c>LoadTag</c>.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.IBound">
+            <summary>
+                The type-unsafe contract of a <see cref="T:Daybreak.Common.Features.Models.Binding`1"/>.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.IBound.Binding">
+            <inheritdoc cref="P:Daybreak.Common.Features.Models.Bound`1.Binding"/>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.IBound.Name">
+            <inheritdoc cref="P:Daybreak.Common.Features.Models.Bound`1.Name"/>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.IBound.DefaultValueProvider">
+            <inheritdoc cref="P:Daybreak.Common.Features.Models.Bound`1.DefaultValueProvider"/>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.IBound.Value">
+            <inheritdoc cref="P:Daybreak.Common.Features.Models.Bound`1.Value"/>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.IBound.Clone">
+            <inheritdoc cref="M:Daybreak.Common.Features.Models.Bound`1.Clone"/>
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.Bound`1">
+            <summary>
+                Represents a value bound to a <see cref="T:Daybreak.Common.Features.Models.Binding`1"/>.
+                <br />
+                A bound object wraps an actual data instance and may be cloned and
+                recreated as needed.
+            </summary>
+            <typeparam name="T">The kind of value.</typeparam>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.Bound`1.Binding">
+            <summary>
+                The shared binding instance this bound object is bound to.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.Bound`1.Name">
+            <summary>
+                The name of this bound object, which should correspond to a property
+                on the owning type.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.Bound`1.DefaultValueProvider">
+            <summary>
+                Creates a new default value.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.Bound`1.Value">
+            <summary>
+                The value held by this bound object.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.Bound`1.#ctor(`0,System.String)">
+            <summary>
+                Initializes the template bound-object. 
+            </summary>
+            <param name="defaultValue">The default value of this object.</param>
+            <param name="name">The name of the property this object is for.</param>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.Bound`1.#ctor(System.Func{`0},System.String)">
+            <summary>
+                Initializes the template bound-object. 
+            </summary>
+            <param name="defaultValueProvider">
+                A function used to initialize the default value of this object.
+                <br />
+                Useful if you need to instantiate a new object each time or
+                something.  Also called on creation of the template!
+            </param>
+            <param name="name">The name of the property this object is for.</param>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.Bound`1.Clone">
+            <summary>
+                Clones this bound object, reinitializing it as needed.  The
+                <see cref="P:Daybreak.Common.Features.Models.Bound`1.Binding"/>, <see cref="P:Daybreak.Common.Features.Models.Bound`1.DefaultValueProvider"/>, and
+                <see cref="P:Daybreak.Common.Features.Models.Bound`1.Name"/> properties will all be shared, but it will point
+                to a different value.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.Bound`1.op_Implicit(Daybreak.Common.Features.Models.Bound{`0})~`0">
+            <summary>
+                Returns the value.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.Bound`1.ResetTo(Daybreak.Common.Features.Models.Binding{`0}.ResetToAction)">
+            <summary>
+                Configures the binding to reset to the provided value.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.Bound`1.ResetTo(System.Func{`0})">
+            <summary>
+                Configures the binding to reset to the provided value.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.Bound`1.ResetToDefault">
+            <summary>
+                Configures the binding to reset to the default value.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.Bound`1.SaveTag(Daybreak.Common.Features.Models.Binding{`0}.SaveTagAction)">
+            <summary>
+                Configures the binding to save its value to a tag.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.Bound`1.SaveTag(System.String)">
+            <summary>
+                Configures the binding to save its value to a tag.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.Bound`1.SaveTag">
+            <summary>
+                Configures the binding to save its value to a tag.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.Bound`1.LoadTag(Daybreak.Common.Features.Models.Binding{`0}.LoadTagAction)">
+            <summary>
+                Configures the binding to load its value from a tag.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.Bound`1.LoadTag(System.String)">
+            <summary>
+                Configures the binding to load its value from a tag.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.Bound`1.LoadTag">
+            <summary>
+                Configures the binding to load its value from a tag.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.IBoundDataProvider">
+            <summary>
+                The type-unsafe contract of a
+                <see cref="T:Daybreak.Common.Features.Models.BoundDataProvider`1"/>.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.IBoundDataProvider.PropertyMap">
+            <inheritdoc cref="P:Daybreak.Common.Features.Models.BoundDataProvider`1.PropertyMap"/>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.IBoundDataProvider.Properties">
+            <inheritdoc cref="P:Daybreak.Common.Features.Models.BoundDataProvider`1.Properties"/>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.IBoundDataProvider.Name">
+            <inheritdoc cref="P:Daybreak.Common.Features.Models.BoundDataProvider`1.Name"/>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.IBoundDataProvider.FullName">
+            <summary>
+                The full name, akin to <see cref="P:Terraria.ModLoader.ModType.FullName"/>.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.IBoundDataProvider.Mod">
+            <inheritdoc cref="P:Daybreak.Common.Features.Models.BoundDataProvider`1.Mod"/>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.IBoundDataProvider.Clone">
+            <inheritdoc cref="P:Daybreak.Common.Features.Models.BoundDataProvider`1.Mod"/>
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.BoundDataProvider`1">
+            <summary>
+                Abstraction designed to handle a collection of <see cref="T:Daybreak.Common.Features.Models.Bound`1"/>
+                objects.
+            </summary>
+            <typeparam name="TProvider">The self.</typeparam>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.BoundDataProvider`1.PropertyMap">
+            <summary>
+                The bound values belonging to the <typeparamref name="TProvider"/>.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.BoundDataProvider`1.Properties">
+            <summary>
+                The bound properties for a real instance.  Empty on the template
+                instance.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.BoundDataProvider`1.Name">
+            <summary>
+                The name of this data provider, which is used for things such as
+                data serialization.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.BoundDataProvider`1.Mod">
+            <summary>
+                The mod that
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.BoundDataProvider`1.Load">
+            <summary>
+                Loads the template instance after resolving properties.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.BoundDataProvider`1.Unload">
+            <summary>
+                Unloads the template instance.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.BoundDataProvider`1.Clone">
+            <summary>
+                Creates a real instance of this data provider from the template
+                instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.ItemDataProvider`1">
+            <summary>
+                A <see cref="T:Daybreak.Common.Features.Models.BoundDataProvider`1"/> implemented for
+                <see cref="T:Terraria.Item"/> data.
+            </summary>
+            <typeparam name="TProvider">The self.</typeparam>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.ItemDataProvider`1.Load">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.ItemDataProvider`1.Unload">
+            <inheritdoc />
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.ItemDataProviderImpl.KnownDataProviders">
+            <summary>
+                Carries all known providers' template instances to create instanced
+                data from.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.ItemExtensions">
+            <summary>
+                Extensions to get data from Items.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.ItemExtensions.TryGet``1(Terraria.Item,``0@)">
+            <inheritdoc cref="M:Daybreak.Common.Features.Models.ItemExtensions.&lt;G&gt;$42195B28F191EFBF8DC8492EA4AAC413.TryGet``1(``0@)"/>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.ItemExtensions.Get``1(Terraria.Item)">
+            <inheritdoc cref="M:Daybreak.Common.Features.Models.ItemExtensions.&lt;G&gt;$42195B28F191EFBF8DC8492EA4AAC413.Get``1"/>
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.ItemExtensions.&lt;G&gt;$42195B28F191EFBF8DC8492EA4AAC413.&lt;M&gt;$EDF90A2F6CE90C4696C45ABE43BC87D0">
+            <summary>
+                Extensions to get data from Items.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.ItemExtensions.&lt;G&gt;$42195B28F191EFBF8DC8492EA4AAC413.TryGet``1(``0@)">
+            <summary>
+                Attempts to get data from the item.
+                <br />
+                Returns <see langword="true"/> if the data was present,
+                otherwise <see langword="false"/>.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.ItemExtensions.&lt;G&gt;$42195B28F191EFBF8DC8492EA4AAC413.Get``1">
+            <summary>
+                Gets data from the item, throwing if it isn't present.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.INameProvider">
+            <summary>
+                Implement this interface on your <see cref="T:Terraria.ModLoader.Mod"/> implementation to
+                control how default names are generated for <see cref="T:Terraria.ModLoader.ModType"/>s and
+                related APIs.
+                <br />
+                This API is suited for generating more unique names across broad types
+                rather than per-instance.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.INameProvider.GetName(System.Type)">
+            <summary>
+                Gets the preferred name for the <paramref name="type"/>.
+            </summary>
+            <param name="type">The type to get a unique name for.</param>
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.NameProvider">
+            <summary>
+                Utilities for getting names from name providers.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.NameProvider.GetName(Terraria.ModLoader.Mod,System.Type)">
+            <summary>
+                Gets the name for the type, using the
+                <paramref name="mod"/>-provided <see cref="T:Daybreak.Common.Features.Models.INameProvider"/>
+                implementation if available.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.NameProvider.GetDefaultName(System.Type)">
+            <summary>
+                The default name for this type, which is <see cref="P:System.Reflection.MemberInfo.Name"/>.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.NameProvider.GetNestedName(System.Type,System.String)">
+            <summary>
+                Generates a single name prefixed with parent type names.  The name
+                is concatenated with no additional characters.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.PlayerDataProvider`1">
+            <summary>
+                A <see cref="T:Daybreak.Common.Features.Models.BoundDataProvider`1"/> implemented for
+                <see cref="T:Terraria.Player"/> data.
+            </summary>
+            <typeparam name="TProvider">The self.</typeparam>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.PlayerDataProvider`1.Load">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.PlayerDataProvider`1.Unload">
+            <inheritdoc />
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.PlayerDataProviderImpl.KnownDataProviders">
+            <summary>
+                Carries all known providers' template instances to create instanced
+                data from.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.PlayerExtensions">
+            <summary>
+                Extensions to get data from players.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.PlayerExtensions.TryGet``1(Terraria.Player,``0@)">
+            <inheritdoc cref="M:Daybreak.Common.Features.Models.PlayerExtensions.&lt;G&gt;$761CECAA0472FB61ED6AA8BC8F540418.TryGet``1(``0@)"/>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.PlayerExtensions.Get``1(Terraria.Player)">
+            <inheritdoc cref="M:Daybreak.Common.Features.Models.PlayerExtensions.&lt;G&gt;$761CECAA0472FB61ED6AA8BC8F540418.Get``1"/>
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.PlayerExtensions.&lt;G&gt;$761CECAA0472FB61ED6AA8BC8F540418.&lt;M&gt;$A3BCF7C323CB5384296C6CCF86CE9015">
+            <summary>
+                Extensions to get data from players.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.PlayerExtensions.&lt;G&gt;$761CECAA0472FB61ED6AA8BC8F540418.TryGet``1(``0@)">
+            <summary>
+                Attempts to get data from the player.
+                <br />
+                Returns <see langword="true"/> if the data was present,
+                otherwise <see langword="false"/>.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.PlayerExtensions.&lt;G&gt;$761CECAA0472FB61ED6AA8BC8F540418.Get``1">
+            <summary>
+                Gets data from the player, throwing if it isn't present.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.Models.IStatic`1">
+            <summary>
+                A special kind of data model in which a singleton instance is created on
+                load and creates a single real, non-null instance whose nullability
+                contracts must be fulfilled.
+                <br />
+                This model guarantees the provided data to be fully loaded and non-null.
+                <br />
+                Only one <see cref="T:Daybreak.Common.Features.Models.IStatic`1"/> may exist for any
+                <typeparamref name="TData"/>.
+            </summary>
+            <typeparam name="TData">The external data to provide.</typeparam>
+            <remarks>
+                This is best used in situations where a loadable type definitely depends
+                on acquired resources or data which are initialized at load time,
+                thereby not automatically guaranting values are not nullable.
+            </remarks>
+        </member>
+        <member name="P:Daybreak.Common.Features.Models.IStatic`1.Instance">
+            <summary>
+                The data instance produced by this static data.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.IStatic`1.LoadData(Terraria.ModLoader.Mod)">
+            <summary>
+                Initializes the <typeparamref name="TData"/> instance.
+            </summary>
+            <param name="mod">The mod this belongs to.</param>
+            <returns>The initialized <typeparamref name="TData"/> instance.</returns>
+        </member>
+        <member name="M:Daybreak.Common.Features.Models.IStatic`1.UnloadData(`0)">
+            <summary>
+                Responsible for uninitializing the <typeparamref name="TData"/>.
+                Expected to dispose of resouces, etc.
+            </summary>
+            <param name="data">The data to clean up/uninitialize.</param>
         </member>
         <member name="T:Daybreak.Common.Features.ModPanel.IHasCustomAuthorMessage">
             <summary>
@@ -892,6 +1838,16 @@
         <member name="P:Daybreak.Common.Features.NPCs.DownedFlagHandle.Value">
             <summary>
                 The mutable value of the associated flag.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.NPCs.DownedGetter">
+            <summary>
+                Returns whether an NPC has been downed.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.NPCs.DownedSetter">
+            <summary>
+                Sets whether an NPC has been downed.
             </summary>
         </member>
         <member name="T:Daybreak.Common.Features.NPCs.DownedFlagHandler">
@@ -1312,6 +2268,11 @@
                 Provides item ID sets.
             </summary>
         </member>
+        <member name="P:Daybreak.Common.IDs.DaybreakItemSets.PreRenderedItems">
+            <summary>
+                Determines whether a given item has a pre-renderer.
+            </summary>
+        </member>
         <member name="M:Daybreak.Common.IDs.DaybreakItemSets.ResizeArrays">
             <inheritdoc />
         </member>
@@ -1333,7 +2294,7 @@
         </member>
         <member name="P:Daybreak.Common.IDs.DaybreakNpcSets.ContributesToTravelingMerchantSpawn">
             <summary>
-                Whether the NPC should be counted when determing whether the
+                Whether the NPC should be counted when determining whether the
                 Traveling Merchant is eligible to spawn.
             </summary>
         </member>
@@ -1388,42 +2349,66 @@
                 Provides Tile ID sets.
             </summary>
         </member>
+        <member name="P:Daybreak.Common.IDs.DaybreakTileSets.OtherTileDrawDataToCopy">
+            <summary>
+                Copies the draw data of another tile.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.IDs.DaybreakTileSets.ResizeArrays">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.IDs.DaybreakTileSets.Load">
+            <inheritdoc />
+        </member>
         <member name="T:Daybreak.Common.Rendering.EffectChainEntry">
             <summary>
-                An effect in an effect chain, denoting how an image should be rendered
-                with a given <paramref name="Effect"/>.
+                An entry in an effect chain which an arbitrary function to apply a
+                shader, alongside any parameters to use for rendering the target with
+                the shader.
             </summary>
-            <param name="Effect">The effect, or <see langword="null"/> for default.</param>
+            <param name="ApplyEffect">Applies the effect.</param>
             <param name="Parameters">
                 The parameters to use to render the texture with the effect.
             </param>
         </member>
-        <member name="M:Daybreak.Common.Rendering.EffectChainEntry.#ctor(Terraria.Graphics.Shaders.ShaderData,Daybreak.Common.Rendering.SpriteBatchParameters)">
+        <member name="M:Daybreak.Common.Rendering.EffectChainEntry.#ctor(System.Action,Daybreak.Common.Rendering.SpriteBatchParameters)">
             <summary>
-                An effect in an effect chain, denoting how an image should be rendered
-                with a given <paramref name="Effect"/>.
+                An entry in an effect chain which an arbitrary function to apply a
+                shader, alongside any parameters to use for rendering the target with
+                the shader.
             </summary>
-            <param name="Effect">The effect, or <see langword="null"/> for default.</param>
+            <param name="ApplyEffect">Applies the effect.</param>
             <param name="Parameters">
                 The parameters to use to render the texture with the effect.
             </param>
         </member>
-        <member name="P:Daybreak.Common.Rendering.EffectChainEntry.Effect">
-            <summary>The effect, or <see langword="null"/> for default.</summary>
+        <member name="P:Daybreak.Common.Rendering.EffectChainEntry.ApplyEffect">
+            <summary>Applies the effect.</summary>
         </member>
         <member name="P:Daybreak.Common.Rendering.EffectChainEntry.Parameters">
             <summary>
                 The parameters to use to render the texture with the effect.
             </summary>
         </member>
+        <member name="M:Daybreak.Common.Rendering.EffectChainEntry.#ctor(Terraria.Graphics.Shaders.ShaderData,Daybreak.Common.Rendering.SpriteBatchParameters)">
+            <summary>
+                Applies a <see cref="T:Terraria.Graphics.Shaders.ShaderData"/>.
+            </summary>
+        </member>
         <member name="M:Daybreak.Common.Rendering.EffectChainEntry.#ctor(Microsoft.Xna.Framework.Graphics.Effect,Daybreak.Common.Rendering.SpriteBatchParameters)">
             <summary>
-                An effect in an effect chain, denoting how an image should be
-                rendered with a given <paramref name="effect"/>.
+                Applies an <see cref="T:Microsoft.Xna.Framework.Graphics.Effect"/>.
             </summary>
-            <param name="effect">The effect, or <see langword="null"/> for default.</param>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.EffectChainEntry.FromPlayerShader(Terraria.Player,Daybreak.Common.Rendering.PlayerShader,System.Nullable{Terraria.DataStructures.DrawData},Daybreak.Common.Rendering.SpriteBatchParameters)">
+            <summary>
+                Creates an entry from a player shader.
+            </summary>
+            <param name="player">The player context.</param>
+            <param name="shader">The shader.</param>
+            <param name="drawData">The draw context, if any.</param>
             <param name="parameters">
-                The parameters to use to render the texture with the effect.
+                The parameters to use when rendering the actual texture.
             </param>
         </member>
         <member name="T:Daybreak.Common.Rendering.DrawWithEffectsScope">
@@ -1438,7 +2423,7 @@
                 applied effects.
             </summary>
         </member>
-        <member name="M:Daybreak.Common.Rendering.DrawWithEffectsScope.#ctor(Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Graphics.GraphicsDevice,Daybreak.Common.Rendering.RenderTargetPool,Microsoft.Xna.Framework.Point,System.Boolean,System.Boolean,System.Nullable{Microsoft.Xna.Framework.Color},System.Nullable{Daybreak.Common.Rendering.RenderTargetDescriptor},Daybreak.Common.Rendering.SpriteBatchParameters,System.Collections.Generic.IEnumerable{Daybreak.Common.Rendering.EffectChainEntry})">
+        <member name="M:Daybreak.Common.Rendering.DrawWithEffectsScope.#ctor(Microsoft.Xna.Framework.Graphics.SpriteBatch,Daybreak.Common.Rendering.RenderTargetPool,Microsoft.Xna.Framework.Point,System.Boolean,System.Nullable{Microsoft.Xna.Framework.Color},System.Nullable{Daybreak.Common.Rendering.RenderTargetDescriptor},Daybreak.Common.Rendering.SpriteBatchParameters,System.Collections.Generic.IEnumerable{Daybreak.Common.Rendering.EffectChainEntry})">
             <summary>
                 Initializes a scope to handle rendering with multiple effects.
                 <br />
@@ -1449,7 +2434,6 @@
             <param name="spriteBatch">
                 The <see cref="T:Microsoft.Xna.Framework.Graphics.SpriteBatch"/> to render with.
             </param>
-            <param name="graphicsDevice">The device to create targets from.</param>
             <param name="pool">
                 The <see cref="T:Daybreak.Common.Rendering.RenderTargetPool"/> to retrieve targets from.
             </param>
@@ -1457,9 +2441,6 @@
             <param name="preserveContents">
                 Whether to preserve contents of existing targets before swapping to
                 the initial new target.
-            </param>
-            <param name="clear">
-                Whether to clear the initial target before use.
             </param>
             <param name="clearColor">
                 What color to clear the initial target to before use.
@@ -1484,7 +2465,7 @@
                 Extensions to types for chaining effects.
             </summary>
         </member>
-        <member name="M:Daybreak.Common.Rendering.EffectChainingExtensions.DrawWithEffects(Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Graphics.GraphicsDevice,Daybreak.Common.Rendering.RenderTargetPool,Microsoft.Xna.Framework.Point,System.Boolean,System.Nullable{Microsoft.Xna.Framework.Color},System.Nullable{Daybreak.Common.Rendering.RenderTargetDescriptor},Daybreak.Common.Rendering.SpriteBatchParameters,Daybreak.Common.Rendering.EffectChainEntry[])">
+        <member name="M:Daybreak.Common.Rendering.EffectChainingExtensions.DrawWithEffects(Microsoft.Xna.Framework.Graphics.SpriteBatch,Daybreak.Common.Rendering.RenderTargetPool,Microsoft.Xna.Framework.Point,System.Boolean,System.Nullable{Microsoft.Xna.Framework.Color},System.Nullable{Daybreak.Common.Rendering.RenderTargetDescriptor},Daybreak.Common.Rendering.SpriteBatchParameters,System.Collections.Generic.IEnumerable{Daybreak.Common.Rendering.EffectChainEntry})">
             <summary>
                 Initializes a <see cref="T:Daybreak.Common.Rendering.DrawWithEffectsScope"/> with the given
                 parameters and returns it.
@@ -1516,7 +2497,7 @@
                 output.
             </summary>
         </member>
-        <member name="M:Daybreak.Common.Rendering.DrawOutlinedScope.#ctor(Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Graphics.GraphicsDevice,Daybreak.Common.Rendering.RenderTargetPool,Microsoft.Xna.Framework.Point,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color,System.Int32,System.Single,System.Nullable{Microsoft.Xna.Framework.Color},Daybreak.Common.Rendering.SpriteBatchParameters,Daybreak.Common.Rendering.SpriteBatchParameters,Daybreak.Common.Rendering.SpriteBatchParameters,Daybreak.Common.Rendering.OutlineDirections)">
+        <member name="M:Daybreak.Common.Rendering.DrawOutlinedScope.#ctor(Microsoft.Xna.Framework.Graphics.SpriteBatch,Daybreak.Common.Rendering.RenderTargetPool,Microsoft.Xna.Framework.Point,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color,System.Int32,System.Single,System.Nullable{Microsoft.Xna.Framework.Color},Daybreak.Common.Rendering.SpriteBatchParameters,Daybreak.Common.Rendering.SpriteBatchParameters,Daybreak.Common.Rendering.SpriteBatchParameters,Daybreak.Common.Rendering.OutlineDirections)">
             <summary>
                 Begins capturing data to render with outlines.
             </summary>
@@ -1531,7 +2512,7 @@
                 Extensions to types for outline rendering.
             </summary>
         </member>
-        <member name="M:Daybreak.Common.Rendering.OutlineRenderingExtensions.DrawOutlined(Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Graphics.GraphicsDevice,Daybreak.Common.Rendering.RenderTargetPool,Microsoft.Xna.Framework.Point,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color,System.Int32,System.Single,System.Nullable{Microsoft.Xna.Framework.Color},Daybreak.Common.Rendering.SpriteBatchParameters,Daybreak.Common.Rendering.SpriteBatchParameters,Daybreak.Common.Rendering.SpriteBatchParameters,Daybreak.Common.Rendering.OutlineDirections)">
+        <member name="M:Daybreak.Common.Rendering.OutlineRenderingExtensions.DrawOutlined(Microsoft.Xna.Framework.Graphics.SpriteBatch,Daybreak.Common.Rendering.RenderTargetPool,Microsoft.Xna.Framework.Point,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color,System.Int32,System.Single,System.Nullable{Microsoft.Xna.Framework.Color},Daybreak.Common.Rendering.SpriteBatchParameters,Daybreak.Common.Rendering.SpriteBatchParameters,Daybreak.Common.Rendering.SpriteBatchParameters,Daybreak.Common.Rendering.OutlineDirections)">
             <summary>
                 See <see cref="T:Daybreak.Common.Rendering.DrawOutlinedScope"/>.
             </summary>
@@ -1571,6 +2552,12 @@
         <member name="P:Daybreak.Common.Rendering.RenderTargetDescriptor.Default">
             <summary>
                 Default creation parameters.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Rendering.RenderTargetDescriptor.DefaultPreserveContents">
+            <summary>
+                <see cref="P:Daybreak.Common.Rendering.RenderTargetDescriptor.Default"/> with usage set to
+                <see cref="F:Microsoft.Xna.Framework.Graphics.RenderTargetUsage.PreserveContents"/>.
             </summary>
         </member>
         <member name="P:Daybreak.Common.Rendering.RenderTargetDescriptor.MultiSampleCount">
@@ -1640,6 +2627,8 @@
                 applicability.  It assumes targets should not be manually cleared
                 and always returns a target of the exact request descriptor and
                 dimensions.
+                <br />
+                Disposed on unload.
             </remarks>
         </member>
         <member name="M:Daybreak.Common.Rendering.RenderTargetPool.Rent(Microsoft.Xna.Framework.Graphics.GraphicsDevice,System.Int32,System.Int32,Daybreak.Common.Rendering.RenderTargetDescriptor)">
@@ -1658,7 +2647,7 @@
             </returns>
             <remarks>
                 This buffer is loaned to the caller and should be returned to the
-                same pool via, <see cref="M:Daybreak.Common.Rendering.RenderTargetPool.Return(Microsoft.Xna.Framework.Graphics.RenderTarget2D,System.Boolean)"/> so that it may be reused in
+                same pool via, <see cref="M:Daybreak.Common.Rendering.RenderTargetPool.Return(Daybreak.Common.Rendering.RenderTargetLease)"/> so that it may be reused in
                 subsequent usage of <see cref="M:Daybreak.Common.Rendering.RenderTargetPool.Rent(Microsoft.Xna.Framework.Graphics.GraphicsDevice,System.Int32,System.Int32,Daybreak.Common.Rendering.RenderTargetDescriptor)"/>.  It is not a fatal error to
                 not return a rented buffer, but failure to do so may lead to
                 decreased application performance, as the pool may need to create a
@@ -1669,22 +2658,14 @@
                 so.
             </remarks>
         </member>
-        <member name="M:Daybreak.Common.Rendering.RenderTargetPool.Return(Microsoft.Xna.Framework.Graphics.RenderTarget2D,System.Boolean)">
+        <member name="M:Daybreak.Common.Rendering.RenderTargetPool.Return(Daybreak.Common.Rendering.RenderTargetLease)">
             <summary>
                 Returns to the pool a render target that was previously obtained via
                 <see cref="M:Daybreak.Common.Rendering.RenderTargetPool.Rent(Microsoft.Xna.Framework.Graphics.GraphicsDevice,System.Int32,System.Int32,Daybreak.Common.Rendering.RenderTargetDescriptor)"/> on the same <see name="RenderTargetPool"/>.
             </summary>
-            <param name="target">
-                The buffer previously obtained from <see cref="M:Daybreak.Common.Rendering.RenderTargetPool.Rent(Microsoft.Xna.Framework.Graphics.GraphicsDevice,System.Int32,System.Int32,Daybreak.Common.Rendering.RenderTargetDescriptor)"/> to return to
+            <param name="lease">
+                The lease previously obtained from <see cref="M:Daybreak.Common.Rendering.RenderTargetPool.Rent(Microsoft.Xna.Framework.Graphics.GraphicsDevice,System.Int32,System.Int32,Daybreak.Common.Rendering.RenderTargetDescriptor)"/> to return to
                 the pool.
-            </param>
-            <param name="clearTarget">
-                If <see langword="true"/> and if the pool will store the buffer to
-                enable subsequent reuse, <see name="Return"/> will clear the buffer
-                <b>regardless of the usage parameter</b> so that a subsequent
-                consumer via <see cref="M:Daybreak.Common.Rendering.RenderTargetPool.Rent(Microsoft.Xna.Framework.Graphics.GraphicsDevice,System.Int32,System.Int32,Daybreak.Common.Rendering.RenderTargetDescriptor)"/> will not see the previous consumer's
-                content.  If <see langword="false"/> or if the pool will release the
-                buffer, the target's contents are left unchanged.
             </param>
             <remarks>
                 This is automatically called by
@@ -1694,7 +2675,7 @@
                 Once a buffer has been returned to the pool, the caller gives up all
                 ownership of the buffer and must not use it.  The reference returned
                 from a given call to <see cref="M:Daybreak.Common.Rendering.RenderTargetPool.Rent(Microsoft.Xna.Framework.Graphics.GraphicsDevice,System.Int32,System.Int32,Daybreak.Common.Rendering.RenderTargetDescriptor)"/> must only be returned via
-                <see cref="M:Daybreak.Common.Rendering.RenderTargetPool.Return(Microsoft.Xna.Framework.Graphics.RenderTarget2D,System.Boolean)"/> once.  The default
+                <see cref="M:Daybreak.Common.Rendering.RenderTargetPool.Return(Daybreak.Common.Rendering.RenderTargetLease)"/> once.  The default
                 <see cref="T:Daybreak.Common.Rendering.RenderTargetPool"/> may hold onto the returned buffer in
                 order to rent it again, or it my release the returned buffer if it's
                 determined that the pool already has enough buffers stored.
@@ -1711,19 +2692,64 @@
                 occur (such as during mod unloading).
             </summary>
         </member>
+        <member name="M:Daybreak.Common.Rendering.RenderTargetPool.ReturnNextFrame(Daybreak.Common.Rendering.RenderTargetLease)">
+            <summary>
+                Queues a lease to be disposed of on the next render frame for cases
+                where ownership of the lease is given up for rendering during a
+                frame.
+            </summary>
+            <param name="lease">
+                The lease to dispose of at the start of the next frame.
+            </param>
+            <remarks>
+                This API should generally be avoided when possible.  It's a
+                last-resort option for when you cannot guarantee ownership over a
+                target.
+            </remarks>
+        </member>
         <member name="T:Daybreak.Common.Rendering.RenderTargetPoolExtensions">
             <summary>
                 Extension methods for <see cref="T:Daybreak.Common.Rendering.RenderTargetPool"/> that operate
                 agnostically on any implementation.
             </summary>
         </member>
+        <member name="M:Daybreak.Common.Rendering.RenderTargetPoolExtensions.Rent(Daybreak.Common.Rendering.RenderTargetPool,Microsoft.Xna.Framework.Graphics.GraphicsDevice,System.Int32,System.Int32)">
+            <inheritdoc cref="M:Daybreak.Common.Rendering.RenderTargetPoolExtensions.&lt;G&gt;$6B057ADE731B0DD622FA61128C08F511.Rent(Microsoft.Xna.Framework.Graphics.GraphicsDevice,System.Int32,System.Int32)"/>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.RenderTargetPoolExtensions.RentScaled(Daybreak.Common.Rendering.RenderTargetPool,Microsoft.Xna.Framework.Graphics.GraphicsDevice,Microsoft.Xna.Framework.Point,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Rendering.RenderTargetPoolExtensions.&lt;G&gt;$6B057ADE731B0DD622FA61128C08F511.RentScaled(Microsoft.Xna.Framework.Graphics.GraphicsDevice,Microsoft.Xna.Framework.Point,System.Single)"/>
+        </member>
         <member name="M:Daybreak.Common.Rendering.RenderTargetPoolExtensions.RentScaled(Daybreak.Common.Rendering.RenderTargetPool,Microsoft.Xna.Framework.Graphics.GraphicsDevice,Microsoft.Xna.Framework.Point,System.Single,Daybreak.Common.Rendering.RenderTargetDescriptor)">
+            <inheritdoc cref="M:Daybreak.Common.Rendering.RenderTargetPoolExtensions.&lt;G&gt;$6B057ADE731B0DD622FA61128C08F511.RentScaled(Microsoft.Xna.Framework.Graphics.GraphicsDevice,Microsoft.Xna.Framework.Point,System.Single,Daybreak.Common.Rendering.RenderTargetDescriptor)"/>
+        </member>
+        <member name="T:Daybreak.Common.Rendering.RenderTargetPoolExtensions.&lt;G&gt;$6B057ADE731B0DD622FA61128C08F511.&lt;M&gt;$0F4D754F04EE438B24E96DE2E519458F">
+            <param name="pool">The pool to rent from.</param>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.RenderTargetPoolExtensions.&lt;G&gt;$6B057ADE731B0DD622FA61128C08F511.Rent(Microsoft.Xna.Framework.Graphics.GraphicsDevice,System.Int32,System.Int32)">
+            <summary>
+                See <see cref="M:Daybreak.Common.Rendering.RenderTargetPool.Rent(Microsoft.Xna.Framework.Graphics.GraphicsDevice,System.Int32,System.Int32,Daybreak.Common.Rendering.RenderTargetDescriptor)"/>.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.RenderTargetPoolExtensions.&lt;G&gt;$6B057ADE731B0DD622FA61128C08F511.RentScaled(Microsoft.Xna.Framework.Graphics.GraphicsDevice,Microsoft.Xna.Framework.Point,System.Single)">
+            <summary>
+                Retrieves a buffer of size <paramref name="baseSize"/> scaled by
+                <paramref name="scale"/> rounded up to the nearest integer
+                value.
+            </summary>
+            <param name="device">The device to initialize with.</param>
+            <param name="baseSize">The base (unscaled) size of the target.</param>
+            <param name="scale">The scale factor of the target.</param>
+            <returns>
+                A leased target which should be disposed upon use, automatically
+                returning the target to the pool.
+            </returns>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.RenderTargetPoolExtensions.&lt;G&gt;$6B057ADE731B0DD622FA61128C08F511.RentScaled(Microsoft.Xna.Framework.Graphics.GraphicsDevice,Microsoft.Xna.Framework.Point,System.Single,Daybreak.Common.Rendering.RenderTargetDescriptor)">
             <summary>
                 Retrieves a buffer of size <paramref name="baseSize"/> scaled by
                 <paramref name="scale"/> rounded up to the nearest integer value and
                 with the given render target <paramref name="descriptor"/>.
             </summary>
-            <param name="pool">The pool to rent from.</param>
             <param name="device">The device to initialize with.</param>
             <param name="baseSize">The base (unscaled) size of the target.</param>
             <param name="scale">The scale factor of the target.</param>
@@ -1733,45 +2759,12 @@
                 returning the target to the pool.
             </returns>
         </member>
-        <member name="T:Daybreak.Common.Rendering.RenderTargetScope">
-            <summary>
-                Manages the scope of a render target to be rendered to, swapping out the
-                currently-used targets of a device on creation and replacing it with the
-                given target.  Switches back to the old targets upon disposal.
-            </summary>
-        </member>
-        <member name="M:Daybreak.Common.Rendering.RenderTargetScope.#ctor(Microsoft.Xna.Framework.Graphics.GraphicsDevice,Microsoft.Xna.Framework.Graphics.RenderTarget2D,System.Boolean,System.Boolean,System.Nullable{Microsoft.Xna.Framework.Color})">
-            <summary>
-                Creates a new scope, saving the current device targets and starts
-                rendering to the new one instead.
-            </summary>
-            <param name="device">The device to manage targets for.</param>
-            <param name="target">The target to render to.</param>
-            <param name="preserveContents">
-                Whether to ensure swapped targets preserve their contents.
-            </param>
-            <param name="clear">Whether to clear the target.</param>
-            <param name="clearColor">The color to clear the target to.</param>
-        </member>
-        <member name="M:Daybreak.Common.Rendering.RenderTargetScope.Dispose">
-            <summary>
-                Sets the device to use the targets that were in use before this
-                scope was instantiated.
-            </summary>
-        </member>
-        <member name="T:Daybreak.Common.Rendering.Pipelines.Pipeline">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:Daybreak.Common.Rendering.Pipelines.Commands">
-            <summary>
-            Stores commands to be submitted to a <see cref="T:Daybreak.Common.Rendering.Pipelines.Pipeline"/>
-            </summary>
-        </member>
         <member name="T:Daybreak.Common.Rendering.RenderTargetPreserver">
             <summary>
                 Handles preserving the contents of <see cref="T:Microsoft.Xna.Framework.Graphics.RenderTarget2D" />s.
+                <br />
+                For most cases, <see cref="T:Daybreak.Common.Rendering.RenderTargetScope"/> is preferred for
+                temporarily swapping render targets.
             </summary>
         </member>
         <member name="M:Daybreak.Common.Rendering.RenderTargetPreserver.PreserveBindings(Microsoft.Xna.Framework.Graphics.RenderTargetBinding[])">
@@ -1787,6 +2780,142 @@
                 device and ensures they're preserved.
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:Daybreak.Common.Rendering.RenderTargetScope">
+            <summary>
+                Manages the scope of a render target to be rendered to, swapping out the
+                currently-used targets of a device on creation and replacing it with the
+                given target.  Switches back to the old targets upon disposal.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.RenderTargetScope.#ctor(Microsoft.Xna.Framework.Graphics.RenderTarget2D,System.Boolean,System.Nullable{Microsoft.Xna.Framework.Color})">
+            <summary>
+                Creates a new scope, saving the current device targets and starts
+                rendering to the new one instead.
+            </summary>
+            <param name="target">The target to render to.</param>
+            <param name="preserveContents">
+                Whether to ensure swapped targets preserve their contents.
+            </param>
+            <param name="clearColor">
+                If not null, clears the target to the given color.
+            </param>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.RenderTargetScope.Dispose">
+            <summary>
+                Sets the device to use the targets that were in use before this
+                scope was instantiated.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Rendering.RenderTargetScopeExtensions">
+            <summary>
+                Extensions supporting <see cref="T:Daybreak.Common.Rendering.RenderTargetScope"/>.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.RenderTargetScopeExtensions.Scope(Microsoft.Xna.Framework.Graphics.RenderTarget2D,System.Boolean,System.Nullable{Microsoft.Xna.Framework.Color})">
+            <summary>
+                Creates a new scope, saving the current device targets and starts
+                rendering to the new one instead.
+            </summary>
+            <param name="target">The target to render to.</param>
+            <param name="preserveContents">
+                Whether to ensure swapped targets preserve their contents.
+            </param>
+            <param name="clearColor">
+                If not null, clears the target to the given color.
+            </param>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.RenderTargetScopeExtensions.Scope(Daybreak.Common.Rendering.RenderTargetLease,System.Boolean,System.Nullable{Microsoft.Xna.Framework.Color})">
+            <summary>
+                Creates a new scope, saving the current device targets and starts
+                rendering to the new one instead.
+            </summary>
+            <param name="target">The target to render to.</param>
+            <param name="preserveContents">
+                Whether to ensure swapped targets preserve their contents.
+            </param>
+            <param name="clearColor">
+                If not null, clears the target to the given color.
+            </param>
+        </member>
+        <member name="T:Daybreak.Common.Rendering.ScreenspaceTargetPool">
+            <summary>
+                A <see cref="T:Daybreak.Common.Rendering.RenderTargetPool"/> that provides APIs for creating
+                references to render targets that are dependent on the screen size.
+                <br />
+                Targets created by this pool are not cached for reuse later.  This API
+                is designed to leverage the strong reference to a target provided by
+                <see cref="T:Daybreak.Common.Rendering.RenderTargetLease"/>.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Rendering.ScreenspaceTargetPool.Shared">
+            <summary>
+                Retrieves the shared <see cref="T:Daybreak.Common.Rendering.ScreenspaceTargetPool"/> instance.
+            </summary>
+            <remarks>
+                Disposed on unload.
+            </remarks>
+        </member>
+        <member name="T:Daybreak.Common.Rendering.ScreenspaceTargetPool.GetTargetSize">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.ScreenspaceTargetPool.Rent(Microsoft.Xna.Framework.Graphics.GraphicsDevice,System.Int32,System.Int32,Daybreak.Common.Rendering.RenderTargetDescriptor)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.ScreenspaceTargetPool.Rent(Microsoft.Xna.Framework.Graphics.GraphicsDevice,System.Nullable{Daybreak.Common.Rendering.RenderTargetDescriptor})">
+            <inheritdoc cref="M:Daybreak.Common.Rendering.ScreenspaceTargetPool.Rent(Microsoft.Xna.Framework.Graphics.GraphicsDevice,Daybreak.Common.Rendering.ScreenspaceTargetPool.GetTargetSize,System.Nullable{Daybreak.Common.Rendering.RenderTargetDescriptor})"/>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.ScreenspaceTargetPool.Rent(Microsoft.Xna.Framework.Graphics.GraphicsDevice,System.Func{System.Int32,System.Int32,System.ValueTuple{System.Int32,System.Int32}},System.Nullable{Daybreak.Common.Rendering.RenderTargetDescriptor})">
+            <inheritdoc cref="M:Daybreak.Common.Rendering.ScreenspaceTargetPool.Rent(Microsoft.Xna.Framework.Graphics.GraphicsDevice,Daybreak.Common.Rendering.ScreenspaceTargetPool.GetTargetSize,System.Nullable{Daybreak.Common.Rendering.RenderTargetDescriptor})"/>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.ScreenspaceTargetPool.Rent(Microsoft.Xna.Framework.Graphics.GraphicsDevice,Daybreak.Common.Rendering.ScreenspaceTargetPool.GetTargetSize,System.Nullable{Daybreak.Common.Rendering.RenderTargetDescriptor})">
+            <summary>
+                Rents a target with varying width and height, to be recalculated
+                whenever the screen is resized.  For the lifetime of the lease, this
+                pool will re-initialize the given target whenever the computed width
+                and height do not match the current size of the target on screen
+                size change/vanilla RT invalidation.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.ScreenspaceTargetPool.Return(Daybreak.Common.Rendering.RenderTargetLease)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.ScreenspaceTargetPool.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="T:Daybreak.Common.Rendering.PlayerShader">
+            <summary>
+                A type-safe wrapper over a packed player shader integer.
+            </summary>
+            <param name="LocalIndex">The local index of the shader.</param>
+            <param name="ShaderType">The shader kind.</param>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.PlayerShader.#ctor(System.Int32,Terraria.DataStructures.PlayerDrawHelper.ShaderConfiguration)">
+            <summary>
+                A type-safe wrapper over a packed player shader integer.
+            </summary>
+            <param name="LocalIndex">The local index of the shader.</param>
+            <param name="ShaderType">The shader kind.</param>
+        </member>
+        <member name="P:Daybreak.Common.Rendering.PlayerShader.LocalIndex">
+            <summary>The local index of the shader.</summary>
+        </member>
+        <member name="P:Daybreak.Common.Rendering.PlayerShader.ShaderType">
+            <summary>The shader kind.</summary>
+        </member>
+        <member name="P:Daybreak.Common.Rendering.PlayerShader.PackedValue">
+            <summary>
+                The packed value.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.PlayerShader.FromPacked(System.Int32)">
+            <summary>
+                Creates a new wrapper over a packed value.
+            </summary>
+            <param name="packed">The packed value.</param>
+            <returns>The deconstructed wrapper.</returns>
         </member>
         <member name="T:Daybreak.Common.Rendering.SizeMatrices">
             <summary>
@@ -1886,12 +3015,6 @@
             </summary>
             <param name="spriteBatch">The <see cref="T:Microsoft.Xna.Framework.Graphics.SpriteBatch"/>.</param>
         </member>
-        <member name="M:Daybreak.Common.Rendering.SpriteBatchScope.Begin(Daybreak.Common.Rendering.SpriteBatchSnapshot)">
-            <summary>
-                Begins the <see cref="T:Microsoft.Xna.Framework.Graphics.SpriteBatch"/> with the
-                <paramref name="snapshot"/>.
-            </summary>
-        </member>
         <member name="M:Daybreak.Common.Rendering.SpriteBatchScope.Dispose">
             <summary>
                 Ends the <see cref="T:Microsoft.Xna.Framework.Graphics.SpriteBatch"/> and starts it with the old
@@ -1903,7 +3026,7 @@
                 Extensions to types for <see cref="T:Microsoft.Xna.Framework.Graphics.SpriteBatch"/> scopes.
             </summary>
         </member>
-        <member name="M:Daybreak.Common.Rendering.SpriteBatchScopeExtensions.CreateScope(Microsoft.Xna.Framework.Graphics.SpriteBatch)">
+        <member name="M:Daybreak.Common.Rendering.SpriteBatchScopeExtensions.Scope(Microsoft.Xna.Framework.Graphics.SpriteBatch)">
             <summary>
                 See <see cref="T:Daybreak.Common.Rendering.SpriteBatchScope"/>.
             </summary>
@@ -1987,28 +3110,37 @@
             </summary>
         </member>
         <member name="M:Daybreak.Common.Rendering.SpriteBatchSnapshotExtensions.End(Microsoft.Xna.Framework.Graphics.SpriteBatch,Daybreak.Common.Rendering.SpriteBatchSnapshot@)">
+            <inheritdoc cref="M:Daybreak.Common.Rendering.SpriteBatchSnapshotExtensions.&lt;G&gt;$6B5D1913AED414D2625C86BDDFE66B4E.End(Daybreak.Common.Rendering.SpriteBatchSnapshot@)"/>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.SpriteBatchSnapshotExtensions.Begin(Microsoft.Xna.Framework.Graphics.SpriteBatch,Daybreak.Common.Rendering.SpriteBatchSnapshot@)">
+            <inheritdoc cref="M:Daybreak.Common.Rendering.SpriteBatchSnapshotExtensions.&lt;G&gt;$6B5D1913AED414D2625C86BDDFE66B4E.Begin(Daybreak.Common.Rendering.SpriteBatchSnapshot@)"/>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.SpriteBatchSnapshotExtensions.Restart(Microsoft.Xna.Framework.Graphics.SpriteBatch,Daybreak.Common.Rendering.SpriteBatchSnapshot@)">
+            <inheritdoc cref="M:Daybreak.Common.Rendering.SpriteBatchSnapshotExtensions.&lt;G&gt;$6B5D1913AED414D2625C86BDDFE66B4E.Restart(Daybreak.Common.Rendering.SpriteBatchSnapshot@)"/>
+        </member>
+        <member name="T:Daybreak.Common.Rendering.SpriteBatchSnapshotExtensions.&lt;G&gt;$6B5D1913AED414D2625C86BDDFE66B4E.&lt;M&gt;$D75AEF44D46C9C2281F7BDCEAECC9092">
+            <param name="sb">The <see cref="T:Microsoft.Xna.Framework.Graphics.SpriteBatch" />.</param>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.SpriteBatchSnapshotExtensions.&lt;G&gt;$6B5D1913AED414D2625C86BDDFE66B4E.End(Daybreak.Common.Rendering.SpriteBatchSnapshot@)">
             <summary>
                 Takes a snapshot of the <see cref="T:Microsoft.Xna.Framework.Graphics.SpriteBatch" /> and then ends the
                 <see cref="T:Microsoft.Xna.Framework.Graphics.SpriteBatch" />/
             </summary>
-            <param name="this">The <see cref="T:Microsoft.Xna.Framework.Graphics.SpriteBatch" />.</param>
             <param name="ss">The produced <see cref="T:Daybreak.Common.Rendering.SpriteBatchSnapshot" />.</param>
         </member>
-        <member name="M:Daybreak.Common.Rendering.SpriteBatchSnapshotExtensions.Begin(Microsoft.Xna.Framework.Graphics.SpriteBatch,Daybreak.Common.Rendering.SpriteBatchSnapshot@)">
+        <member name="M:Daybreak.Common.Rendering.SpriteBatchSnapshotExtensions.&lt;G&gt;$6B5D1913AED414D2625C86BDDFE66B4E.Begin(Daybreak.Common.Rendering.SpriteBatchSnapshot@)">
             <summary>
                 Starts a <see cref="T:Microsoft.Xna.Framework.Graphics.SpriteBatch" /> with the parameters from the
                 given <see cref="T:Daybreak.Common.Rendering.SpriteBatchSnapshot" />.
             </summary>
-            <param name="this">The <see cref="T:Microsoft.Xna.Framework.Graphics.SpriteBatch" />.</param>
             <param name="ss">The <see cref="T:Daybreak.Common.Rendering.SpriteBatchSnapshot" /> to use.</param>
         </member>
-        <member name="M:Daybreak.Common.Rendering.SpriteBatchSnapshotExtensions.Restart(Microsoft.Xna.Framework.Graphics.SpriteBatch,Daybreak.Common.Rendering.SpriteBatchSnapshot@)">
+        <member name="M:Daybreak.Common.Rendering.SpriteBatchSnapshotExtensions.&lt;G&gt;$6B5D1913AED414D2625C86BDDFE66B4E.Restart(Daybreak.Common.Rendering.SpriteBatchSnapshot@)">
             <summary>
                 Immediately ends and then starts the given <see cref="T:Microsoft.Xna.Framework.Graphics.SpriteBatch" />
                 with the parameters from the given
                 <see cref="T:Daybreak.Common.Rendering.SpriteBatchSnapshot" />.
             </summary>
-            <param name="this">The <see cref="T:Microsoft.Xna.Framework.Graphics.SpriteBatch" />.</param>
             <param name="ss">The <see cref="T:Daybreak.Common.Rendering.SpriteBatchSnapshot" /> to use.</param>
         </member>
         <member name="T:Daybreak.Content.Authorship.DaybreakAuthorTag">

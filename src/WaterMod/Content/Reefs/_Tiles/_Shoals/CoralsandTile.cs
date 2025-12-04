@@ -4,7 +4,7 @@ namespace WaterMod.Content.Reefs;
 
 internal sealed class CoralsandTile : ModTile {
     public override string Texture => Assets.Textures.Tiles.Reefs.Shoals.CoralsandTile.KEY;
-    
+
     public override void SetStaticDefaults() {
         base.SetStaticDefaults();
 

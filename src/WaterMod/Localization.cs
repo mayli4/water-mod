@@ -1,1 +1,0 @@
-﻿namespace WaterMod.Localization; class _;

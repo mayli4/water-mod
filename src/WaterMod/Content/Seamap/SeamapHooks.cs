@@ -17,16 +17,16 @@ internal sealed class SeamapHooks {
         On_Player.ItemCheck_CheckCanUse -= On_PlayerOnItemCheck_CheckCanUse;
         On_Main.DrawPlayers_AfterProjectiles -= On_MainOnDrawPlayers_AfterProjectiles;
     }
-    
+
     static bool On_PlayerOnItemCheck_CheckCanUse(On_Player.orig_ItemCheck_CheckCanUse orig, Player self, Item item) {
-        if (SubworldSystem.IsActive<SeamapSubworld>() && self.whoAmI == Main.myPlayer)
+        if(SubworldSystem.IsActive<SeamapSubworld>() && self.whoAmI == Main.myPlayer)
             return false;
 
         return orig(self, item);
     }
 
     static void On_MainOnDrawPlayers_AfterProjectiles(On_Main.orig_DrawPlayers_AfterProjectiles orig, Main self) {
-        if (SubworldSystem.IsActive<SeamapSubworld>())
+        if(SubworldSystem.IsActive<SeamapSubworld>())
             return;
 
         orig(self);
