@@ -14,10 +14,15 @@ internal sealed class InitialShoalsSurfacePass(string name, double loadWeight) :
     public static void GenTest() {
         for(int x = 0; x < Main.maxTilesX; x++) {
             float topY = GetSurfaceLevelThreshold(x, 12, Main.maxTilesY / 2, 0.2f, amplitude: 1);
-            topY += -GetSurfaceLevelThreshold(x, 8, Main.maxTilesY / 2, 0.15f, 15) * 0.25f;
+            topY += -GetSurfaceLevelThreshold(x, 8, Main.maxTilesY / 2, 0.1f, 15) * 0.25f;
+            int moundRelativeX = (x + WorldGen._lastSeed) % (Main.maxTilesX / 2);
+            float moundY = Logistic(MathF.Abs(Main.maxTilesX / 8 - moundRelativeX), Main.maxTilesX / 8, 0.05f)*(MathF.Sin(x*MathF.PI)*0.5f+1f)*80+340;
+            moundY += GetSurfaceLevelThreshold(x, 6, 0, 0.2f, 1.5f);
+            float height = MathF.Min(topY, moundY);
             for(int y = 0; y < Main.maxTilesY; y++) {
-                if(y > topY) {
-                    Main.tile[x, y].ResetToType((ushort)ModContent.TileType<CoralsandTile>());
+                if(y > height) {
+                    ushort type = (ushort)ModContent.TileType<CoralsandTile>();
+                    Main.tile[x, y].ResetToType(type);
                 }
             }
         }
@@ -31,7 +36,11 @@ internal sealed class InitialShoalsSurfacePass(string name, double loadWeight) :
             return MathF.Sqrt(1 + (x * x)) - MathF.Sqrt(1 + MathF.Pow(2 + (x * x), 2));
         }
     }
-    
+    public static float Logistic(float value, float midpoint = 0f, float steepness = 1f) {
+        float expo = MathF.Exp(-steepness * (value - midpoint));
+        return 1f / (1f + expo);
+    }
+
     public static float GetSurfaceLevelThreshold(int x, int octaves, int offsetY = 0, float frequency = 1, float amplitude = 1) {
         float threshold = 0f;
         for (int i = 0; i < octaves; i++) {
