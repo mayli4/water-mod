@@ -18,6 +18,11 @@ Items: {
 		DisplayName: Coralsand
 		Tooltip: ""
 	}
+
+	EnchantedSandMaterial: {
+		DisplayName: Enchanted Sand
+		Tooltip: ""
+	}
 }
 
 Achievements: {
