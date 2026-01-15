@@ -4,13 +4,16 @@ using System.Threading;
 
 namespace WaterMod.Generator.Utils;
 
-internal class CodeBuilder {
+internal class CodeBuilder
+{
     internal delegate void CodeBuilderDelegate<T>(in T model, CodeBuilder codeBuilder, CancellationToken ct);
 
     [ThreadStatic]
     private static CodeBuilder? _shared;
-    public static CodeBuilder ThreadShared {
-        get {
+    public static CodeBuilder ThreadShared
+    {
+        get
+        {
             _shared ??= new();
             _shared.Indents = 0;
             _shared.Clear();
@@ -23,14 +26,18 @@ internal class CodeBuilder {
 
     public int Indents { get; private set; }
 
-    public CodeBuilder Append<T>(T value) {
+    public CodeBuilder Append<T>(T value)
+    {
         _sb.Append(value);
         return this;
     }
 
-    public CodeBuilder RemoveLastComma() {
-        for(int i = _sb.Length - 1; i >= 0; i--) {
-            if(_sb[i] == ',') {
+    public CodeBuilder RemoveLastComma()
+    {
+        for (int i = _sb.Length - 1; i >= 0; i--)
+        {
+            if (_sb[i] == ',')
+            {
                 _sb.Remove(i, _sb.Length - i);
                 return this;
             }
@@ -38,59 +45,72 @@ internal class CodeBuilder {
         return this;
     }
 
-    public CodeBuilder Append(ReadOnlySpan<char> value) {
+    public CodeBuilder Append(ReadOnlySpan<char> value)
+    {
         _sb.EnsureCapacity(value.Length + value.Length);
-        foreach(char c in value) {
+        foreach (char c in value)
+        {
             _sb.Append(c);
         }
         return this;
     }
 
-    public CodeBuilder Append(string value, int start, int count) {
+    public CodeBuilder Append(string value, int start, int count)
+    {
         _sb.Append(value, start, count);
         return this;
     }
 
-    public CodeBuilder AppendLine<T>(T value) {
+    public CodeBuilder AppendLine<T>(T value)
+    {
         _sb.Append(value);
         _sb.AppendLine();
         _sb.Append(' ', TABS_PER_INDENT * Indents);
         return this;
     }
 
-    public CodeBuilder Foreach<T>(ReadOnlySpan<T> items, CancellationToken ct, CodeBuilderDelegate<T> onEach) {
-        foreach(ref readonly var i in items) {
+    public CodeBuilder Foreach<T>(ReadOnlySpan<T> items, CancellationToken ct, CodeBuilderDelegate<T> onEach)
+    {
+        foreach (ref readonly var i in items)
+        {
             onEach(in i, this, ct);
         }
         return this;
     }
 
-    public CodeBuilder If(bool condition, Action<CodeBuilder> action) {
-        if(condition) {
+    public CodeBuilder If(bool condition, Action<CodeBuilder> action)
+    {
+        if (condition)
+        {
             action(this);
         }
         return this;
     }
 
-    public CodeBuilder If<T>(bool condition, T uniform, Action<T, CodeBuilder> action) {
-        if(condition) {
+    public CodeBuilder If<T>(bool condition, T uniform, Action<T, CodeBuilder> action)
+    {
+        if (condition)
+        {
             action(uniform, this);
         }
         return this;
     }
 
-    public CodeBuilder Execute<T>(in T uniform, CancellationToken ct, CodeBuilderDelegate<T> action) {
+    public CodeBuilder Execute<T>(in T uniform, CancellationToken ct, CodeBuilderDelegate<T> action)
+    {
         action(in uniform, this, ct);
         return this;
     }
 
-    public CodeBuilder AppendLine() {
+    public CodeBuilder AppendLine()
+    {
         _sb.AppendLine();
         _sb.Append(' ', TABS_PER_INDENT * Indents);
         return this;
     }
 
-    public CodeBuilder Indent() {
+    public CodeBuilder Indent()
+    {
         Indents++;
         return this;
     }
@@ -99,28 +119,32 @@ internal class CodeBuilder {
     public CodeBuilder Unscope() => Outdent().AppendLine("}");
 
 
-    public CodeBuilder Outdent() {
+    public CodeBuilder Outdent()
+    {
         Indents--;
-        if(Indents < 0)
+        if (Indents < 0)
             throw new InvalidOperationException("Indentation level must be positive!");
-        if(_sb[_sb.Length - 1] == ' '
+        if (_sb[_sb.Length - 1] == ' '
             && _sb[_sb.Length - 2] == ' '
             && _sb[_sb.Length - 3] == ' '
-            && _sb[_sb.Length - 4] == ' ') {
+            && _sb[_sb.Length - 4] == ' ')
+        {
             _sb.Remove(_sb.Length - 4, 4);
         }
         return this;
     }
 
-    public CodeBuilder AppendWithDot(string str) {
-        if(string.IsNullOrEmpty(str))
+    public CodeBuilder AppendWithDot(string str)
+    {
+        if (string.IsNullOrEmpty(str))
             return this;
         _sb.Append(str);
         _sb.Append('.');
         return this;
     }
 
-    public CodeBuilder Clear() {
+    public CodeBuilder Clear()
+    {
         _sb.Clear();
         return this;
     }

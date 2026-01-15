@@ -11,7 +11,8 @@ using WaterMod.Generator.Utils;
 namespace WaterMod.Generator;
 
 [Generator(LanguageNames.CSharp)]
-public class PacketGenerator : IIncrementalGenerator {
+public class PacketGenerator : IIncrementalGenerator
+{
     private const string declared_entity_attribute = """
         namespace WaterMod.Generator;
 
@@ -24,7 +25,8 @@ public class PacketGenerator : IIncrementalGenerator {
     private const string packet_attribute_metadata_name = "WaterMod.Generator.PacketAttribute";
     private const string packet_handler_attribute_metadata_name = "WaterMod.Generator.PacketHandlerAttribute";
 
-    public void Initialize(IncrementalGeneratorInitializationContext context) {
+    public void Initialize(IncrementalGeneratorInitializationContext context)
+    {
         context.RegisterPostInitializationOutput(c => c.AddSource("PacketAttribute.g.cs", declared_entity_attribute));
 
         IncrementalValuesProvider<PacketModel> models =
@@ -37,37 +39,41 @@ public class PacketGenerator : IIncrementalGenerator {
 
         context.RegisterSourceOutput(handlers.Collect().Combine(models.Collect()).Select(PacketHandlerModelToSource), createSource);
 
-        void createSource(SourceProductionContext ctx, (string Name, string Source) source) {
-            if(source == default)
+        void createSource(SourceProductionContext ctx, (string Name, string Source) source)
+        {
+            if (source == default)
                 return;
             ctx.AddSource(source.Name, source.Source);
         }
     }
 
-    private static PacketHandlerModel CreatePacketHandlerModel(GeneratorAttributeSyntaxContext context, CancellationToken ct) {
+    private static PacketHandlerModel CreatePacketHandlerModel(GeneratorAttributeSyntaxContext context, CancellationToken ct)
+    {
         MethodDeclarationSyntax method = (MethodDeclarationSyntax)context.TargetNode;
-        if(context.SemanticModel.GetDeclaredSymbol(method) is not IMethodSymbol methodSymbol)
+        if (context.SemanticModel.GetDeclaredSymbol(method) is not IMethodSymbol methodSymbol)
             return default;
 
-        if(methodSymbol.Parameters.Length != 2)
+        if (methodSymbol.Parameters.Length != 2)
             return default;
 
         string packetTypeName = methodSymbol.Parameters[0].Type.ToString();
 
-        if(methodSymbol.ReceiverType is null)
+        if (methodSymbol.ReceiverType is null)
             return default;
 
         return new PacketHandlerModel(methodSymbol.ReceiverType.ToString(), methodSymbol.Name, packetTypeName);
     }
 
-    private static PacketModel CreatePacketModel(GeneratorAttributeSyntaxContext context, CancellationToken ct) {
+    private static PacketModel CreatePacketModel(GeneratorAttributeSyntaxContext context, CancellationToken ct)
+    {
         TypeDeclarationSyntax type = (TypeDeclarationSyntax)context.TargetNode;
-        if(context.SemanticModel.GetDeclaredSymbol(type) is not INamedTypeSymbol { TypeKind: TypeKind.Struct } structTypeSymbol)
+        if (context.SemanticModel.GetDeclaredSymbol(type) is not INamedTypeSymbol { TypeKind: TypeKind.Struct } structTypeSymbol)
             return default;
         Stack<TypeDeclarationModel> outerTypes = new();
 
         INamedTypeSymbol outerType = structTypeSymbol.ContainingType;
-        while(outerType is not null) {
+        while (outerType is not null)
+        {
             outerTypes.Push(new TypeDeclarationModel(
                     outerType.IsRecord,
                     outerType.TypeKind,
@@ -83,7 +89,8 @@ public class PacketGenerator : IIncrementalGenerator {
             new EquatableArray<TypeDeclarationModel>(outerTypes.ToArray()));
     }
 
-    private static (string Name, string Source) PacketHandlerModelToSource((ImmutableArray<PacketHandlerModel>, ImmutableArray<PacketModel>) models, CancellationToken ct) {
+    private static (string Name, string Source) PacketHandlerModelToSource((ImmutableArray<PacketHandlerModel>, ImmutableArray<PacketModel>) models, CancellationToken ct)
+    {
         var handlerModels = models.Item1;
         var packetModels = models.Item2;
 
@@ -116,8 +123,9 @@ public class PacketGenerator : IIncrementalGenerator {
         return new("NetworkingHandler.g.cs", cb.ToString());
     }
 
-    private static (string Name, string Source) PacketModelToSource(PacketModel model, CancellationToken ct) {
-        if(model == default)
+    private static (string Name, string Source) PacketModelToSource(PacketModel model, CancellationToken ct)
+    {
+        if (model == default)
             return default;
         CodeBuilder cb = new CodeBuilder();
 
@@ -147,10 +155,12 @@ public class PacketGenerator : IIncrementalGenerator {
 
         return new(sanitizeNameForFile(model.Type.Name), cb.ToString());
 
-        static string sanitizeNameForFile(string name) {
+        static string sanitizeNameForFile(string name)
+        {
             const string fileEnd = ".g.cs";
             Span<char> newName = stackalloc char[name.Length + fileEnd.Length];
-            for(int i = 0; i < name.Length; i++) {
+            for (int i = 0; i < name.Length; i++)
+            {
                 newName[i] = name[i] switch
                 {
                     '<' or '>' => '_',
@@ -168,8 +178,9 @@ public class PacketGenerator : IIncrementalGenerator {
     [Conditional("DEBUG")]
     [DebuggerStepThrough]
     [DebuggerHidden]
-    internal static void LaunchDebugger() {
-        if(!Debugger.IsAttached && !_launched)
+    internal static void LaunchDebugger()
+    {
+        if (!Debugger.IsAttached && !_launched)
             Debugger.Launch();
         _launched = true;
     }

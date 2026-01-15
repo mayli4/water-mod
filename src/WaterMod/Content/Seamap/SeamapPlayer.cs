@@ -4,9 +4,11 @@ using SubworldLibrary;
 
 namespace WaterMod.Content;
 
-internal sealed class SeamapPlayer : ModPlayer {
-    public override void PreUpdate() {
-        if(!SubworldSystem.IsActive<SeamapSubworld>())
+internal sealed class SeamapPlayer : ModPlayer
+{
+    public override void PreUpdate()
+    {
+        if (!SubworldSystem.IsActive<SeamapSubworld>())
             return;
 
         Player.position = Player.oldPosition;

@@ -9,20 +9,24 @@ using Terraria.Audio;
 
 namespace WaterMod.Common;
 
-internal sealed class SmoothMusic {
+internal sealed class SmoothMusic
+{
     private static int _previousMusic;
     private static long _previousSamplePosition;
 
     [UsedImplicitly]
     [OnLoad(Side = ModSide.Client)]
-    static void SubmitPatch() {
+    static void SubmitPatch()
+    {
         // This patch makes music tracks play subsequently, providing smooth transition between different songs.
         IL_OGGAudioTrack.PrepareBufferToSubmit += il =>
         {
-            try {
+            try
+            {
                 var c = new ILCursor(il);
 
-                if(!c.TryGotoNext(i => i.MatchCallOrCallvirt(typeof(OGGAudioTrack).GetMethod("ApplyTemporaryBufferTo", BindingFlags.NonPublic | BindingFlags.Static) ?? throw new InvalidOperationException()))) {
+                if (!c.TryGotoNext(i => i.MatchCallOrCallvirt(typeof(OGGAudioTrack).GetMethod("ApplyTemporaryBufferTo", BindingFlags.NonPublic | BindingFlags.Static) ?? throw new InvalidOperationException())))
+                {
                     return;
                 }
 
@@ -34,7 +38,8 @@ internal sealed class SmoothMusic {
                 c.EmitDelegate((VorbisReader reader) =>
                 {
 
-                    if(Main.curMusic != _previousMusic && _previousSamplePosition < reader.TotalSamples) {
+                    if (Main.curMusic != _previousMusic && _previousSamplePosition < reader.TotalSamples)
+                    {
                         reader.SamplePosition = _previousSamplePosition;
                     }
 
@@ -42,7 +47,8 @@ internal sealed class SmoothMusic {
                     _previousSamplePosition = reader.SamplePosition;
                 });
             }
-            catch(Exception) {
+            catch (Exception)
+            {
                 MonoModHooks.DumpIL(ModContent.GetInstance<ModImpl>(), il);
             }
         };

@@ -5,15 +5,18 @@ using WaterMod.Common.Swimming;
 namespace WaterMod.Content;
 
 [UsedImplicitly]
-internal sealed class FlipperGlobalItem : GlobalItem {
+internal sealed class FlipperGlobalItem : GlobalItem
+{
     public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.Flipper;
 
-    public override void UpdateEquip(Item item, Player player) {
+    public override void UpdateEquip(Item item, Player player)
+    {
         base.UpdateEquip(item, player);
 
         player.accFlipper = false;
 
-        if(!player.TryGetModPlayer(out SwimmingPlayer swimmingPlayer)) {
+        if (!player.TryGetModPlayer(out SwimmingPlayer swimmingPlayer))
+        {
             return;
         }
 

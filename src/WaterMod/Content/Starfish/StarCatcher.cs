@@ -6,10 +6,12 @@ using WaterMod.Content.Particles;
 
 namespace WaterMod.Content;
 
-public class StarCatcherItem : ModItem {
-    public override string Texture => Assets.Images.Content.Starfish.StarCatcherItem.KEY; 
+public class StarCatcherItem : ModItem
+{
+    public override string Texture => Assets.Images.Content.Starfish.StarCatcherItem.KEY;
 
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.noMelee = true;
@@ -30,23 +32,27 @@ public class StarCatcherItem : ModItem {
         Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice());
     }
 
-    public override void ModifyFishingLine(Projectile bobber, ref Vector2 lineOriginOffset, ref Color lineColor) {
+    public override void ModifyFishingLine(Projectile bobber, ref Vector2 lineOriginOffset, ref Color lineColor)
+    {
         base.ModifyFishingLine(bobber, ref lineOriginOffset, ref lineColor);
         lineOriginOffset = new Vector2(46, -36);
         lineColor = Color.Gold;
-        
-        if (bobber.ai[1] < 0) {
+
+        if (bobber.ai[1] < 0)
+        {
             var sine = (float)Math.Sin(Main.GlobalTimeWrappedHourly * 20f) * 0.5f + 0.5f;
             lineColor = Color.Lerp(Color.Cyan, Color.Gold, sine);
         }
     }
 
-    public override void HoldItem(Player player) {
+    public override void HoldItem(Player player)
+    {
         base.HoldItem(player);
         player.accFishingLine = true;
     }
 
-    public override void AddRecipes() {
+    public override void AddRecipes()
+    {
         base.AddRecipes();
 
         CreateRecipe()
@@ -56,14 +62,16 @@ public class StarCatcherItem : ModItem {
     }
 }
 
-public class StarCatcherBobberProjectile : ModProjectile {
-    public override string Texture => Assets.Images.Content.Starfish.StarCatcherBobberProjectile.KEY; 
-    
+public class StarCatcherBobberProjectile : ModProjectile
+{
+    public override string Texture => Assets.Images.Content.Starfish.StarCatcherBobberProjectile.KEY;
+
     public float Intensity { get; private set; }
-    
+
     private bool wasBiting;
 
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Projectile.netImportant = true;
@@ -75,24 +83,27 @@ public class StarCatcherBobberProjectile : ModProjectile {
         Projectile.aiStyle = ProjAIStyleID.Bobber;
     }
 
-    public override void AI() {
+    public override void AI()
+    {
         base.AI();
 
         Intensity = MathHelper.Clamp(Intensity + (Projectile.wet ? 0.1f : -0.1f), 0f, 1f);
 
         var isBiting = Projectile.ai[1] < 0;
 
-        if (isBiting && !wasBiting) {
-            for (var i = 0; i < 15; i++) {
-                
+        if (isBiting && !wasBiting)
+        {
+            for (var i = 0; i < 15; i++)
+            {
+
                 var color = Main.rand.NextBool(2) ? Color.Cyan : Color.HotPink;
-                
+
                 var speed = Main.rand.NextVector2Circular(6f, 6f);
                 var p = GenericSmallSparkle.RequestNew(
-                    Projectile.Center + new Vector2(10, 10), 
-                    speed, 
-                    color, 
-                    Main.rand.NextFloat(0.8f, 1.5f), 
+                    Projectile.Center + new Vector2(10, 10),
+                    speed,
+                    color,
+                    Main.rand.NextFloat(0.8f, 1.5f),
                     30,
                     0.3f
                 );
@@ -103,24 +114,26 @@ public class StarCatcherBobberProjectile : ModProjectile {
 
         if (!Main.rand.NextBool(50)) return;
 
-        if (isBiting) {
+        if (isBiting)
+        {
             var speed = Main.rand.NextVector2Circular(3f, 3f);
             var p = GenericSmallSparkle.RequestNew(
-                Projectile.Center + new Vector2(10, 10), 
-                speed, 
-                Color.Lerp(Color.Cyan, Color.White, Main.rand.NextFloat()), 
-                1.4f, 
+                Projectile.Center + new Vector2(10, 10),
+                speed,
+                Color.Lerp(Color.Cyan, Color.White, Main.rand.NextFloat()),
+                1.4f,
                 20
             );
             ParticleEngine.PARTICLES.Add(p);
         }
-        else {
+        else
+        {
             var speed = Main.rand.NextVector2Circular(3f, 3f);
             var p = GenericSmallSparkle.RequestNew(
-                Projectile.Center + new Vector2(10, 10),  
-                speed, 
-                Color.Goldenrod, 
-                1.4f, 
+                Projectile.Center + new Vector2(10, 10),
+                speed,
+                Color.Goldenrod,
+                1.4f,
                 20
             );
             ParticleEngine.PARTICLES.Add(p);
@@ -128,7 +141,8 @@ public class StarCatcherBobberProjectile : ModProjectile {
     }
 
     // TODO: Implement proper visuals.
-    public override bool PreDraw(ref Color lightColor) {
+    public override bool PreDraw(ref Color lightColor)
+    {
         var texture = Assets.Images.Content.Starfish.StarCatcherBobberProjectile_Outline.Asset.Value;
         var effects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
@@ -144,12 +158,13 @@ public class StarCatcherBobberProjectile : ModProjectile {
         var frame = texture.Frame(1, Main.projFrames[Projectile.type], frameY: Projectile.frame);
         var origin = new Vector2(originX, Projectile.height / 2f + offsetY);
 
-        Color drawColor = Color.Goldenrod;
-        if (Projectile.ai[1] < 0) {
-            float sine = (float)Math.Sin(Main.GlobalTimeWrappedHourly * 20f) * 0.5f + 0.5f;
+        var drawColor = Color.Goldenrod;
+        if (Projectile.ai[1] < 0)
+        {
+            var sine = (float)Math.Sin(Main.GlobalTimeWrappedHourly * 20f) * 0.5f + 0.5f;
             drawColor = Color.Lerp(Color.Cyan, Color.White, sine);
         }
-        
+
         Main.EntitySpriteDraw
         (
             texture,

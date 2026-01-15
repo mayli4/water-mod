@@ -5,7 +5,8 @@ using WaterMod.Common.Rendering;
 
 namespace WaterMod.Content.Particles;
 
-public class GenericSmallSparkle : BaseParticle<GenericSmallSparkle> {
+public class GenericSmallSparkle : BaseParticle<GenericSmallSparkle>
+{
     public Color ColorTint;
     public int LifeTime;
     private int maxLifeTime;
@@ -17,7 +18,7 @@ public class GenericSmallSparkle : BaseParticle<GenericSmallSparkle> {
 
     public float Spin;
     public float HueShift;
-    
+
     private float opacity;
 
     public static GenericSmallSparkle RequestNew(
@@ -28,7 +29,8 @@ public class GenericSmallSparkle : BaseParticle<GenericSmallSparkle> {
         int lifeTime,
         float rotationSpeed = 0.15f,
         float hueShift = 0f
-    ) {
+    )
+    {
         var particle = Pool.RequestParticle();
         particle.Position = position;
         particle.Velocity = velocity;
@@ -41,13 +43,15 @@ public class GenericSmallSparkle : BaseParticle<GenericSmallSparkle> {
         return particle;
     }
 
-    public override void FetchFromPool() {
+    public override void FetchFromPool()
+    {
         base.FetchFromPool();
         LifeTime = 0;
         opacity = 0f;
     }
 
-    public override void Update(ref ParticleRendererSettings settings) {
+    public override void Update(ref ParticleRendererSettings settings)
+    {
         var completion = (float)LifeTime / maxLifeTime;
         opacity = (float)Math.Sin(MathHelper.PiOver2 + completion * MathHelper.PiOver2);
 
@@ -61,7 +65,8 @@ public class GenericSmallSparkle : BaseParticle<GenericSmallSparkle> {
 
         Lighting.AddLight(Position, ColorTint.ToVector3() * opacity);
 
-        if (++LifeTime >= maxLifeTime) {
+        if (++LifeTime >= maxLifeTime)
+        {
             ShouldBeRemovedFromRenderer = true;
         }
     }
@@ -69,10 +74,11 @@ public class GenericSmallSparkle : BaseParticle<GenericSmallSparkle> {
     public override void Draw(
         ref ParticleRendererSettings settings,
         SpriteBatch spritebatch
-    ) {
+    )
+    {
         var texture = Assets.Images.Particles.ThinSparkle.Asset.Value;
-        
-        
+
+
         spritebatch.End(out var ss);
         spritebatch.Begin(ss with { BlendState = BlendState.Additive });
         spritebatch.Draw(
@@ -86,7 +92,7 @@ public class GenericSmallSparkle : BaseParticle<GenericSmallSparkle> {
             SpriteEffects.None,
             0
         );
-        
+
         spritebatch.Restart(ss);
     }
 }

@@ -10,11 +10,13 @@ using Terraria.Localization;
 namespace WaterMod.Content;
 
 [UsedImplicitly]
-internal class ReefsAchievement : ModAchievement {
+internal class ReefsAchievement : ModAchievement
+{
     public override string TextureName => Assets.Images.UI.Achievements.SetSail.KEY;
     public CustomFlagCondition SubworldEnteredCondition { get; private set; } = null!;
 
-    public override void SetStaticDefaults() {
+    public override void SetStaticDefaults()
+    {
         Achievement.SetCategory(AchievementCategory.Explorer);
         SubworldEnteredCondition = AddCondition("EnteredReefsSubworld");
     }
@@ -23,17 +25,20 @@ internal class ReefsAchievement : ModAchievement {
 
     [OnLoad]
     [UsedImplicitly]
-    static void ReplaceAchievementSound() {
+    static void ReplaceAchievementSound()
+    {
         On_AchievementInitializer.OnAchievementCompleted += (orig, achievement) =>
         {
-            if(achievement.ModAchievement is SetSailAchievement) {
+            if (achievement.ModAchievement is SetSailAchievement)
+            {
                 var sound = Assets.Sound.KelpForestAchievement.Asset;
 
                 Main.NewText(Language.GetTextValue("Achievements.Completed", AchievementTagHandler.GenerateTag(achievement)));
-                if(SoundEngine.FindActiveSound(sound) == null)
+                if (SoundEngine.FindActiveSound(sound) == null)
                     SoundEngine.PlayTrackedSound(sound);
             }
-            else {
+            else
+            {
                 orig(achievement);
             }
         };

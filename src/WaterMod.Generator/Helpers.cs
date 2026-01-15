@@ -2,7 +2,8 @@
 
 namespace WaterMod.Generator;
 
-internal static class Helpers {
+internal static class Helpers
+{
     public static bool IsPacketHandlerAttribute(this INamedTypeSymbol? namedTypeSymbol) => namedTypeSymbol is
     {
         Name: "PacketHandlerAttribute",

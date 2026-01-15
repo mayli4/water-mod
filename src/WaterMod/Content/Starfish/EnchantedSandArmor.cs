@@ -1,6 +1,7 @@
 ﻿namespace WaterMod.Content;
 
-internal sealed class EnchantedSandArmor {
+internal sealed class EnchantedSandArmor
+{
     // internal class Helmet : ModItem {
     //     
     // }

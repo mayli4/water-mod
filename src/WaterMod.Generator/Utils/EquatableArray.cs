@@ -5,7 +5,8 @@ using System.Collections.Generic;
 namespace WaterMod.Generator.Utils;
 
 internal readonly struct EquatableArray<T>(T[] items) : IEquatable<EquatableArray<T>>, IEnumerable<T>
-    where T : IEquatable<T> {
+    where T : IEquatable<T>
+{
     public readonly T[] Items = items ?? throw new ArgumentNullException(nameof(items));
     public readonly int Length => Items.Length;
 
@@ -18,22 +19,25 @@ internal readonly struct EquatableArray<T>(T[] items) : IEquatable<EquatableArra
         => !a.Equals(b);
     public override bool Equals(object? obj)
         => obj is EquatableArray<T> n && n == this;
-    public bool Equals(EquatableArray<T> other) {
-        if(other.Items is null)
+    public bool Equals(EquatableArray<T> other)
+    {
+        if (other.Items is null)
             return Items is null;
 
-        if(Items is null)
+        if (Items is null)
             return false;
 
-        if(Items.Length != other.Items.Length)
+        if (Items.Length != other.Items.Length)
             return false;
 
         return Items.AsSpan().SequenceEqual(other.Items);
     }
 
-    public override int GetHashCode() {
+    public override int GetHashCode()
+    {
         HashCode hashCode = new();
-        foreach(ref var value in Items.AsSpan()) {
+        foreach (ref var value in Items.AsSpan())
+        {
             hashCode.Add(value);
         }
         return hashCode.ToHashCode();
@@ -43,7 +47,8 @@ internal readonly struct EquatableArray<T>(T[] items) : IEquatable<EquatableArra
     IEnumerator<T> IEnumerable<T>.GetEnumerator() => new EquatableArrayEnumerator(this);
     public EquatableArrayEnumerator GetEnumerator() => new EquatableArrayEnumerator(this);
 
-    public struct EquatableArrayEnumerator(EquatableArray<T> equatableArray) : IEnumerator<T> {
+    public struct EquatableArrayEnumerator(EquatableArray<T> equatableArray) : IEnumerator<T>
+    {
         private readonly T[] _items = equatableArray.Items;
         private int _index = -1;
 

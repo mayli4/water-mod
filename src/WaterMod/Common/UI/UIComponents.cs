@@ -1,16 +1,19 @@
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 using Terraria.UI;
 
 namespace WaterMod.Common.UI;
 
 
-internal abstract class UIComponent {
+internal abstract class UIComponent
+{
     private WeakReference<UIElement> _parent;
 
-    public UIElement Parent {
+    public UIElement Parent
+    {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get {
+        get
+        {
             _parent.TryGetTarget(out var element);
             return element;
         }
@@ -20,8 +23,10 @@ internal abstract class UIComponent {
 
     protected abstract void OnDetach(UIElement element);
 
-    public void AttachTo(UIElement element) {
-        if(_parent != null) {
+    public void AttachTo(UIElement element)
+    {
+        if (_parent != null)
+        {
             throw new InvalidOperationException("UI component already attached to an element.");
         }
 
@@ -30,12 +35,15 @@ internal abstract class UIComponent {
         OnAttach(element);
     }
 
-    public void DetachFrom(UIElement element) {
-        if(_parent == null) {
+    public void DetachFrom(UIElement element)
+    {
+        if (_parent == null)
+        {
             throw new InvalidOperationException("UI component not attached to an element.");
         }
 
-        if(element != Parent) {
+        if (element != Parent)
+        {
             throw new InvalidOperationException("Attempted to detach a UI component from an element it is not attached to.");
         }
 
@@ -45,8 +53,10 @@ internal abstract class UIComponent {
     }
 }
 
-internal static class UIComponentExtensions {
-    public static TComponent AddComponent<TComponent>(this UIElement element, TComponent component) where TComponent : UIComponent {
+internal static class UIComponentExtensions
+{
+    public static TComponent AddComponent<TComponent>(this UIElement element, TComponent component) where TComponent : UIComponent
+    {
         component.AttachTo(element);
         return component;
     }
