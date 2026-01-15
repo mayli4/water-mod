@@ -23,6 +23,11 @@ Items: {
 		DisplayName: Enchanted Sand
 		Tooltip: ""
 	}
+
+	Kiwi: {
+		DisplayName: Kiwi
+		Tooltip: ""
+	}
 }
 
 Achievements: {

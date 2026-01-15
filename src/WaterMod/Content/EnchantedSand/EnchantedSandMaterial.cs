@@ -28,7 +28,10 @@ internal class EnchantedSandMaterial : ModItem, IPreRenderedItem {
     public void PreRender(Texture2D sourceTexture) {
         var glow = Assets.Textures.Content.Starfish.EnchantedSandMaterial_Glow.Asset.Value;
 
-        var color = Color.Yellow * (float)Math.Sin(Main.timeForVisualEffects * 0.07f);
+        var sine = (float)Math.Sin(Main.timeForVisualEffects * 0.07f);
+        var intensity = 0.5f + (sine * 0.1f); 
+    
+        var color = Color.Yellow * intensity;
         
         Main.spriteBatch.Draw(sourceTexture, Vector2.Zero, Color.White);
         Main.spriteBatch.Draw(glow, Vector2.Zero, color);
