@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using SubworldLibrary;
 
-namespace WaterMod.Content.Seamap;
+namespace WaterMod.Content;
 
 internal sealed class SeamapPlayer : ModPlayer {
     public override void PreUpdate() {

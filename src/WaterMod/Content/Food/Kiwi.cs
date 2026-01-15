@@ -1,7 +1,7 @@
 ﻿using Terraria.DataStructures;
 using Terraria.ID;
 
-namespace WaterMod.Content.Food;
+namespace WaterMod.Content;
 
 internal sealed class Kiwi : ModItem {
     public override string Texture => Assets.Textures.Content.Fruits.Kiwi.KEY;

@@ -8,7 +8,7 @@ using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
 using WaterMod.Utilities;
 
-namespace WaterMod.Content.Shipyard;
+namespace WaterMod.Content;
 
 internal sealed class ShipyardGenerationSystem : ModSystem {
     /// <summary>

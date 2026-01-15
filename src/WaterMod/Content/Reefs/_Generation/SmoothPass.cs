@@ -2,7 +2,7 @@
 using Terraria.IO;
 using Terraria.WorldBuilding;
 
-namespace WaterMod.Content.Reefs;
+namespace WaterMod.Content;
 
 internal class SmoothPass(string name, double loadWeight) : GenPass(name, loadWeight) {
     protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration) {

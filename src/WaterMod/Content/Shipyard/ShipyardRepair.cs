@@ -4,7 +4,7 @@
 // using Terraria.Graphics.Shaders;
 // using Terraria.ID;
 //
-// namespace WaterMod.Content.Shipyard;
+// namespace WaterMod.Content;
 //
 // class ShipyardRepairPlayer : ModPlayer
 // {

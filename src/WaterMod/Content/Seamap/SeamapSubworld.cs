@@ -6,9 +6,8 @@ using Terraria.Localization;
 using Terraria.UI.Chat;
 using Terraria.WorldBuilding;
 using WaterMod.Common.Subworlds;
-using WaterMod.Content.Achievements;
 
-namespace WaterMod.Content.Seamap;
+namespace WaterMod.Content;
 
 internal sealed class SeamapSubworld : Subworld {
     public override int Width => 300;

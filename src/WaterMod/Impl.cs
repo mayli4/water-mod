@@ -10,8 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using SubworldLibrary;
 using Terraria.Localization;
 using WaterMod.Common.Networking;
-using WaterMod.Content.Reefs;
-using WaterMod.Content.Seamap;
+using WaterMod.Content;
 
 namespace WaterMod;
 

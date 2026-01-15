@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.IO;
 using Terraria.WorldBuilding;
 
-namespace WaterMod.Content.Reefs;
+namespace WaterMod.Content;
 
 internal sealed class InitialShoalsSurfacePass(string name, double loadWeight) : GenPass(name, loadWeight) {
     protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration) {

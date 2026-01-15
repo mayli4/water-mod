@@ -1,7 +1,7 @@
 ﻿using SubworldLibrary;
 using Terraria.Graphics.Capture;
 
-namespace WaterMod.Content.Reefs;
+namespace WaterMod.Content;
 
 internal sealed class ShoalsBiome : ModBiome {
     public override ModWaterStyle WaterStyle => ModContent.GetModWaterStyle(ModContent.GetInstance<ShoalsWaterStyle>().Slot);

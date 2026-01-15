@@ -2,7 +2,7 @@
 using SubworldLibrary;
 using Terraria.Graphics.Light;
 
-namespace WaterMod.Content.Reefs;
+namespace WaterMod.Content;
 
 internal sealed class ReefsHooks {
     [OnLoad]

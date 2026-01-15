@@ -7,7 +7,7 @@ using Terraria.GameContent.UI.Chat;
 using Terraria.Initializers;
 using Terraria.Localization;
 
-namespace WaterMod.Content.Achievements;
+namespace WaterMod.Content;
 
 [UsedImplicitly]
 internal class SetSailAchievement : ModAchievement {

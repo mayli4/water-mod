@@ -6,7 +6,7 @@ using Terraria.GameContent.Drawing;
 using Terraria.GameContent.Liquid;
 using Terraria.Graphics;
 
-namespace WaterMod.Content.VanillaChanges;
+namespace WaterMod.Content;
 
 internal sealed class WaterAlpha {
     private static bool _isLiquid;

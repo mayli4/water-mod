@@ -8,7 +8,7 @@ using Terraria.ID;
 using WaterMod.Generator;
 using WaterMod.Utilities;
 
-namespace WaterMod.Content.Seamap;
+namespace WaterMod.Content;
 
 public class ShipPlayer : ModPlayer {
     public int ShipMaxLife { get; set; } = 100;

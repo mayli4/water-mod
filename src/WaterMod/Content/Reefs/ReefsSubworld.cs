@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using Terraria.WorldBuilding;
 using WaterMod.Common.Subworlds;
-using WaterMod.Content.Achievements;
 
-namespace WaterMod.Content.Reefs;
+namespace WaterMod.Content;
 
 /* todo
  - randomized gen, per seed

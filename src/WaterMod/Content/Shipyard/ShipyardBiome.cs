@@ -1,6 +1,6 @@
 ﻿using SubworldLibrary;
 
-namespace WaterMod.Content.Shipyard;
+namespace WaterMod.Content;
 
 public sealed class ShipyardBiome : ModBiome {
     public override SceneEffectPriority Priority { get; } = SceneEffectPriority.BiomeHigh;

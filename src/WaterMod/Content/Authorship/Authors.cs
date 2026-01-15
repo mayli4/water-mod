@@ -1,7 +1,7 @@
 ﻿using Daybreak.Common.Features.Authorship;
 using JetBrains.Annotations;
 
-namespace WaterMod.Content.Authorship;
+namespace WaterMod.Content;
 
 public abstract class CommonAuthorTag : AuthorTag {
     private const string suffix = "Tag";

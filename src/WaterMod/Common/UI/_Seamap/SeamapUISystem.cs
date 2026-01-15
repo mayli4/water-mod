@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Terraria.GameContent;
 using Terraria.GameInput;
 using Terraria.UI;
-using WaterMod.Content.Seamap;
+using WaterMod.Content;
 
 namespace WaterMod.Common.UI;
 

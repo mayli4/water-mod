@@ -1,4 +1,4 @@
-﻿namespace WaterMod.Content.Reefs;
+﻿namespace WaterMod.Content;
 
 internal sealed class ShoalsWaterStyle : ModWaterStyle {
     public override string Texture => Assets.Textures.Waters.ShoalsWaterStyle.KEY;

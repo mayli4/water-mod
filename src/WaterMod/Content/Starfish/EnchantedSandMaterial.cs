@@ -2,7 +2,6 @@
 using System;
 using Terraria.Enums;
 using Terraria.ID;
-using WaterMod.Content.Reefs;
 
 namespace WaterMod.Content;
 

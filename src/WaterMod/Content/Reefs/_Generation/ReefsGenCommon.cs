@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using WaterMod.Utilities;
 
-namespace WaterMod.Content.Reefs;
+namespace WaterMod.Content;
 
 internal class ReefsGenCommon {
     private static FastNoiseLite _noiseGenerator;

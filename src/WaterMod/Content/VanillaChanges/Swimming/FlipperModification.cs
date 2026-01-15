@@ -2,7 +2,7 @@
 using Terraria.ID;
 using WaterMod.Common.Swimming;
 
-namespace WaterMod.Content.VanillaChanges.Swimming;
+namespace WaterMod.Content;
 
 [UsedImplicitly]
 internal sealed class FlipperGlobalItem : GlobalItem {

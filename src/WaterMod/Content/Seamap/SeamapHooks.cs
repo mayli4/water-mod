@@ -2,7 +2,7 @@
 using SubworldLibrary;
 using Terraria;
 
-namespace WaterMod.Content.Seamap;
+namespace WaterMod.Content;
 
 internal sealed class SeamapHooks {
     [OnLoad]
