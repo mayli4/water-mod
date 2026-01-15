@@ -545,6 +545,67 @@
                 <paramref name="delegateType"/>.
             </summary>
         </member>
+        <member name="T:Daybreak.Common.Features.InfoIcons.InfoIcon">
+            <summary>
+                The basic definition of an informative icon that may be rendered.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.InfoIcons.InfoIcon.LocalizationCategory">
+            <inheritdoc />
+        </member>
+        <member name="P:Daybreak.Common.Features.InfoIcons.InfoIcon.Description">
+            <summary>
+                The description of the icon to show on hover.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.InfoIcons.InfoIcon.Priority">
+            <summary>
+                The sorting priority of this icon, relative to other icons.  This
+                value is clamped to a [0, 1] range.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.InfoIcons.InfoIcon.InitTemplateInstance">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Features.InfoIcons.InfoIcon.SetupContent">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Features.InfoIcons.InfoIcon.CreateElement">
+            <summary>
+                Initializes the element to render this icon in.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.InfoIcons.InfoIcon.OnHover">
+            <summary>
+                Invoked when your icon element is being hovered.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.InfoIcons.PlayerIcon">
+            <summary>
+                An icon rendered on a player select UI item.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.InfoIcons.PlayerIcon.Register">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Features.InfoIcons.PlayerIcon.IsVisible(Terraria.IO.PlayerFileData)">
+            <summary>
+                Whether this icon is visible.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.InfoIcons.WorldIcon">
+            <summary>
+                An icon rendered on a world select UI item.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.InfoIcons.WorldIcon.Register">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Features.InfoIcons.WorldIcon.IsVisible(Terraria.IO.WorldFileData)">
+            <summary>
+                Whether this icon is visible.
+            </summary>
+        </member>
         <member name="T:Daybreak.Common.Features.InterfaceModifiers.HideUserInterfaceModifier">
             <summary>
                 A special modifier which can fade the UI in and out.
@@ -2263,6 +2324,87 @@
         <member name="M:Daybreak.Common.Features.Tiles.LilyPadTile.TileFrame(System.Int32,System.Int32,System.Boolean@,System.Boolean@)">
             <inheritdoc />
         </member>
+        <member name="T:Daybreak.Common.Features.TmlConfig.ConditionalContainer">
+            <summary>
+                Represents a boolean condition for configs.
+                <br />
+                This type should be inherited to form a group of configuration options
+                which are directly dependent on whether an existing feature is enabled
+                (<see cref="P:Daybreak.Common.Features.TmlConfig.ConditionalContainer.Enabled"/>).
+                <br />
+                A <see cref="T:Terraria.ModLoader.Config.ModConfig"/> should declare a property of the inheriting
+                type to represent this option group.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.TmlConfig.ConditionalContainer.Enabled">
+            <summary>
+                Whether this container is enabled.  This determines whether the
+                state contained within the container is accessible.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Features.TmlConfig.ConditionalContainer.Locked">
+            <summary>
+                Whether this container is locked.  A locked container renders its
+                state immutable from the user's perspective.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Features.TmlConfig.CyclicalTextEnumAttribute`1">
+            <summary>
+                An alternative enum display provider which renders closer to a boolean
+                and with bidirectional cycling using the mouse buttons.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.TmlConfig.CyclicalTextEnumAttribute`1.#ctor">
+            <summary>
+                An alternative enum display provider which renders closer to a boolean
+                and with bidirectional cycling using the mouse buttons.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Features.TmlConfig.CyclicalTextEnumElement`1.OnBind">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Features.TmlConfig.CyclicalTextEnumElement`1.DrawSelf(Microsoft.Xna.Framework.Graphics.SpriteBatch)">
+            <inheritdoc />
+        </member>
+        <member name="T:Daybreak.Common.Features.TmlConfig.ProvidesConfigElementForAttribute`1">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Features.TmlConfig.ProvidesConfigElementForAttribute`1.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="T:Daybreak.Common.Features.TmlConfig.ProvidesConfigElementForAttribute">
+            <summary>
+                Annotate a <see cref="T:Terraria.ModLoader.Config.UI.ConfigElement"/> implemnentation to make it the
+                <paramref name="type"/>'s default element implementation.
+                <br />
+                Essentially the inverse of <see cref="T:Terraria.ModLoader.Config.CustomModConfigItemAttribute"/> in
+                functionality, allowing you to set a default behavior for a type.  Does
+                not override the usage of <see cref="T:Terraria.ModLoader.Config.CustomModConfigItemAttribute"/> in
+                use code.
+            </summary>
+            <param name="type">
+                The type to give a default element implementation to.
+            </param>
+        </member>
+        <member name="M:Daybreak.Common.Features.TmlConfig.ProvidesConfigElementForAttribute.#ctor(System.Type)">
+            <summary>
+                Annotate a <see cref="T:Terraria.ModLoader.Config.UI.ConfigElement"/> implemnentation to make it the
+                <paramref name="type"/>'s default element implementation.
+                <br />
+                Essentially the inverse of <see cref="T:Terraria.ModLoader.Config.CustomModConfigItemAttribute"/> in
+                functionality, allowing you to set a default behavior for a type.  Does
+                not override the usage of <see cref="T:Terraria.ModLoader.Config.CustomModConfigItemAttribute"/> in
+                use code.
+            </summary>
+            <param name="type">
+                The type to give a default element implementation to.
+            </param>
+        </member>
+        <member name="P:Daybreak.Common.Features.TmlConfig.ProvidesConfigElementForAttribute.Type">
+            <summary>
+                The type.
+            </summary>
+        </member>
         <member name="T:Daybreak.Common.IDs.DaybreakItemSets">
             <summary>
                 Provides item ID sets.
@@ -2359,6 +2501,1109 @@
         </member>
         <member name="M:Daybreak.Common.IDs.DaybreakTileSets.Load">
             <inheritdoc />
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.Angle">
+            <summary>
+                A type-safe representation of an angle, stored in radians.
+                <br />
+                Angles may accumulate freely; use <see cref="M:Daybreak.Common.Mathematics.Angle.NormalizedPositive"/> or
+                <see cref="M:Daybreak.Common.Mathematics.Angle.NormalizedSigned"/> when a bounded domain is required.
+                <br />
+                All built-in operators operate directly on <see cref="P:Daybreak.Common.Mathematics.Angle.Radians"/>.
+                This includes comparison operators and <see cref="M:Daybreak.Common.Mathematics.Angle.CompareTo(Daybreak.Common.Mathematics.Angle)"/>,
+                which perform linear (non-wrapping) comparisons.
+                <br />
+                For circular or directional semantics, see
+                <see cref="M:Daybreak.Common.Mathematics.Angle.ShortestDeltaTo(Daybreak.Common.Mathematics.Angle)"/>, <see cref="!:ShortestDistance"/>,
+                <see cref="M:Daybreak.Common.Mathematics.Angle.IsClockwiseFrom(Daybreak.Common.Mathematics.Angle)"/>, <see cref="M:Daybreak.Common.Mathematics.Angle.IsCounterClockwiseFrom(Daybreak.Common.Mathematics.Angle)"/>,
+                and <see cref="M:Daybreak.Common.Mathematics.Angle.IsBetween(Daybreak.Common.Mathematics.Angle,Daybreak.Common.Mathematics.Angle,Daybreak.Common.Mathematics.Angle,Daybreak.Common.Mathematics.Angle.Direction)"/>.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.Angle.Direction">
+            <summary>
+                Represents the direction of a rotation.
+            </summary>
+        </member>
+        <member name="F:Daybreak.Common.Mathematics.Angle.Direction.Clockwise">
+            <summary>
+                A clockwise rotation.
+            </summary>
+        </member>
+        <member name="F:Daybreak.Common.Mathematics.Angle.Direction.CounterClockwise">
+            <summary>
+                A counter-clockwise rotation.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Angle.Zero">
+            <summary>
+                An angle of 0 radians (0 degrees).
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Angle.Pi">
+            <summary>
+                An angle of π radians (180 degrees).
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Angle.TwoPi">
+            <summary>
+                An angle of 2π (or τ) radians (360 degrees).
+            </summary>
+            <seealso cref="P:Daybreak.Common.Mathematics.Angle.Tau"/>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Angle.Tau">
+            <summary>
+                An angle of 2π (or τ) radians (360 degrees).
+            </summary>
+            <seealso cref="P:Daybreak.Common.Mathematics.Angle.TwoPi"/>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Angle.HalfPi">
+            <summary>
+                An angle of π radians (90 degrees); a right angle.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Angle.Radians">
+            <summary>
+                The value of this angle in radians.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.ToDegrees">
+            <summary>
+                Returns the value of this angle in degrees.  Unlike
+                <see cref="P:Daybreak.Common.Mathematics.Angle.Radians"/>, degrees must be converted to, so only use
+                this if it's necessary.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.NormalizedPositive">
+            <summary>
+                Normalizes this angle to the range [0, 2π) and returns the value as
+                a new angle.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.NormalizedSigned">
+            <summary>
+                Normalizes this angle to the range (-π, π] and returns the value as
+                a new angle.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.ShortestDeltaTo(Daybreak.Common.Mathematics.Angle)">
+            <summary>
+                Returns the signed, shortest rotation required to rotate from this
+                angle to <paramref name="other"/>.
+            </summary>
+            <remarks>
+                The result is normalized to the range (-π, π].
+                A positive value indicates a counter-clockwise rotation;
+                a negative value indicates a clockwise rotation.
+            </remarks>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.ShortestDistanceTo(Daybreak.Common.Mathematics.Angle)">
+            <summary>
+                Returns the unsigned, shortest rotation required to rotate from this
+                angle to <paramref name="other"/>.
+            </summary>
+            <remarks>
+                The result is normalized to the range [0, π].
+            </remarks>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.IsClockwiseFrom(Daybreak.Common.Mathematics.Angle)">
+            <summary>
+                Determines whether reaching this angle from
+                <paramref name="other"/> requires a clockwise rotation,
+                using the shortest path in a <see cref="M:Daybreak.Common.Mathematics.Angle.NormalizedSigned"/> domain.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.IsCounterClockwiseFrom(Daybreak.Common.Mathematics.Angle)">
+            <summary>
+                Determines whether reaching this angle from
+                <paramref name="other"/> requires a counter-clockwise rotation,
+                using the shortest path in a <see cref="M:Daybreak.Common.Mathematics.Angle.NormalizedSigned"/> domain.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.IsBetween(Daybreak.Common.Mathematics.Angle,Daybreak.Common.Mathematics.Angle,Daybreak.Common.Mathematics.Angle,Daybreak.Common.Mathematics.Angle.Direction)">
+            <summary>
+                Determines whether <paramref name="value"/> lies between
+                <paramref name="start"/> and <paramref name="end"/> when traversing
+                the circle in the specified <paramref name="direction"/>.
+            </summary>
+            <remarks>
+                This method operates on the raw radian values of the angles.
+                Callers may wish to normalize inputs to a common domain
+                (for example, <see cref="M:Daybreak.Common.Mathematics.Angle.NormalizedPositive"/>) before calling.
+            </remarks>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.op_Addition(Daybreak.Common.Mathematics.Angle,Daybreak.Common.Mathematics.Angle)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.op_Subtraction(Daybreak.Common.Mathematics.Angle,Daybreak.Common.Mathematics.Angle)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.op_UnaryNegation(Daybreak.Common.Mathematics.Angle)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.op_Multiply(Daybreak.Common.Mathematics.Angle,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.op_Division(Daybreak.Common.Mathematics.Angle,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.op_GreaterThan(Daybreak.Common.Mathematics.Angle,Daybreak.Common.Mathematics.Angle)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.op_GreaterThanOrEqual(Daybreak.Common.Mathematics.Angle,Daybreak.Common.Mathematics.Angle)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.op_LessThan(Daybreak.Common.Mathematics.Angle,Daybreak.Common.Mathematics.Angle)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.op_LessThanOrEqual(Daybreak.Common.Mathematics.Angle,Daybreak.Common.Mathematics.Angle)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.CompareTo(Daybreak.Common.Mathematics.Angle)">
+            <summary>
+                Compares <see cref="P:Daybreak.Common.Mathematics.Angle.Radians"/> as float values (in no particular
+                normalized space).
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.ApproximatelyEquals(Daybreak.Common.Mathematics.Angle,System.Single)">
+            <summary>
+                Determines whether this angle is approximately equal to
+                <paramref name="other"/> within the given tolerance, using
+                raw radian values (no wrapping).
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.ApproximatelyEqualsCircular(Daybreak.Common.Mathematics.Angle,System.Single)">
+            <summary>
+                Determines whether this angle is approximately equal to
+                <paramref name="other"/> within the given tolerance,
+                accounting for circular wrap-around.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.op_Explicit(Daybreak.Common.Mathematics.Angle)~System.Single">
+            <summary>
+                Explicitly casts this <see cref="T:Daybreak.Common.Mathematics.Angle"/> down to its radian value.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.FromRadians(System.Single)">
+            <summary>
+                Initializes this angle with the value <paramref name="radians"/>.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Angle.FromDegrees(System.Single)">
+            <summary>
+                Initializes this angle with the value <paramref name="degrees"/>,
+                converted to radians.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.AngleExtensions">
+            <summary>
+                Additional extensions for <see cref="T:Daybreak.Common.Mathematics.Angle"/>s.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.AngleExtensions.Sin(Daybreak.Common.Mathematics.Angle)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.AngleExtensions.&lt;G&gt;$5BD2A977D0710AAC740939E1C2C29EE8.Sin"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.AngleExtensions.Cos(Daybreak.Common.Mathematics.Angle)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.AngleExtensions.&lt;G&gt;$5BD2A977D0710AAC740939E1C2C29EE8.Cos"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.AngleExtensions.SinCos(Daybreak.Common.Mathematics.Angle)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.AngleExtensions.&lt;G&gt;$5BD2A977D0710AAC740939E1C2C29EE8.SinCos"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.AngleExtensions.ToUnitVector(Daybreak.Common.Mathematics.Angle)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.AngleExtensions.&lt;G&gt;$5BD2A977D0710AAC740939E1C2C29EE8.ToUnitVector"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.AngleExtensions.FromVector(Microsoft.Xna.Framework.Vector2)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.AngleExtensions.&lt;G&gt;$5BD2A977D0710AAC740939E1C2C29EE8.FromVector(Microsoft.Xna.Framework.Vector2)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.AngleExtensions.Snap(Daybreak.Common.Mathematics.Angle,Daybreak.Common.Mathematics.Angle)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.AngleExtensions.&lt;G&gt;$5BD2A977D0710AAC740939E1C2C29EE8.Snap(Daybreak.Common.Mathematics.Angle)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.AngleExtensions.LerpTo(Daybreak.Common.Mathematics.Angle,Daybreak.Common.Mathematics.Angle,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.AngleExtensions.&lt;G&gt;$5BD2A977D0710AAC740939E1C2C29EE8.LerpTo(Daybreak.Common.Mathematics.Angle,System.Single)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.AngleExtensions.MoveToward(Daybreak.Common.Mathematics.Angle,Daybreak.Common.Mathematics.Angle,Daybreak.Common.Mathematics.Angle)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.AngleExtensions.&lt;G&gt;$5BD2A977D0710AAC740939E1C2C29EE8.MoveToward(Daybreak.Common.Mathematics.Angle,Daybreak.Common.Mathematics.Angle)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.AngleExtensions.Rotate(Daybreak.Common.Mathematics.Angle,Microsoft.Xna.Framework.Vector2)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.AngleExtensions.&lt;G&gt;$5BD2A977D0710AAC740939E1C2C29EE8.Rotate(Microsoft.Xna.Framework.Vector2)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.AngleExtensions.RotatedBy(Microsoft.Xna.Framework.Vector2,Daybreak.Common.Mathematics.Angle)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.AngleExtensions.&lt;G&gt;$C6AF930C2958ED40A20EFDF3EBE8D0F7.RotatedBy(Daybreak.Common.Mathematics.Angle)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.AngleExtensions.&lt;G&gt;$5BD2A977D0710AAC740939E1C2C29EE8.Sin">
+            <inheritdoc cref="M:System.MathF.Sin(System.Single)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.AngleExtensions.&lt;G&gt;$5BD2A977D0710AAC740939E1C2C29EE8.Cos">
+            <inheritdoc cref="M:System.MathF.Cos(System.Single)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.AngleExtensions.&lt;G&gt;$5BD2A977D0710AAC740939E1C2C29EE8.SinCos">
+            <inheritdoc cref="M:System.MathF.SinCos(System.Single)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.AngleExtensions.&lt;G&gt;$5BD2A977D0710AAC740939E1C2C29EE8.ToUnitVector">
+            <summary>
+                Creates a vector of length 1 with this angle's rotation.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.AngleExtensions.&lt;G&gt;$5BD2A977D0710AAC740939E1C2C29EE8.FromVector(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+                Initializes this angle with the value of the rotation of the
+                vector <paramref name="v"/>.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.AngleExtensions.&lt;G&gt;$5BD2A977D0710AAC740939E1C2C29EE8.Snap(Daybreak.Common.Mathematics.Angle)">
+            <summary>
+                Returns a new angle rounded to the nearest multiple of the
+                <paramref name="increment"/>, effectively quantizing it.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.AngleExtensions.&lt;G&gt;$5BD2A977D0710AAC740939E1C2C29EE8.LerpTo(Daybreak.Common.Mathematics.Angle,System.Single)">
+            <summary>
+                Linearly interpolates from this angle to <paramref name="target"/>
+                along the shortest path.
+            </summary>
+            <param name="target">The target angle to lerp toward.</param>
+            <param name="t">
+                Interpolation factor in [0, 1].
+            </param>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.AngleExtensions.&lt;G&gt;$5BD2A977D0710AAC740939E1C2C29EE8.MoveToward(Daybreak.Common.Mathematics.Angle,Daybreak.Common.Mathematics.Angle)">
+            <summary>
+                Rotates this angle toward <paramref name="target"/> by at most
+                <paramref name="maxDelta"/> radians, using the shortest path.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.AngleExtensions.&lt;G&gt;$5BD2A977D0710AAC740939E1C2C29EE8.Rotate(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+                Rotates the vector <paramref name="v"/> by the angle.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.AngleExtensions.&lt;G&gt;$C6AF930C2958ED40A20EFDF3EBE8D0F7.RotatedBy(Daybreak.Common.Mathematics.Angle)">
+            <summary>
+                Rotates the vector by the angle <paramref name="a"/>.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.Bezier">
+            <summary>
+                Provides Bézier curve interpolation primitives.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Bezier.Cubic(System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Bezier.Cubic(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Bezier.Cubic(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Bezier.Cubic(Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Bezier.VectorCubic(System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Bezier.VectorCubic(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Bezier.VectorCubic(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Bezier.VectorCubic(Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Bezier.Quadratic(System.Single,System.Single,System.Single,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Bezier.Quadratic(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Bezier.Quadratic(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Bezier.Quadratic(Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Bezier.VectorQuadratic(System.Single,System.Single,System.Single,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Bezier.VectorQuadratic(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Bezier.VectorQuadratic(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Bezier.VectorQuadratic(Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4)">
+            <inheritdoc />
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.Hermite">
+            <summary>
+                Provides Hermite spline interpolation primitives.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Hermite.Cubic(System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Hermite.Cubic(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Hermite.Cubic(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Hermite.Cubic(Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Hermite.VectorCubic(System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Hermite.VectorCubic(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Hermite.VectorCubic(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Hermite.VectorCubic(Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Hermite.CatmullRom(System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Hermite.CatmullRom(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Hermite.CatmullRom(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Hermite.CatmullRom(Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Hermite.VectorCatmullRom(System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Hermite.VectorCatmullRom(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Hermite.VectorCatmullRom(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Hermite.VectorCatmullRom(Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4)">
+            <inheritdoc />
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.Interpolate">
+            <summary>
+                Provides core interpolation and remapping primitives.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Interpolate.Lerp(System.Single,System.Single,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Interpolate.Lerp(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Interpolate.Lerp(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Interpolate.Lerp(Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Interpolate.VectorLerp(System.Single,System.Single,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Interpolate.VectorLerp(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Interpolate.VectorLerp(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Interpolate.VectorLerp(Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Interpolate.InverseLerp(System.Single,System.Single,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Interpolate.InverseLerp(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Interpolate.InverseLerp(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Interpolate.InverseLerp(Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Interpolate.VectorInverseLerp(System.Single,System.Single,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Interpolate.VectorInverseLerp(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Interpolate.VectorInverseLerp(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Interpolate.VectorInverseLerp(Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Interpolate.Remap(System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Interpolate.Remap(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Interpolate.Remap(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Interpolate.Remap(Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4)">
+            <inheritdoc />
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.Smooth">
+            <summary>
+                Provides smooth time-shaping and eased interpolation primitives.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.TimeStep(System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.TimeStep(Microsoft.Xna.Framework.Vector3)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.TimeStep(Microsoft.Xna.Framework.Vector2)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.TimeStep(Microsoft.Xna.Framework.Vector4)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.SmootherTimeStep(System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.SmootherTimeStep(Microsoft.Xna.Framework.Vector3)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.SmootherTimeStep(Microsoft.Xna.Framework.Vector2)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.SmootherTimeStep(Microsoft.Xna.Framework.Vector4)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.Step(System.Single,System.Single,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.Step(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.Step(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.Step(Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.VectorStep(System.Single,System.Single,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.VectorStep(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.VectorStep(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.VectorStep(Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.SmootherStep(System.Single,System.Single,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.SmootherStep(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.SmootherStep(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.SmootherStep(Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.VectorSmootherStep(System.Single,System.Single,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.VectorSmootherStep(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.VectorSmootherStep(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Smooth.VectorSmootherStep(Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4,Microsoft.Xna.Framework.Vector4)">
+            <inheritdoc />
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.ILane`1">
+            <summary>
+                An abstraction over a mathematically-operable, vector value which may be
+                SIMD-accelerated.
+            </summary>
+            <typeparam name="TSelf">The type that implements this interface.</typeparam>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.ILane`1.LaneCount">
+            <summary>
+                The number of lanes the stored value occupies.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.ReadScalars(System.Span{System.Single})">
+            <summary>
+                Creates a new lane from the provided scalar values, assuming the
+                span is of length <see cref="P:Daybreak.Common.Mathematics.ILane`1.LaneCount"/>.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.WriteScalars(System.Span{System.Single})">
+            <summary>
+                Writes all scalar components of this lane into
+                <paramref name="destination"/>.
+                <br />
+                Returns the number of floats written.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.Add(`0,`0)">
+            <summary>
+                Performs an addition operation over the values.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.Add(`0,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.ILane`1.Add(`0,`0)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.Add(System.Single,`0)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.ILane`1.Add(`0,`0)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.op_Addition(`0,`0)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.ILane`1.Add(`0,`0)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.op_Addition(`0,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.ILane`1.Add(`0,`0)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.op_Addition(System.Single,`0)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.ILane`1.Add(`0,`0)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.Sub(`0,`0)">
+            <summary>
+                Performs a subtraction operation over the values.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.Sub(`0,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.ILane`1.Sub(`0,`0)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.Sub(System.Single,`0)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.ILane`1.Sub(`0,`0)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.op_Subtraction(`0,`0)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.ILane`1.Sub(`0,`0)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.op_Subtraction(`0,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.ILane`1.Sub(`0,`0)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.op_Subtraction(System.Single,`0)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.ILane`1.Sub(`0,`0)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.Mul(`0,`0)">
+            <summary>
+                Performs a multiplication operation over the values.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.Mul(`0,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.ILane`1.Mul(`0,`0)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.Mul(System.Single,`0)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.ILane`1.Mul(`0,`0)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.op_Multiply(`0,`0)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.ILane`1.Mul(`0,`0)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.op_Multiply(`0,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.ILane`1.Mul(`0,`0)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.op_Multiply(System.Single,`0)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.ILane`1.Mul(`0,`0)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.Div(`0,`0)">
+            <summary>
+                Performs a division operation over the values.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.Div(`0,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.ILane`1.Div(`0,`0)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.Div(System.Single,`0)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.ILane`1.Div(`0,`0)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.op_Division(`0,`0)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.ILane`1.Div(`0,`0)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.op_Division(`0,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.ILane`1.Div(`0,`0)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.op_Division(System.Single,`0)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.ILane`1.Div(`0,`0)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.ILane`1.CreateFromSingle(System.Single)">
+            <summary>
+                Initializes a lane object filled with the single for each valid
+                lane.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.Lane1">
+            <summary>
+                Implements a <see cref="T:Daybreak.Common.Mathematics.ILane`1"/> with a count of one.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane1.#ctor(System.Single)">
+            <summary>
+                Implements a <see cref="T:Daybreak.Common.Mathematics.ILane`1"/> with a count of one.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Lane1.LaneCount">
+            <inheritdoc />
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Lane1.X">
+            <summary>
+                Accesses the first element of the lane.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane1.ReadScalars(System.Span{System.Single})">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane1.WriteScalars(System.Span{System.Single})">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane1.Add(Daybreak.Common.Mathematics.Lane1,Daybreak.Common.Mathematics.Lane1)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane1.Sub(Daybreak.Common.Mathematics.Lane1,Daybreak.Common.Mathematics.Lane1)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane1.Mul(Daybreak.Common.Mathematics.Lane1,Daybreak.Common.Mathematics.Lane1)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane1.Div(Daybreak.Common.Mathematics.Lane1,Daybreak.Common.Mathematics.Lane1)">
+            <inheritdoc />
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.Lane2">
+            <summary>
+                Implements a <see cref="T:Daybreak.Common.Mathematics.ILane`1"/> with a count of two.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Lane2.LaneCount">
+            <inheritdoc />
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Lane2.Vector">
+            <summary>
+                The lane's data.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Lane2.X">
+            <summary>
+                Accesses the first element of the lane.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Lane2.Y">
+            <summary>
+                Accesses the second element of the lane.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane2.#ctor(System.Single,System.Single)">
+            <summary/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane2.ReadScalars(System.Span{System.Single})">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane2.WriteScalars(System.Span{System.Single})">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane2.Add(Daybreak.Common.Mathematics.Lane2,Daybreak.Common.Mathematics.Lane2)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane2.Sub(Daybreak.Common.Mathematics.Lane2,Daybreak.Common.Mathematics.Lane2)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane2.Mul(Daybreak.Common.Mathematics.Lane2,Daybreak.Common.Mathematics.Lane2)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane2.Div(Daybreak.Common.Mathematics.Lane2,Daybreak.Common.Mathematics.Lane2)">
+            <inheritdoc />
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.Lane3">
+            <summary>
+                Implements a <see cref="T:Daybreak.Common.Mathematics.ILane`1"/> with a count of three.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Lane3.LaneCount">
+            <inheritdoc />
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Lane3.Vector">
+            <summary>
+                The lane's data.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Lane3.X">
+            <summary>
+                Accesses the first element of the lane.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Lane3.Y">
+            <summary>
+                Accesses the second element of the lane.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Lane3.Z">
+            <summary>
+                Accesses the third element of the lane.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane3.#ctor(System.Single,System.Single,System.Single)">
+            <summary/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane3.ReadScalars(System.Span{System.Single})">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane3.WriteScalars(System.Span{System.Single})">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane3.Add(Daybreak.Common.Mathematics.Lane3,Daybreak.Common.Mathematics.Lane3)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane3.Sub(Daybreak.Common.Mathematics.Lane3,Daybreak.Common.Mathematics.Lane3)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane3.Mul(Daybreak.Common.Mathematics.Lane3,Daybreak.Common.Mathematics.Lane3)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane3.Div(Daybreak.Common.Mathematics.Lane3,Daybreak.Common.Mathematics.Lane3)">
+            <inheritdoc />
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.Lane4">
+            <summary>
+                Implements a <see cref="T:Daybreak.Common.Mathematics.ILane`1"/> with a count of four.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Lane4.LaneCount">
+            <inheritdoc />
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Lane4.Vector">
+            <summary>
+                The lane's data.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Lane4.X">
+            <summary>
+                Accesses the first element of the lane.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Lane4.Y">
+            <summary>
+                Accesses the second element of the lane.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Lane4.Z">
+            <summary>
+                Accesses the third element of the lane.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.Lane4.W">
+            <summary>
+                Accesses the fourth element of the lane.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane4.#ctor(System.Single,System.Single,System.Single,System.Single)">
+            <summary/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane4.ReadScalars(System.Span{System.Single})">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane4.WriteScalars(System.Span{System.Single})">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane4.Add(Daybreak.Common.Mathematics.Lane4,Daybreak.Common.Mathematics.Lane4)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane4.Sub(Daybreak.Common.Mathematics.Lane4,Daybreak.Common.Mathematics.Lane4)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane4.Mul(Daybreak.Common.Mathematics.Lane4,Daybreak.Common.Mathematics.Lane4)">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.Lane4.Div(Daybreak.Common.Mathematics.Lane4,Daybreak.Common.Mathematics.Lane4)">
+            <inheritdoc />
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.LaneMarshalling">
+            <summary>
+                Provides default marshalling for default <see cref="T:Daybreak.Common.Mathematics.ILane`1"/>s.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.LaneExtensions">
+            <summary>
+                Provides generic extensions for lanes.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.LaneExtensions.get_X``1(``0)">
+            <inheritdoc cref="P:Daybreak.Common.Mathematics.LaneExtensions.&lt;G&gt;$CEF6FDC709A89984484223F10BFF852A`1.X"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.LaneExtensions.Average``1(``0)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.LaneExtensions.&lt;G&gt;$CEF6FDC709A89984484223F10BFF852A`1.Average"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.LaneExtensions.Min``1(``0)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.LaneExtensions.&lt;G&gt;$CEF6FDC709A89984484223F10BFF852A`1.Min"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.LaneExtensions.Max``1(``0)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.LaneExtensions.&lt;G&gt;$CEF6FDC709A89984484223F10BFF852A`1.Max"/>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.LaneExtensions.&lt;G&gt;$CEF6FDC709A89984484223F10BFF852A`1.X">
+            <summary>
+                Returns the first component of the lane.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.LaneExtensions.&lt;G&gt;$CEF6FDC709A89984484223F10BFF852A`1.Average">
+            <summary>
+                Returns the mean average of every component.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.LaneExtensions.&lt;G&gt;$CEF6FDC709A89984484223F10BFF852A`1.Min">
+            <summary>
+                Returns the value of the smallest component.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.LaneExtensions.&lt;G&gt;$CEF6FDC709A89984484223F10BFF852A`1.Max">
+            <summary>
+                Returns the value of the largest component.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.FastCellularNoise">
+            <summary>
+                A fast implementation of Cellular noise.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.FastCellularNoise.#ctor(System.Int32,System.Single)">
+            <summary>
+                A fast implementation of Cellular noise.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.FastCellularNoise.DefaultSettings">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.FastCellularNoise.Sample(Microsoft.Xna.Framework.Vector2,Daybreak.Common.Mathematics.FastCellularNoise)">
+            <inheritdoc />
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.FastSimplexNoise">
+            <summary>
+                A fast implementation of Simplex noise.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.FastSimplexNoise.#ctor(System.Int32)">
+            <summary>
+                A fast implementation of Simplex noise.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.FastSimplexNoise.DefaultSettings">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.FastSimplexNoise.Sample(Microsoft.Xna.Framework.Vector2,Daybreak.Common.Mathematics.FastSimplexNoise)">
+            <inheritdoc />
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.FastValueNoise">
+            <summary>
+                A fast implementation of Value noise.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.FastValueNoise.#ctor(System.Int32)">
+            <summary>
+                A fast implementation of Value noise.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.FastValueNoise.DefaultSettings">
+            <inheritdoc />
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.FastValueNoise.Sample(Microsoft.Xna.Framework.Vector2,Daybreak.Common.Mathematics.FastValueNoise)">
+            <inheritdoc />
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.INoise2d`1">
+            <summary>
+                A 2-dimensional noise function.  Instances denote settings for the
+                sampler.
+            </summary>
+            <typeparam name="TSelf">The type that implements this interface.</typeparam>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.INoise2d`1.Seed">
+            <summary>
+                The seed to use when sampling.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.INoise2d`1.DefaultSettings">
+            <summary>
+                Initializes an instance of the settings with its default
+                configuration.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.INoise2d`1.Sample(Microsoft.Xna.Framework.Vector2)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.INoise2d`1.Sample(Microsoft.Xna.Framework.Vector2,`0)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.INoise2d`1.Sample(Microsoft.Xna.Framework.Vector2,`0)">
+            <summary>
+                Samples the noise function at the point <paramref name="p"/>,
+                returning a scalar value.
+                <br />
+                This is a statically-provided 
+            </summary>
+            <param name="p">The point to sample at.</param>
+            <param name="settings">The settings to use for this sample.</param>
+            <returns>The scalar value resulting from the sample.</returns>
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.NoiseOperations">
+            <summary>
+                Generic operations on functions implementing
+                <see cref="T:Daybreak.Common.Mathematics.INoise2d`1"/>.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.SdfOperations">
+            <summary>
+                Provides common operations on <see cref="T:Daybreak.Common.Mathematics.SdfSample"/>s.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfOperations.Min(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample)">
+            <summary>
+                Combines shapes by taking the minimum of two SDFs.  The propagated
+                gradient is also the same as the smallest SDF sample.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfOperations.ExponentialSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)">
+            <summary>
+                Computes a smooth minimum between SDFs <paramref name="a"/> and
+                <paramref name="b"/>, returning a sample with the smoothed value and
+                a new gradient reflecting the derivation of this function.
+            </summary>
+            <param name="a">The first SDF sample, from shape 1.</param>
+            <param name="b">The second SDF sample, from shape 2.</param>
+            <param name="k">
+                The tolerance of the function, in which shapes should be merged.
+                Measured in regular, distance units.
+            </param>
+            <returns>The merged SDF sample.</returns>
+            <remarks>
+                This smooth minimum function is derived from IQ's implementations,
+                articles for which may be found here:
+                https://iquilezles.org/articles/smin/,
+                https://iquilezles.org/articles/distgradfunctions2d/.
+            </remarks>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfOperations.RootSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.SdfOperations.ExponentialSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfOperations.SigmoidSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.SdfOperations.ExponentialSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfOperations.QuadraticPolynomialSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.SdfOperations.ExponentialSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfOperations.CubicPolynomialSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.SdfOperations.ExponentialSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfOperations.QuarticPolynomialSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.SdfOperations.ExponentialSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfOperations.CircularSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.SdfOperations.ExponentialSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfOperations.CircularGeometricalSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.SdfOperations.ExponentialSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfOperations.Xor(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample)">
+            <summary>
+                Computes the exclusive-or (XOR) of two signed distance fields.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfOperations.Intersection(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample)">
+            <summary>
+                Computes the intersection of two signed distance fields.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfOperations.Subtraction(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample)">
+            <summary>
+                Subtracts one signed distance field from another.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfOperations.Round(Daybreak.Common.Mathematics.SdfSample,System.Single)">
+            <summary>
+                Applies a rounding operation to a signed distance field.
+                <br />
+                This offsets the distance field inward by a constant radius,
+                effectively rounding sharp features such as edges and corners while
+                preserving the original gradient direction.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfOperations.Onion(Daybreak.Common.Mathematics.SdfSample,System.Single)">
+            <summary>
+                Creates an onion (shell) effect from a signed distance field; see
+                also, annulus.
+                <br />
+                This operation produces a hollow shell of thickness
+                <paramref name="radius"/>
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.SdfSample">
+            <summary>
+                A sample of an SDF function providing the signed distance as well as a
+                directional gradient computed through automatic differentiation.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfSample.#ctor(System.Single,Microsoft.Xna.Framework.Vector2)">
+            <summary>
+                A sample of an SDF function providing the signed distance as well as a
+                directional gradient computed through automatic differentiation.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.SdfSample.Distance">
+            <summary>
+                The distance of the sample from the shape.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Mathematics.SdfSample.Gradient">
+            <summary>
+                The gradient of the sample.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfSample.Min(Daybreak.Common.Mathematics.SdfSample)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.SdfOperations.Min(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfSample.ExponentialSmoothMin(Daybreak.Common.Mathematics.SdfSample,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.SdfOperations.ExponentialSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfSample.RootSmoothMin(Daybreak.Common.Mathematics.SdfSample,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.SdfOperations.RootSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfSample.SigmoidSmoothMin(Daybreak.Common.Mathematics.SdfSample,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.SdfOperations.SigmoidSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfSample.QuadraticPolynomialSmoothMin(Daybreak.Common.Mathematics.SdfSample,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.SdfOperations.QuadraticPolynomialSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfSample.CubicPolynomialSmoothMin(Daybreak.Common.Mathematics.SdfSample,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.SdfOperations.CubicPolynomialSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfSample.QuarticPolynomialSmoothMin(Daybreak.Common.Mathematics.SdfSample,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.SdfOperations.QuarticPolynomialSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfSample.CircularSmoothMin(Daybreak.Common.Mathematics.SdfSample,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.SdfOperations.CircularSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfSample.CircularGeometricalSmoothMin(Daybreak.Common.Mathematics.SdfSample,System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.SdfOperations.CircularGeometricalSmoothMin(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample,System.Single)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfSample.Xor(Daybreak.Common.Mathematics.SdfSample)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.SdfOperations.Xor(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfSample.Intersection(Daybreak.Common.Mathematics.SdfSample)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.SdfOperations.Intersection(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfSample.Subtraction(Daybreak.Common.Mathematics.SdfSample)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.SdfOperations.Subtraction(Daybreak.Common.Mathematics.SdfSample,Daybreak.Common.Mathematics.SdfSample)"/>
+        </member>
+        <member name="M:Daybreak.Common.Mathematics.SdfSample.Round(System.Single)">
+            <inheritdoc cref="M:Daybreak.Common.Mathematics.SdfOperations.Round(Daybreak.Common.Mathematics.SdfSample,System.Single)"/>
+        </member>
+        <member name="T:Daybreak.Common.Mathematics.SdfShapes">
+            <summary>
+                Provides helpers to generating common SDF shapes.
+            </summary>
         </member>
         <member name="T:Daybreak.Common.Rendering.EffectChainEntry">
             <summary>
@@ -2942,6 +4187,194 @@
                 Transforms the given vector by the matrix.
             </summary>
         </member>
+        <member name="T:Daybreak.Common.Rendering.DrawParameters">
+            <summary>
+                Encapsulates the full set of parameters for a single
+                <see cref="M:Microsoft.Xna.Framework.Graphics.SpriteBatch.Draw(Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Rectangle,System.Nullable{Microsoft.Xna.Framework.Rectangle},Microsoft.Xna.Framework.Color,System.Single,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.SpriteEffects,System.Single)"/>
+                call.
+                <br />
+                <br />
+                This struct acts as a lightweight, immutable value object describing how
+                a textured quad should be submitted to the <see cref="T:Microsoft.Xna.Framework.Graphics.SpriteBatch"/>,
+                independent of the actual draw call.  This promotes reuse in basic
+                parameters and allows for more eloquent expression of values without
+                specifying redundant variables.
+            </summary>
+            <remarks>
+                Several properties are derived from others:
+                <list type="bullet">
+                    <item>
+                        <description>
+                            <see cref="P:Daybreak.Common.Rendering.DrawParameters.Size"/> is computed from the <see cref="P:Daybreak.Common.Rendering.DrawParameters.Scale"/>
+                            and the source texture (or <see cref="P:Daybreak.Common.Rendering.DrawParameters.Source"/>, if
+                            provided).
+                        </description>
+                    </item>
+                    <item>
+                        <description>
+                            Setting <see cref="P:Daybreak.Common.Rendering.DrawParameters.Size"/> updates <see cref="P:Daybreak.Common.Rendering.DrawParameters.Scale"/> to
+                            preserve the requested absolute dimensions.
+                        </description>
+                    </item>
+                    <item>
+                        <description>
+                            <see cref="P:Daybreak.Common.Rendering.DrawParameters.Destination"/> is a convenience wrapper over
+                            <see cref="P:Daybreak.Common.Rendering.DrawParameters.Position"/> and <see cref="P:Daybreak.Common.Rendering.DrawParameters.Size"/>, additionally
+                            performing integer truncation.
+                        </description>
+                    </item>
+                </list>
+                <br />
+                This type is intended to be cheap to copy and suitable for transient
+                construction during draw submission.
+            </remarks>
+        </member>
+        <member name="P:Daybreak.Common.Rendering.DrawParameters.Texture">
+            <summary>
+                The texture to render.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Rendering.DrawParameters.Position">
+            <summary>
+                The world- or screen-space position at which the quad will be
+                rendered.
+                <br />
+                Interpreted as the top-left corner prior to origin, rotation, and
+                scale being applied.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Rendering.DrawParameters.Source">
+            <summary>
+                An optional sub-region of the <see cref="P:Daybreak.Common.Rendering.DrawParameters.Texture"/> to sample from.
+                <br />
+                When used, this essentially crops the texture to the specified
+                region and treats that cropped area as if it were the entire
+                texture.
+                <br />
+                <br />
+                When <see langword="null"/>, the entire texture is used (default).
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Rendering.DrawParameters.Size">
+            <summary>
+                Gets or sets the absolute, on-screen size of the rendered quad.
+                <br />
+                <br />
+                Reading this value derives it from the <see cref="P:Daybreak.Common.Rendering.DrawParameters.Scale"/> and the
+                source dimensions of the texture.  Writing this value updates
+                <see cref="P:Daybreak.Common.Rendering.DrawParameters.Scale"/> so that the requested size is preserved.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Rendering.DrawParameters.Destination">
+            <summary>
+                Gets or sets the destination rectangle of the draw in integer
+                coordinates.
+                <br />
+                <br />
+                Setting this updates <see cref="P:Daybreak.Common.Rendering.DrawParameters.Position"/> and <see cref="P:Daybreak.Common.Rendering.DrawParameters.Size"/>.
+                Reading this returns the integer-truncated values of
+                <see cref="P:Daybreak.Common.Rendering.DrawParameters.Position"/> and <see cref="P:Daybreak.Common.Rendering.DrawParameters.Size"/>.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Rendering.DrawParameters.Color">
+            <summary>
+                The color tint applied to the texture at render time.
+                <br />
+                <see cref="P:Microsoft.Xna.Framework.Color.White"/> results in no tinting.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Rendering.DrawParameters.Rotation">
+            <summary>
+                The angle, in radians, used to rotate the texture around the
+                <see cref="P:Daybreak.Common.Rendering.DrawParameters.Origin"/>.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Rendering.DrawParameters.Origin">
+            <summary>
+                The origin point, in texture-space coordinates, about which rotation
+                and scaling and performed.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Rendering.DrawParameters.Scale">
+            <summary>
+                The scale factor applied to the source texture.
+                <br />
+                <br />
+                This value is considered the canonical representation of scale;
+                other size-related properties derive from it.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Rendering.DrawParameters.Effects">
+            <summary>
+                Additional, built-in effects provided by <see cref="T:Microsoft.Xna.Framework.Graphics.BasicEffect"/>.
+                <br />
+                Includes options for mirroring and flipping the texture during
+                rendering.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.Rendering.DrawParameters.LayerDepth">
+            <summary>
+                The depth value used for draw ordering when the
+                <see cref="T:Microsoft.Xna.Framework.Graphics.SpriteBatch"/> is configured to or sprites by depth.
+            </summary>
+            <remarks>
+                This is seldom-used in Terraria rendering!
+            </remarks>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.DrawParameters.#ctor(Microsoft.Xna.Framework.Graphics.Texture2D)">
+            <summary>
+                Initializes a new instance of <see cref="T:Daybreak.Common.Rendering.DrawParameters"/> which
+                will use the given <paramref name="texture"/>.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.DrawParameters.#ctor(ReLogic.Content.Asset{Microsoft.Xna.Framework.Graphics.Texture2D})">
+            <summary>
+                Initializes a new instance of <see cref="T:Daybreak.Common.Rendering.DrawParameters"/> which
+                will use the given <paramref name="asset"/>.  The value of the
+                <paramref name="asset"/> is resolved upon request from the
+                <see cref="P:Daybreak.Common.Rendering.DrawParameters.Texture"/> property.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.DrawParameters.Truncate">
+            <summary>
+                Truncates the <see cref="P:Daybreak.Common.Rendering.DrawParameters.Position"/> and <see cref="P:Daybreak.Common.Rendering.DrawParameters.Size"/> to
+                render at integer coordinates by setting <see cref="P:Daybreak.Common.Rendering.DrawParameters.Destination"/>
+                to itself.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.DrawParameters.ToDrawData">
+            <summary>
+                Converts this set of parameters to a <see cref="T:Terraria.DataStructures.DrawData"/> instance
+                to be used in appropriate APIs.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Common.Rendering.SpriteBatchDrawSettingsExtensions">
+            <summary>
+                Extensions to <see cref="T:Microsoft.Xna.Framework.Graphics.SpriteBatch"/> using <see cref="T:Daybreak.Common.Rendering.DrawParameters"/>
+                instances.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.SpriteBatchDrawSettingsExtensions.Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch,Daybreak.Common.Rendering.DrawParameters@)">
+            <inheritdoc cref="M:Daybreak.Common.Rendering.SpriteBatchDrawSettingsExtensions.&lt;G&gt;$6B5D1913AED414D2625C86BDDFE66B4E.Draw(Daybreak.Common.Rendering.DrawParameters@)"/>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.SpriteBatchDrawSettingsExtensions.EntitySpriteDraw(Daybreak.Common.Rendering.DrawParameters)">
+            <inheritdoc cref="M:Daybreak.Common.Rendering.SpriteBatchDrawSettingsExtensions.&lt;G&gt;$EB682B48D2BC28723A5B5C64364FFB6C.EntitySpriteDraw(Daybreak.Common.Rendering.DrawParameters)"/>
+        </member>
+        <member name="T:Daybreak.Common.Rendering.SpriteBatchDrawSettingsExtensions.&lt;G&gt;$6B5D1913AED414D2625C86BDDFE66B4E.&lt;M&gt;$D75AEF44D46C9C2281F7BDCEAECC9092">
+            <param name="sb">The <see cref="T:Microsoft.Xna.Framework.Graphics.SpriteBatch"/>.</param>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.SpriteBatchDrawSettingsExtensions.&lt;G&gt;$6B5D1913AED414D2625C86BDDFE66B4E.Draw(Daybreak.Common.Rendering.DrawParameters@)">
+            <summary>
+                Pushes the <paramref name="parameters"/> to the
+                <paramref name="sb"/> for rendering.
+            </summary>
+            <param name="parameters">
+                The parameters determining how a quad is rendered.
+            </param>
+        </member>
+        <member name="M:Daybreak.Common.Rendering.SpriteBatchDrawSettingsExtensions.&lt;G&gt;$EB682B48D2BC28723A5B5C64364FFB6C.EntitySpriteDraw(Daybreak.Common.Rendering.DrawParameters)">
+            <inheritdoc cref="M:Terraria.Main.EntitySpriteDraw(Terraria.DataStructures.DrawData)"/>
+        </member>
         <member name="T:Daybreak.Common.Rendering.SpriteBatchParameters">
             <summary>
                 Wraps the parameters of a <see cref="T:Microsoft.Xna.Framework.Graphics.SpriteBatch"/> initialization,
@@ -3143,6 +4576,47 @@
             </summary>
             <param name="ss">The <see cref="T:Daybreak.Common.Rendering.SpriteBatchSnapshot" /> to use.</param>
         </member>
+        <member name="T:Daybreak.Common.UI.UiElementExtensions">
+            <summary>
+                Extensions for <see cref="T:Terraria.UI.UIElement"/>s.
+            </summary>
+        </member>
+        <member name="M:Daybreak.Common.UI.UiElementExtensions.get_Dimensions(Terraria.UI.UIElement)">
+            <inheritdoc cref="P:Daybreak.Common.UI.UiElementExtensions.&lt;G&gt;$8BC9BEA7EFD30C2470415849FFD763B7.Dimensions"/>
+        </member>
+        <member name="M:Daybreak.Common.UI.UiElementExtensions.get_InnerDimensions(Terraria.UI.UIElement)">
+            <inheritdoc cref="P:Daybreak.Common.UI.UiElementExtensions.&lt;G&gt;$8BC9BEA7EFD30C2470415849FFD763B7.InnerDimensions"/>
+        </member>
+        <member name="M:Daybreak.Common.UI.UiElementExtensions.get_ParentRelativeDimensions(Terraria.UI.UIElement)">
+            <inheritdoc cref="P:Daybreak.Common.UI.UiElementExtensions.&lt;G&gt;$8BC9BEA7EFD30C2470415849FFD763B7.ParentRelativeDimensions"/>
+        </member>
+        <member name="T:Daybreak.Common.UI.UiElementExtensions.&lt;G&gt;$8BC9BEA7EFD30C2470415849FFD763B7.&lt;M&gt;$95579600E8A1473C1BA5C3382CF83B92">
+            <summary>
+                Extensions for <see cref="T:Terraria.UI.UIElement"/>s.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.UI.UiElementExtensions.&lt;G&gt;$8BC9BEA7EFD30C2470415849FFD763B7.Dimensions">
+            <summary>
+                The <paramref name="element"/>'s dimensions as a
+                <see cref="T:Microsoft.Xna.Framework.Rectangle"/>.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.UI.UiElementExtensions.&lt;G&gt;$8BC9BEA7EFD30C2470415849FFD763B7.InnerDimensions">
+            <summary>
+                The <paramref name="element"/>'s inner dimensions as a
+                <see cref="T:Microsoft.Xna.Framework.Rectangle"/>.
+            </summary>
+        </member>
+        <member name="P:Daybreak.Common.UI.UiElementExtensions.&lt;G&gt;$8BC9BEA7EFD30C2470415849FFD763B7.ParentRelativeDimensions">
+            <summary>
+                Attempts to get the dimensions of this
+                <paramref name="element"/> based on the dimensions of a parent
+                element.
+                <br />
+                If the element has no parent, <see cref="!:Dimensions"/> is
+                returned directly.
+            </summary>
+        </member>
         <member name="T:Daybreak.Content.Authorship.DaybreakAuthorTag">
             <summary>
                 Not to be used by API consumers.
@@ -3179,6 +4653,11 @@
                 ours.
             </summary>
         </member>
+        <member name="T:Daybreak.Content.Compatibility.LuminanceCompat">
+            <summary>
+                Redirects Luminance's Info Icon API to DAYBREAK's.
+            </summary>
+        </member>
         <member name="T:Daybreak.Content.Compatibility.PrettyRaritiesCompat">
             <summary>
                 Rewrites &quot;Better Tooltips&quot; to integrate with our rarity
@@ -3211,6 +4690,29 @@
         <member name="M:Daybreak.Core.Hooks.IUnload.Unload">
             <summary>
                 The unload hook.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Core.SourceGen.GenerateLaneOverloadsAttribute">
+            <summary>
+                Marks a method receiving a <see cref="T:Daybreak.Common.Mathematics.ILane`1"/> generic parameter
+                to generate overloads for known, Lane-convertible types.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Core.SourceGen.LaneParameterAttribute">
+            <summary>
+                Marks a generic parameter as being a lane type to be substituted.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Core.SourceGen.ToLaneAttribute">
+            <summary>
+                Marks a method as being a valid factory method to convert a type to a
+                lane.
+            </summary>
+        </member>
+        <member name="T:Daybreak.Core.SourceGen.FromLaneAttribute">
+            <summary>
+                Marks a method as being a valid factory method to convert a lane to a
+                type.
             </summary>
         </member>
         <member name="T:Daybreak.ModImpl">
