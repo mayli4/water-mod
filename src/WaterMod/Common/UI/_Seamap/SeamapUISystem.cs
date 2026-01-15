@@ -8,7 +8,7 @@ using Terraria.UI;
 using WaterMod.Content;
 
 namespace WaterMod.Common.UI;
-
+    
 internal class SeamapUI {
     [UsedImplicitly]
     [OnLoad]
