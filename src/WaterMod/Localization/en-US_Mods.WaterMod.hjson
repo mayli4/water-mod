@@ -33,6 +33,11 @@ Items: {
 		DisplayName: Star Catcher
 		Tooltip: ""
 	}
+
+	SpinnerFishItem: {
+		DisplayName: Spinner Fish
+		Tooltip: ""
+	}
 }
 
 Achievements: {
@@ -58,4 +63,7 @@ AuthorTags: {
 	FunkDotIt.DisplayName: funk.it
 }
 
-Projectiles.StarCatcherBobberProjectile.DisplayName: Star Catcher Bobber Projectile
+Projectiles: {
+	StarCatcherBobberProjectile.DisplayName: Star Catcher Bobber Projectile
+	SpinnerFishProjectile.DisplayName: Spinner Fish Projectile
+}
