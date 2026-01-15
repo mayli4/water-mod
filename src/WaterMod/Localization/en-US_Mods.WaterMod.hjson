@@ -28,6 +28,11 @@ Items: {
 		DisplayName: Kiwi
 		Tooltip: ""
 	}
+
+	StarCatcherItem: {
+		DisplayName: Star Catcher
+		Tooltip: ""
+	}
 }
 
 Achievements: {
@@ -52,3 +57,5 @@ AuthorTags: {
 	Tyeski.DisplayName: TYESKI
 	FunkDotIt.DisplayName: funk.it
 }
+
+Projectiles.StarCatcherBobberProjectile.DisplayName: Star Catcher Bobber Projectile
