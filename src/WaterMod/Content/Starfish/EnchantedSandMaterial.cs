@@ -4,7 +4,7 @@ using Terraria.Enums;
 using Terraria.ID;
 using WaterMod.Content.Reefs;
 
-namespace WaterMod.Content.EnchantedSand;
+namespace WaterMod.Content;
 
 internal class EnchantedSandMaterial : ModItem, IPreRenderedItem {
     public override string Texture => Assets.Textures.Content.Starfish.EnchantedSandMaterial.KEY;
