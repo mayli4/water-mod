@@ -4,10 +4,8 @@ using SubworldLibrary;
 
 namespace WaterMod.Content;
 
-internal sealed class SeamapPlayer : ModPlayer
-{
-    public override void PreUpdate()
-    {
+internal sealed class SeamapPlayer : ModPlayer {
+    public override void PreUpdate() {
         if (!SubworldSystem.IsActive<SeamapSubworld>())
             return;
 

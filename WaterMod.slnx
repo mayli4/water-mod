@@ -1,5 +1,7 @@
 <Solution>
-  <Folder Name="/.common/" />
+  <Folder Name="/.common/">
+    <File Path="src/WaterMod/.editorconfig" />
+  </Folder>
   <Folder Name="/.github/">
     <File Path=".github\readme.md" />
   </Folder>

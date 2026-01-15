@@ -5,12 +5,10 @@ using Terraria.ID;
 
 namespace WaterMod.Content;
 
-internal class EnchantedSandMaterial : ModItem, IPreRenderedItem
-{
+internal class EnchantedSandMaterial : ModItem, IPreRenderedItem {
     public override string Texture => Assets.Images.Content.Starfish.EnchantedSandMaterial.KEY;
 
-    public override void SetDefaults()
-    {
+    public override void SetDefaults() {
         Item.maxStack = Item.CommonMaxStack;
 
         (Item.width, Item.height) = (24, 18);
@@ -18,8 +16,7 @@ internal class EnchantedSandMaterial : ModItem, IPreRenderedItem
         Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(copper: 50));
     }
 
-    public override void AddRecipes()
-    {
+    public override void AddRecipes() {
         CreateRecipe()
             .AddIngredient(ItemID.FallenStar)
             .AddIngredient<CoralsandItem>(4)
@@ -27,8 +24,7 @@ internal class EnchantedSandMaterial : ModItem, IPreRenderedItem
             .Register();
     }
 
-    public void PreRender(Texture2D sourceTexture)
-    {
+    public void PreRender(Texture2D sourceTexture) {
         var glow = Assets.Images.Content.Starfish.EnchantedSandMaterial_Glow.Asset.Value;
 
         var sine = (float)Math.Sin(Main.timeForVisualEffects * 0.07f);

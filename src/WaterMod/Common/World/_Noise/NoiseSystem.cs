@@ -3,13 +3,11 @@ using WaterMod.Utilities;
 
 namespace WaterMod.Common.World;
 
-internal static class NoiseSystem
-{
+internal static class NoiseSystem {
     public static FastNoiseLite Noise;
 
     [OnLoad]
-    static void InitNoise()
-    {
+    static void InitNoise() {
         Noise = new(Main.rand.Next());
     }
 

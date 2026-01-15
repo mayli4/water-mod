@@ -4,17 +4,14 @@ using Terraria.WorldBuilding;
 
 namespace WaterMod.Common.Subworlds;
 
-internal class SubworldGenerationPass : GenPass
-{
+internal class SubworldGenerationPass : GenPass {
     private Action<GenerationProgress> method;
 
-    public SubworldGenerationPass(Action<GenerationProgress> method) : base("", 1)
-    {
+    public SubworldGenerationPass(Action<GenerationProgress> method) : base("", 1) {
         this.method = method;
     }
 
-    public SubworldGenerationPass(float weight, Action<GenerationProgress> method) : base("", weight)
-    {
+    public SubworldGenerationPass(float weight, Action<GenerationProgress> method) : base("", weight) {
         this.method = method;
     }
 

@@ -4,12 +4,10 @@ using Terraria.ID;
 
 namespace WaterMod.Content;
 
-public class SpinnerFishItem : ModItem
-{
+public class SpinnerFishItem : ModItem {
     public override string Texture => Assets.Images.Content.Starfish.SpinnerFishItem.KEY;
 
-    public override void SetDefaults()
-    {
+    public override void SetDefaults() {
         base.SetDefaults();
 
         Item.consumable = true;
@@ -36,8 +34,7 @@ public class SpinnerFishItem : ModItem
         Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice());
     }
 
-    public override void AddRecipes()
-    {
+    public override void AddRecipes() {
         base.AddRecipes();
 
         CreateRecipe(50)
@@ -47,8 +44,7 @@ public class SpinnerFishItem : ModItem
     }
 }
 
-public class SpinnerFishProjectile : ModProjectile
-{
+public class SpinnerFishProjectile : ModProjectile {
     public override string Texture => Assets.Images.Content.Starfish.SpinnerFishProjectile.KEY;
 
     public ref float Target => ref Projectile.ai[0];
@@ -61,8 +57,7 @@ public class SpinnerFishProjectile : ModProjectile
 
     private Vector2 offset;
 
-    public override void SetDefaults()
-    {
+    public override void SetDefaults() {
         base.SetDefaults();
 
         Projectile.usesLocalNPCImmunity = true;
@@ -78,31 +73,27 @@ public class SpinnerFishProjectile : ModProjectile
         Projectile.localNPCHitCooldown = 30;
     }
 
-    public override void SendExtraAI(BinaryWriter writer)
-    {
+    public override void SendExtraAI(BinaryWriter writer) {
         base.SendExtraAI(writer);
 
         writer.Write(StickingToNpc);
         writer.Write(StickingToTile);
     }
 
-    public override void ReceiveExtraAI(BinaryReader reader)
-    {
+    public override void ReceiveExtraAI(BinaryReader reader) {
         base.ReceiveExtraAI(reader);
 
         StickingToNpc = reader.ReadBoolean();
         StickingToTile = reader.ReadBoolean();
     }
 
-    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-    {
+    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
         base.OnHitNPC(target, hit, damageDone);
 
         Projectile.scale = 1.25f;
         Projectile.rotation += MathHelper.ToRadians(Main.rand.NextFloat(5f, 15f));
 
-        if (StickingToAnything)
-        {
+        if (StickingToAnything) {
             return;
         }
 
@@ -114,10 +105,8 @@ public class SpinnerFishProjectile : ModProjectile
         NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, Projectile.whoAmI);
     }
 
-    public override bool OnTileCollide(Vector2 oldVelocity)
-    {
-        if (StickingToAnything)
-        {
+    public override bool OnTileCollide(Vector2 oldVelocity) {
+        if (StickingToAnything) {
             return false;
         }
 
@@ -130,22 +119,19 @@ public class SpinnerFishProjectile : ModProjectile
         return false;
     }
 
-    public override void AI()
-    {
+    public override void AI() {
         base.AI();
 
         Projectile.scale = MathHelper.Lerp(Projectile.scale, 1f, 0.2f);
 
-        if (Projectile.timeLeft < 255 / 25)
-        {
+        if (Projectile.timeLeft < 255 / 25) {
             Projectile.alpha += 25;
         }
 
         UpdateTargetStick();
         UpdateTileStick();
 
-        if (StickingToAnything)
-        {
+        if (StickingToAnything) {
             return;
         }
 
@@ -155,8 +141,7 @@ public class SpinnerFishProjectile : ModProjectile
     }
 
     // TODO: Implement proper visuals.
-    public override bool PreDraw(ref Color lightColor)
-    {
+    public override bool PreDraw(ref Color lightColor) {
         var texture = ModContent.Request<Texture2D>(Texture + "_Outline").Value;
         var effects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
@@ -186,17 +171,14 @@ public class SpinnerFishProjectile : ModProjectile
         return true;
     }
 
-    private void UpdateTargetStick()
-    {
-        if (!StickingToNpc)
-        {
+    private void UpdateTargetStick() {
+        if (!StickingToNpc) {
             return;
         }
 
         var target = Main.npc[(int)Target];
 
-        if (!target.active)
-        {
+        if (!target.active) {
             Projectile.Kill();
             return;
         }
@@ -207,22 +189,18 @@ public class SpinnerFishProjectile : ModProjectile
         Projectile.gfxOffY = target.gfxOffY;
     }
 
-    private void UpdateTileStick()
-    {
-        if (!StickingToTile)
-        {
+    private void UpdateTileStick() {
+        if (!StickingToTile) {
             return;
         }
 
         Projectile.velocity *= 0.5f;
     }
 
-    private void UpdateGravity()
-    {
+    private void UpdateGravity() {
         Timer++;
 
-        if (Timer < 10f)
-        {
+        if (Timer < 10f) {
             return;
         }
 

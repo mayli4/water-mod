@@ -5,22 +5,17 @@ using Terraria.UI;
 
 namespace WaterMod.Utilities;
 
-internal static partial class UIExtensions
-{
-    public static T AddElement<T>(this UIElement parent, T child, Action<T> initAction = null) where T : UIElement
-    {
+internal static partial class UIExtensions {
+    public static T AddElement<T>(this UIElement parent, T child, Action<T> initAction = null) where T : UIElement {
         initAction?.Invoke(child);
 
-        if (parent is UIGrid uiGrid)
-        {
+        if (parent is UIGrid uiGrid) {
             uiGrid.Add(child);
         }
-        else if (parent is UIList uiList)
-        {
+        else if (parent is UIList uiList) {
             uiList.Add(child);
         }
-        else
-        {
+        else {
             parent.Append(child);
         }
 
@@ -34,8 +29,7 @@ internal static partial class UIExtensions
         (float Factor, float Pixels) y = default,
         (float Factor, float Pixels) width = default,
         (float Factor, float Pixels) height = default
-    )
-    {
+    ) {
         element.Left = new StyleDimension(x.Pixels, x.Factor);
         element.Top = new StyleDimension(y.Pixels, y.Factor);
         element.Width = new StyleDimension(width.Pixels, width.Factor);

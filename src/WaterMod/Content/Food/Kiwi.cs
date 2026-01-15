@@ -3,12 +3,10 @@ using Terraria.ID;
 
 namespace WaterMod.Content;
 
-internal sealed class Kiwi : ModItem
-{
+internal sealed class Kiwi : ModItem {
     public override string Texture => Assets.Images.Content.Fruits.Kiwi.KEY;
 
-    public override void SetStaticDefaults()
-    {
+    public override void SetStaticDefaults() {
         Item.ResearchUnlockCount = 5;
 
         ItemID.Sets.IsFood[Type] = true;
@@ -17,8 +15,7 @@ internal sealed class Kiwi : ModItem
         ItemID.Sets.ShimmerTransformToItem[Type] = ItemID.Ambrosia;
     }
 
-    public override void SetDefaults()
-    {
+    public override void SetDefaults() {
         Item.width = 26;
         Item.height = 32;
         Item.rare = ItemRarityID.Blue;

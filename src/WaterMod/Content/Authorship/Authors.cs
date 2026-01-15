@@ -3,8 +3,7 @@ using JetBrains.Annotations;
 
 namespace WaterMod.Content;
 
-public abstract class CommonAuthorTag : AuthorTag
-{
+public abstract class CommonAuthorTag : AuthorTag {
     private const string suffix = "Tag";
     public override string Name => base.Name.EndsWith(suffix) ? base.Name[..^suffix.Length] : base.Name;
     public override string Texture => string.Join('/', Assets.Images.UI.Mathica.KEY.Split('/')[..^1]) + '/' + Name;

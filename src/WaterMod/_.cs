@@ -6,6 +6,5 @@ using System.Threading.Tasks;
 
 namespace WaterMod.Generator;
 
-internal class _
-{
+internal class _ {
 }

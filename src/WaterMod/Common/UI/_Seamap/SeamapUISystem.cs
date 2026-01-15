@@ -9,26 +9,22 @@ using WaterMod.Content;
 
 namespace WaterMod.Common.UI;
 
-internal class SeamapUI
-{
+internal class SeamapUI {
     [UsedImplicitly]
     [OnLoad]
-    static void SubscribeToHooks()
-    {
+    static void SubscribeToHooks() {
         On_Main.DrawInterface_16_MapOrMinimap += On_MainOnDrawInterface_16_MapOrMinimap;
     }
 
     [UsedImplicitly]
     [OnUnload]
-    static void UnsubscribeFromHooks()
-    {
+    static void UnsubscribeFromHooks() {
         On_Main.DrawInterface_16_MapOrMinimap -= On_MainOnDrawInterface_16_MapOrMinimap;
     }
 
     [UsedImplicitly]
     [ModSystemHooks.PostUpdateInput]
-    static void KillMinimapInputs()
-    {
+    static void KillMinimapInputs() {
         if (!SubworldSystem.IsActive<SeamapSubworld>()) return;
 
         PlayerInput.Triggers.Current.MapFull = false;
@@ -37,8 +33,7 @@ internal class SeamapUI
 
     [UsedImplicitly]
     [ModSystemHooks.ModifyInterfaceLayers]
-    static void InjectCustomMinimap(List<GameInterfaceLayer> layers)
-    {
+    static void InjectCustomMinimap(List<GameInterfaceLayer> layers) {
 
         if (!SubworldSystem.IsActive<SeamapSubworld>()) return;
 
@@ -46,14 +41,12 @@ internal class SeamapUI
         layers.RemoveAll(layer => layer.Name.Equals("Vanilla: Resource Bars"));
         layers.RemoveAll(layer => layer.Name.Equals("Vanilla: Inventory"));
 
-        if (mouseTextIndex != -1)
-        {
+        if (mouseTextIndex != -1) {
             layers.Insert(
                 mouseTextIndex,
                 new LegacyGameInterfaceLayer(
                     "SeamapMinimap",
-                    delegate
-                    {
+                    delegate {
                         float uiScale = Main.UIScale;
 
                         int minimapX = (int)(Main.screenWidth - 220 * uiScale);
@@ -75,8 +68,7 @@ internal class SeamapUI
         }
     }
 
-    static void On_MainOnDrawInterface_16_MapOrMinimap(On_Main.orig_DrawInterface_16_MapOrMinimap orig, Main self)
-    {
+    static void On_MainOnDrawInterface_16_MapOrMinimap(On_Main.orig_DrawInterface_16_MapOrMinimap orig, Main self) {
         if (SubworldSystem.IsActive<SeamapSubworld>()) return;
 
         orig(self);

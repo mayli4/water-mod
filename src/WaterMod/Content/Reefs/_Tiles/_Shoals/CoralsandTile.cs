@@ -2,12 +2,10 @@
 
 namespace WaterMod.Content;
 
-internal sealed class CoralsandTile : ModTile
-{
+internal sealed class CoralsandTile : ModTile {
     public override string Texture => Assets.Images.Tiles.Reefs.Shoals.CoralsandTile.KEY;
 
-    public override void SetStaticDefaults()
-    {
+    public override void SetStaticDefaults() {
         base.SetStaticDefaults();
 
         Main.tileMergeDirt[Type] = false;
@@ -23,20 +21,17 @@ internal sealed class CoralsandTile : ModTile
         DustType = DustID.Sand;
     }
 
-    public override void NumDust(int i, int j, bool fail, ref int num)
-    {
+    public override void NumDust(int i, int j, bool fail, ref int num) {
         base.NumDust(i, j, fail, ref num);
 
         num = fail ? 1 : 3;
     }
 }
 
-internal sealed class CoralsandItem : ModItem
-{
+internal sealed class CoralsandItem : ModItem {
     public override string Texture => Assets.Images.Tiles.Reefs.Shoals.CoralsandItem.KEY;
 
-    public override void SetDefaults()
-    {
+    public override void SetDefaults() {
         base.SetDefaults();
 
         Item.DefaultToPlaceableTile(ModContent.TileType<CoralsandTile>());

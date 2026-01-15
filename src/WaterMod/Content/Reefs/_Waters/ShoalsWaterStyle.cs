@@ -1,13 +1,11 @@
 ﻿namespace WaterMod.Content;
 
-internal sealed class ShoalsWaterStyle : ModWaterStyle
-{
+internal sealed class ShoalsWaterStyle : ModWaterStyle {
     public override string Texture => Assets.Images.Waters.ShoalsWaterStyle.KEY;
 
     public override int ChooseWaterfallStyle() => ModContent.GetInstance<ShoalsWaterStyle>().Slot;
 
-    public override void LightColorMultiplier(ref float r, ref float g, ref float b)
-    {
+    public override void LightColorMultiplier(ref float r, ref float g, ref float b) {
         r = 1.08f;
         g = 1.08f;
         b = 1.08f;
@@ -22,8 +20,7 @@ internal sealed class ShoalsWaterStyle : ModWaterStyle
     public override int GetDropletGore() => 0;
 }
 
-internal sealed class ShoalWaterfallStyle : ModWaterfallStyle
-{
+internal sealed class ShoalWaterfallStyle : ModWaterfallStyle {
     public override string Texture => Assets.Images.Waters.ShoalsWaterfallStyle.KEY;
 
     public override void AddLight(int i, int j)

@@ -2,7 +2,6 @@
 
 public delegate bool NoiseConditions(int x, int y);
 
-internal static class WorldgenUtils
-{
+internal static class WorldgenUtils {
 
 }
