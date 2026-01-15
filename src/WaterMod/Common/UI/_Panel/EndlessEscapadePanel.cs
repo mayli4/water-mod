@@ -38,9 +38,9 @@ internal sealed class EndlessEscapadePanel : ModPanelStyleExt {
     }
 
     public override Dictionary<TextureKind, Asset<Texture2D>> TextureOverrides { get; } = new() {
-        { TextureKind.ModInfo, Assets.Textures.UI.InfoIcon.Asset },
-        { TextureKind.ModConfig, Assets.Textures.UI.ConfigIcon.Asset },
-        { TextureKind.Deps, Assets.Textures.UI.DepsIcon.Asset }
+        { TextureKind.ModInfo, Assets.Images.UI.InfoIcon.Asset },
+        { TextureKind.ModConfig, Assets.Images.UI.ConfigIcon.Asset },
+        { TextureKind.Deps, Assets.Images.UI.DepsIcon.Asset }
     };
 
     public override bool PreDrawPanel(UIModItem element, SpriteBatch sb, ref bool drawDivider) {
@@ -102,8 +102,8 @@ internal sealed class EndlessEscapadePanel : ModPanelStyleExt {
         effect.Parameters.cloud_scale = 0.3f;
         effect.Parameters.cloud_speed = 0.05f;
 
-        effect.Parameters.uTexture = Assets.Textures.Sample.Pebbles.Asset.Value;
-        effect.Parameters.uWaterNoiseTexture = Assets.Textures.Sample.Pebbles.Asset.Value;
+        effect.Parameters.uTexture = Assets.Images.Sample.Pebbles.Asset.Value;
+        effect.Parameters.uWaterNoiseTexture = Assets.Images.Sample.Pebbles.Asset.Value;
 
         effect.Parameters.daylight_intensity = uDaylightIntensityValue;
 
@@ -149,7 +149,7 @@ internal sealed class EndlessEscapadePanel : ModPanelStyleExt {
         private readonly Asset<Texture2D> iconAsset;
 
         public BoatIcon() : base(TextureAssets.MagicPixel) {
-            iconAsset = Assets.Textures.UI.ModIcon_Flag.Asset;
+            iconAsset = Assets.Images.UI.ModIcon_Flag.Asset;
 
             Width.Set(96, 0f);
             Height.Set(80, 0f);
@@ -174,7 +174,7 @@ internal sealed class EndlessEscapadePanel : ModPanelStyleExt {
 
             float swayRotation = MathF.Sin(Main.GlobalTimeWrappedHourly * 1.5f) * 0.01f;
 
-            spriteBatch.Draw(Assets.Textures.UI.ModIcon_Pole.Asset.Value, dims.Position() + offsetposPole, null, Color.White, 0.0f, origin, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(Assets.Images.UI.ModIcon_Pole.Asset.Value, dims.Position() + offsetposPole, null, Color.White, 0.0f, origin, 1f, SpriteEffects.None, 0f);
             spriteBatch.Draw(iconAsset.Value, dims.Position() + offsetpos, sourceRect, Color.White, swayRotation, origin, 1f, SpriteEffects.None, 0f);
         }
     }

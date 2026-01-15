@@ -10,7 +10,7 @@ internal sealed class ShoalsBiome : ModBiome {
 
     public override int Music => Assets.Sound.Music.SurfaceReefs.Slot;
 
-    public override string BestiaryIcon => Assets.Textures.UI.ShoalsBestiary.KEY;
+    public override string BestiaryIcon => Assets.Images.UI.ShoalsBestiary.KEY;
 
     public override bool IsBiomeActive(Player player) {
         return SubworldSystem.IsActive<ReefsSubworld>();

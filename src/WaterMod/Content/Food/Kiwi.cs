@@ -4,7 +4,7 @@ using Terraria.ID;
 namespace WaterMod.Content;
 
 internal sealed class Kiwi : ModItem {
-    public override string Texture => Assets.Textures.Content.Fruits.Kiwi.KEY;
+    public override string Texture => Assets.Images.Content.Fruits.Kiwi.KEY;
     
     public override void SetStaticDefaults() {
         Item.ResearchUnlockCount = 5;

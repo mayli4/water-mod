@@ -152,7 +152,7 @@ internal sealed class BoidSystem {
         }
         if(Main.keyState.IsKeyDown(Keys.G) && !Main.oldKeyState.IsKeyDown(Keys.G)) {
             Vector2 mouseWorldPosition = Main.MouseWorld;
-            SpawnFlockAtPos(mouseWorldPosition, WaterMod.Core.AssetReferences.Assets.Textures.Boids.GenericBoids.Asset.Value);
+            SpawnFlockAtPos(mouseWorldPosition, WaterMod.Core.AssetReferences.Assets.Images.Boids.GenericBoids.Asset.Value);
         }
     }
 

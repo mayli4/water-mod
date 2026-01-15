@@ -6,7 +6,7 @@ using Terraria.ID;
 namespace WaterMod.Content;
 
 internal class EnchantedSandMaterial : ModItem, IPreRenderedItem {
-    public override string Texture => Assets.Textures.Content.Starfish.EnchantedSandMaterial.KEY;
+    public override string Texture => Assets.Images.Content.Starfish.EnchantedSandMaterial.KEY;
 
     public override void SetDefaults() {
         Item.maxStack = Item.CommonMaxStack;
@@ -25,7 +25,7 @@ internal class EnchantedSandMaterial : ModItem, IPreRenderedItem {
     }
 
     public void PreRender(Texture2D sourceTexture) {
-        var glow = Assets.Textures.Content.Starfish.EnchantedSandMaterial_Glow.Asset.Value;
+        var glow = Assets.Images.Content.Starfish.EnchantedSandMaterial_Glow.Asset.Value;
 
         var sine = (float)Math.Sin(Main.timeForVisualEffects * 0.07f);
         var intensity = 0.5f + (sine * 0.1f); 

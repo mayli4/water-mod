@@ -11,7 +11,7 @@ namespace WaterMod.Content;
 
 [UsedImplicitly]
 internal class SetSailAchievement : ModAchievement {
-    public override string TextureName => Assets.Textures.UI.Achievements.SetSail.KEY;
+    public override string TextureName => Assets.Images.UI.Achievements.SetSail.KEY;
     public CustomFlagCondition SubworldEnteredCondition { get; private set; } = null!;
 
     public override void SetStaticDefaults() {
