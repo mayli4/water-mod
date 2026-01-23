@@ -84,9 +84,9 @@ public class StarCatcherBobberProjectile : ModProjectile {
 
         if (isBiting && !wasBiting) {
             for (var i = 0; i < 15; i++) {
-
+        
                 var color = Main.rand.NextBool(2) ? Color.Cyan : Color.HotPink;
-
+        
                 var speed = Main.rand.NextVector2Circular(6f, 6f);
                 var p = GenericSmallSparkle.RequestNew(
                     Projectile.Center + new Vector2(10, 10),
@@ -100,9 +100,9 @@ public class StarCatcherBobberProjectile : ModProjectile {
             }
         }
         wasBiting = isBiting;
-
+        
         if (!Main.rand.NextBool(50)) return;
-
+        
         if (isBiting) {
             var speed = Main.rand.NextVector2Circular(3f, 3f);
             var p = GenericSmallSparkle.RequestNew(

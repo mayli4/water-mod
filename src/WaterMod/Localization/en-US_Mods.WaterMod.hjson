@@ -38,6 +38,41 @@ Items: {
 		DisplayName: Spinner Fish
 		Tooltip: ""
 	}
+
+	Helmet: {
+		DisplayName: Helmet
+		Tooltip: ""
+	}
+
+	EnchantedSandHelmet: {
+		DisplayName: Enchanted Sand Helmet
+		Tooltip: ""
+	}
+
+	EnchantedSandHelmet2: {
+		DisplayName: Enchanted Sand Helmet2
+		Tooltip: ""
+	}
+
+	StarfishApprenticeChestplate: {
+		DisplayName: Starfish Apprentice Chestplate
+		Tooltip: ""
+	}
+
+	StarfishApprenticeGreaves: {
+		DisplayName: Starfish Apprentice Greaves
+		Tooltip: ""
+	}
+
+	StarfishApprenticeHat: {
+		DisplayName: Starfish Apprentice Hat
+		Tooltip: ""
+	}
+
+	StarfishApprenticeMask: {
+		DisplayName: Starfish Apprentice Mask
+		Tooltip: ""
+	}
 }
 
 Achievements: {
