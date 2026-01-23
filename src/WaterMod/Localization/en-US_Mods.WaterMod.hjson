@@ -66,4 +66,5 @@ AuthorTags: {
 Projectiles: {
 	StarCatcherBobberProjectile.DisplayName: Star Catcher Bobber Projectile
 	SpinnerFishProjectile.DisplayName: Spinner Fish Projectile
+	SpinnerFishHeldProjectile.DisplayName: Spinner Fish Held Projectile
 }
